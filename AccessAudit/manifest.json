@@ -1,0 +1,47 @@
+{
+  "manifest_version": 2,
+  "name": "WCAG AccessAudit",
+  "version": "1.0.0.1",
+
+  "description": "Audits accessibility options in web pages",
+  "icons": { 
+    "16": "/images/logos/16.png", 
+    "24": "/images/logos/24.png", 
+    "32": "/images/logos/32.png", 
+    "48":  "/images/logos/48.png", 
+    "64":  "/images/logos/64.png", 
+    "128": "/images/logos/128.png" 
+  },
+
+  "browser_action": {
+    "default_icon": "/images/logos/24.png",
+    "default_popup": "/inc/html/popup.html"
+  },
+
+  "background":
+  {
+      "page" : "/inc/html/background.html",
+      "persistent": true
+  },
+
+  "options_page": "/inc/html/options.html",
+
+  "permissions": [
+    "tabs", "activeTab", "<all_urls>", "storage", "contentSettings", "clipboardRead", "clipboardWrite"
+  ],
+
+  "web_accessible_resources": [
+    "/fonts/*.woff2",
+    "/images/*.png",
+    "/images/*.gif",
+    "/images/logos/*.png",
+    "/images/cursors/*.cur",
+    "/inc/css/*.css",
+    "/inc/js/*.js",
+    "/inc/html/*.html",
+    "/inc/boostrap/css/*.*",
+    "/inc/boostrap/fonts/*.*",
+    "/inc/boostrap/js/*.*"
+  ]
+
+}

@@ -1,0 +1,227 @@
+/* latin */
+/* http://stackoverflow.com/questions/19210451/packaging-a-font-with-a-google-chrome-extension */
+@font-face {
+  font-family: 'Nixie One';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/Nixie One.woff2') format('woff2');
+  }
+/* latin */
+@font-face {
+  font-family: "Poiret One";
+  font-weight: 400;
+  src: url('/fonts/Poiret One.woff2') format('woff2');
+}
+/* latin */
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/SourceCodePro.woff2') format('woff2');
+}
+
+body {
+  font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+  font-style: normal;
+  font-size: inherit;
+}
+.header {
+    background-color: #eee;
+    display:block;
+    top: 0;
+    left: 0;
+    padding: 8px;
+    margin: -8px;
+    margin-bottom: 8px;
+}
+h1 {
+  font-family: "Poiret One";
+  text-shadow: 2px 2px 2px gray;
+  font-size: 22px;
+  font-weight: bold;
+  white-space: nowrap;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+} 
+h1 span {
+  padding-left: 8px;
+}
+
+#colors th {
+  text-align: right;
+  font-weight: normal;
+  padding: 4px;
+}
+.example {
+  font: normal 95%/141% helvetica, Verdana, Arial, sans-serif;
+  background-color: #037EAF; 
+  margin-top:10px; 
+}  
+.example span{
+  color: #0ff; 
+  padding: 10px;
+  float: inherit;
+  display: inline-block;
+} 
+.example .btn {
+  float:right;
+  padding:5px;
+  -webkit-filter: drop-shadow(4px 4px 8px white);
+}
+#colors {
+  width:100%;
+}
+#contrast {
+  width: 100%;
+  text-align: right;
+}
+#contrast span{
+  color: rgb(69, 69, 69);
+  font-size: 60px;
+  font:bold;
+  font-family: 'Poiret One';
+  --text-shadow: 2px 2px 2px cornflowerblue;
+}
+.contextMenu li,
+#jqContextMenu li {
+  white-space: nowrap;
+  font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+  font-size: 12px;
+}
+.txInput{
+  font-family: 'Source Code Pro';
+  font-weight: bold;
+  padding: 2px;
+  font-size: 12px;
+}
+.error{
+  background-color: rgb(216, 216, 216);
+}
+
+.btn img {
+  margin-top: 2px;
+  margin-bottom: -3px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+#toolbar {
+    position:absolute;
+    right:8px;
+    top:51px;
+    border-color: rgba(0,0,0,0.5);
+    background: rgba(255,255,255,0.5);
+    -webkit-filter: drop-shadow(0px 0px 4px aliceblue);
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 1px 3px 0px 3px;
+    border-style: solid;
+}
+.toolbarBtn {
+  width:15px;
+  height:15px;
+  cursor: pointer;
+  opacity: 0.25;
+}
+.disabled {
+  opacity: 0.15;
+}
+#closeBtn {
+    right: 4px;
+    position: absolute;
+    display: inline-block;
+    top: 4px;
+}
+
+.btn img:hover, .toolbarBtn:not(.disabled):hover, #sampleBtn:hover {
+  opacity: 1;
+  
+  filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=2, Color='#444')";
+  filter: url(#drop-shadow);
+  -webkit-filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
+  filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
+}
+.pick1{
+  margin-top: 10px;
+}
+.code{
+  margin-left: -29px;
+}
+.pin {
+    margin-left: -18px;
+    margin-top: -2px;
+    display: block;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    opacity:0.5;
+}
+.pin:hover {
+    opacity:1;
+}
+#fixSamples img {
+  margin-top: 4px;
+  -webkit-filter: drop-shadow(2px 2px 1px rgba(255,255,255,0.9));
+  filter: drop-shadow(2px 2px 1px rgba(255,255,255,0.9));
+  opacity:0.5;
+}
+
+#fixSamples .btn:hover {
+  opacity:1;
+}
+
+.fixError {
+  font: normal 95%/141% helvetica, Verdana, Arial, sans-serif;
+  font-size: 14px; font-weight: bold;
+  background-color: white; 
+  margin-top:10px; 
+  border-width: 2px;
+  border-color: red;
+  border-style: solid;
+  border-radius: 7px;
+  }  
+
+.fixError span{
+  color: red; 
+  padding: 10px;
+  float: inherit;
+  display: inline-block;
+} 
+
+.pickAll button {
+  padding: 2px;
+}
+
+.pickAll button img {
+  vertical-align: text-bottom;
+  opacity:0.5;
+}
+
+.pickAll button:hover img {
+  opacity:1;
+  -webkit-filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
+}
+
+.pickAll button span {
+  margin: 0 4px; white-space: nowrap;
+}
+
+.pickAll a {
+  display: block;
+  font-size: xx-small;
+  margin: 0 4px;
+  position: absolute;
+  bottom: 8px;
+}
+
+.colorValue {
+  font-family: 'Source Code Pro';
+  font-weight: bold;
+  padding: 2px;
+  font-size: 10px;
+  margin-top: -6px;
+  margin-bottom: -3px;
+  background-color: rgb(100, 100, 100);
+  color: white;
+  border-radius: 4px;
+}
+
