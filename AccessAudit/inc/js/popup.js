@@ -77,10 +77,43 @@ $(document).ready(function() {
         window.open('http://pages.pathcom.com/~horiatu/WCAG/index.html','_blank');
     };
 
+    runAudits = function(e) {
+        // https://github.com/GoogleChrome/accessibility-developer-tools
+        results = axs.Audit.run();
+        var r = {PASS:'',NA:'',FAIL:''};
+        $.each(results, function(index, rule){
+            console.log(rule);
+            var bg = (rule.result=='PASS') 
+            ?"lightgreen"
+            :(rule.result=='FAIL')
+            ?"pink"
+            :"lightyellow";
+            r[rule.result] += '<li style="background:'+bg+';" title="'+rule.result+': '+rule.rule.heading+'">';
+            // r[rule.result] += rule.result;
+            // r[rule.result] += ' ';
+            r[rule.result] += '<a href="'+rule.rule.url+'" target="blank">'+camel2Words(rule.rule.name)+'</a>';
+            r[rule.result] += '</li>\n';
+        })
+        $('#resultsList ul').html(r.FAIL+r.PASS+r.NA);
+    }
+
+    camel2Words = function(str) {
+        var arr = str.split("");
+
+        for (var i = arr.length - 1; i >= 0; i--) {
+            if (arr[i].match(/[A-Z]/)) {
+                arr.splice(i, 0, " ");
+            }
+        }
+        arr[0] = arr[0].toUpperCase();    
+        return arr.join("");
+    }
+    
     $('#closeBtn').click(function(e) { window.close(); });
     $('#optionsBtn').click(openOptionsPage);
     $('#homeBtn').click(openHomePage);
     $('#sampleBtn').click(openTestPage);
+    $('#runBtn').click(runAudits);
 
     var backgroundPage = chrome.extension.getBackgroundPage().Background;
 

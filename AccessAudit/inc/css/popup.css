@@ -117,13 +117,13 @@ h1 span {
     border-style: solid;
 }
 .toolbarBtn {
-  width:15px;
-  height:15px;
-  cursor: pointer;
-  opacity: 0.25;
+    width:15px;
+    height:15px;
+    cursor: pointer;
+    opacity: 0.25;
 }
 .disabled {
-  opacity: 0.15;
+    opacity: 0.15;
 }
 #closeBtn {
     right: 4px;
@@ -133,95 +133,40 @@ h1 span {
 }
 
 .btn img:hover, .toolbarBtn:not(.disabled):hover, #sampleBtn:hover {
-  opacity: 1;
-  
-  filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=2, Color='#444')";
-  filter: url(#drop-shadow);
-  -webkit-filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
-  filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
+    opacity: 1;
+    
+    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=2, Color='#444')";
+    filter: url(#drop-shadow);
+    -webkit-filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
+    filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
 }
 .pick1{
-  margin-top: 10px;
+    margin-top: 10px;
 }
 .code{
-  margin-left: -29px;
-}
-.pin {
-    margin-left: -18px;
-    margin-top: -2px;
-    display: block;
-    width: 12px;
-    height: 12px;
-    cursor: pointer;
-    opacity:0.5;
-}
-.pin:hover {
-    opacity:1;
-}
-#fixSamples img {
-  margin-top: 4px;
-  -webkit-filter: drop-shadow(2px 2px 1px rgba(255,255,255,0.9));
-  filter: drop-shadow(2px 2px 1px rgba(255,255,255,0.9));
-  opacity:0.5;
+    margin-left: -29px;
 }
 
-#fixSamples .btn:hover {
-  opacity:1;
+#resultsList {
+    overflow-y: auto;
+    max-height: 400px;
+    width:400px;
+}
+#resultsList ul {
+    list-style-type: none;
+}
+#resultsList ul li {
+    margin-left: -40px;
 }
 
-.fixError {
-  font: normal 95%/141% helvetica, Verdana, Arial, sans-serif;
-  font-size: 14px; font-weight: bold;
-  background-color: white; 
-  margin-top:10px; 
-  border-width: 2px;
-  border-color: red;
-  border-style: solid;
-  border-radius: 7px;
-  }  
-
-.fixError span{
-  color: red; 
-  padding: 10px;
-  float: inherit;
-  display: inline-block;
-} 
-
-.pickAll button {
-  padding: 2px 8px;
+#resultsList ul li a {
+    text-decoration: none;
+    color: black;
 }
-
-.pickAll button img {
-  vertical-align: text-bottom;
-  opacity:0.5;
+#resultsList ul li a:visited {
+  --color:gray;
 }
-
-.pickAll button:hover img {
-  opacity:1;
-  -webkit-filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
+#resultsList ul li a:hover {
+    text-decoration: underline;
+    color: red;
 }
-
-.pickAll button span {
-  margin: 0 4px; white-space: nowrap;
-}
-
-.pickAll a {
-  display: block;
-  font-size: xx-small;
-  margin: 0 4px;
-  position: absolute;
-  bottom: 8px;
-}
-
-.colorValue {
-  font-family: 'Source Code Pro';
-  font-weight: bold;
-  padding: 2px;
-  font-size: 10px;
-  margin-top: -6px;
-  margin-bottom: -3px;
-  background-color: rgb(100, 100, 100);
-  color: white;
-  border-radius: 4px;
-}
-

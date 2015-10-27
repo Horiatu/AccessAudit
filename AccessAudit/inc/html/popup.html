@@ -13,6 +13,7 @@
      -->
     <script type="text/javascript" src="/inc/js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="/inc/js/popup.js"></script>
+    <script type="text/javascript" src="/inc/js/axs_testing.js"></script>
 </head>
 
 <body>
@@ -38,7 +39,7 @@
             <tr>
                 <td width="25%" style="vertical-align: top;">
                     <div class="pickAll">
-                        <button class="pick1" name="background" title="Start Audits">
+                        <button id="runBtn" class="pick1" name="background" title="Start Audits">
                             <img src="/images/audit.png" alt="audit"></img>
                             <span>Audit Page</span>
                         </button>
@@ -49,6 +50,9 @@
             </tr>
         </table>
     </div>
+    <div id="resultsList">
+        <ul></ul>
+   </div>
 </body>
 
 </html>
