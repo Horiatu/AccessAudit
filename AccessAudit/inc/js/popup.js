@@ -51,12 +51,6 @@ $(document).ready(function() {
         return dfr.promise();
     }
 
-    openTestPage = function(e) {
-        getTestPageUrl().done(function(testPageUrl) {
-            window.open(testPageUrl);
-        });
-    };
-
     getTestPageUrl = function() {
         var dfr = $.Deferred();
         var tpu = 'http://apps.esri.ca/templates/WCAGViewer/index.html';
@@ -69,16 +63,18 @@ $(document).ready(function() {
         return dfr.promise();
     };
 
+    openTestPage = function(e) {
+        getTestPageUrl().done(function(testPageUrl) {
+            window.open(testPageUrl);
+        });
+    };
+
     openOptionsPage = function(e) {
         window.open(chrome.extension.getURL('/inc/html/options.html'),'_blank');
     };
 
     openHomePage = function(e) {
         window.open('http://pages.pathcom.com/~horiatu/WCAG/index.html','_blank');
-    };
-
-    openTestPage = function(e) {
-        window.open('http://apps.esri.ca/templates/WCAGViewer/index.html','_blank');
     };
 
     $('#closeBtn').click(function(e) { window.close(); });
