@@ -85,13 +85,15 @@ $(document).ready(function() {
                         if (err) {
                             alert(err);
                         } else {
-                            chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
-                                switch (msg.type) {
-                                    case 'results':
-                                        showResults(msg.results); 
-                                        break;
-                                }
-                            });
+
+                            // chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
+                            //     switch (msg.type) {
+                            //         case 'results':
+                            //             showResults(msg.results); 
+                            //             break;
+                            //     }
+                            // });
+
 
                             $('#resultsList ul').html('');
                             loadScripts(tab.id, [{
@@ -105,14 +107,16 @@ $(document).ready(function() {
                             }
                             , 
                             {
-                                allFrames: false,
+                                allFrames: true,
                                 file: true,
                                 content: "/inc/js/audit.js"
                             }
                             ], $.Deferred()).done(
                                 function() {
                                     try {
-                                        //window.close();
+                                        chrome.tabs.sendMessage(tab.id, {type:'Audit'}, function(results) { 
+                                            showResults(results); 
+                                        });
                                     } catch (e) {alert(e.message);}
                                 });
                         }
