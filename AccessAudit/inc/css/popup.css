@@ -192,3 +192,21 @@ h1 span {
 .na {
     background:lightyellow;
 }
+
+.lookup {
+    width:18px;
+    height:18px;
+    float: right;
+    margin: 3px;
+    opacity: 0.25;
+    background-image: url("/images/searchBlue.png");
+    background-repeat: no-repeat;
+}
+
+.lookup:hover {
+    opacity:1;
+}
+
+.hide {
+    background-image: url("/images/searchRed.png");
+}

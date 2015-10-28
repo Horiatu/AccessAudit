@@ -77,6 +77,8 @@ $(document).ready(function() {
         window.open('http://pages.pathcom.com/~horiatu/WCAG/index.html','_blank');
     };
 
+    tabId = null,
+
     runAudits = function(e) {
         getSelectedTab().done(
             function(tab) {
@@ -85,17 +87,7 @@ $(document).ready(function() {
                         if (err) {
                             alert(err);
                         } else {
-
-                            // chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
-                            //     switch (msg.type) {
-                            //         case 'results':
-                            //             showResults(msg.results); 
-                            //             break;
-                            //     }
-                            // });
-
-
-                            $('#resultsList ul').html('');
+                            $('#resultsList').html('');
                             loadScripts(tab.id, [{
                                 allFrames: true,
                                 file: true,
@@ -114,7 +106,7 @@ $(document).ready(function() {
                             ], $.Deferred()).done(
                                 function() {
                                     try {
-                                        chrome.tabs.sendMessage(tab.id, {type:'Audit'}, function(results) { 
+                                        chrome.tabs.sendMessage(tabId = tab.id, {type:'Audit'}, function(results) { 
                                             showResults(results); 
                                         });
                                     } catch (e) {alert(e.message);}
@@ -134,22 +126,28 @@ $(document).ready(function() {
             var className = (rule.status=='PASS') ? 'pass' : (rule.status=='FAIL') ? 'fail' : 'na';
 
             r[rule.status] += '<li class="'+className+'" title="'+rule.title+'">';
+            r[rule.status] += '<div>';
             r[rule.status] += '<a href="'+rule.url+'" target="blank">'+rule.name+'</a>';
+            if(rule.elements) {
+                r[rule.status] += '<div data-index="'+rule.id+'" class="lookup" title="Show '+rule.elements.length+' element'+(rule.elements.length>0?'s':'')+'"></div>'
+            }
+            r[rule.status] += '</div>';
             r[rule.status] += '</li>\n';
         })
-        $('#resultsList ul').html(r.FAIL+r.PASS+r.NA);
+        $('#resultsList').html('<ul>'+r.FAIL+r.PASS+r.NA+'</ul>');
+        $('.lookup').click(showClick);
     }
 
-    camel2Words = function(str) {
-        var arr = str.split("");
-
-        for (var i = arr.length - 1; i >= 0; i--) {
-            if (arr[i].match(/[A-Z]/)) {
-                arr.splice(i, 0, " ");
-            }
-        }
-        arr[0] = arr[0].toUpperCase();    
-        return arr.join("");
+    showClick = function(e) {
+        var hide = $(e.toElement).hasClass('hide');
+        var index = $(e.toElement).data('index');
+        chrome.tabs.sendMessage(tabId, {
+                type:'Lookup', 
+                index:index, 
+                hide: hide,
+            }, function(results) { 
+            $(e.toElement).toggleClass('hide');
+        });
     }
     
     $('#closeBtn').click(function(e) { window.close(); });
@@ -158,34 +156,4 @@ $(document).ready(function() {
     $('#sampleBtn').click(openTestPage);
     $('#runBtn').click(runAudits);
 
-    
-
-
-    //var backgroundPage = chrome.extension.getBackgroundPage().Background;
-
-    // getSelectedTab().done(function(tab) { 
-    //     chrome.tabs.executeScript(tab.id, {
-    //         allFrames: false,
-    //         "code":
-    //             "try {\n"+
-    //             "   ColorPicker.Hide(document);\n" +
-    //             "} catch(e) {\n"+
-    //             "   //console.log(e);\n"+
-    //             "};"
-    //         }, function() {
-    //             chrome.storage.sync.get(['background', 'foreground'], function(a) {
-    //                 //console.log('Restore '+a['background']+' '+a['foreground']);
-    //                 if (a['background']) {
-    //                     $("#background").val(a['background']);
-    //                 }
-    //                 if (a['foreground']) {
-    //                     $("#foreground").val(a['foreground']);
-    //                 }
-    //                 getContrast();
-
-    //                 });
-    //             });
-    //         }
-    //     )
-    // });
 });
