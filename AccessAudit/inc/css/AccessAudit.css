@@ -1,0 +1,9 @@
+.AccessAuditWrapper {
+	border: 2px solid red; 
+	margin:-2px;
+	box-sizing: border-box;
+}
+
+.AccessAuditWrapper>* {
+	opacity:0.75;
+}

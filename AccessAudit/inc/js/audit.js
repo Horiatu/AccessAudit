@@ -14,10 +14,27 @@ if(AccessAudit == undefined) {
 			},
 
 			results: [],
+
+			injectCss: function() {
+	            if(!document.getElementById("AccessAuditCss")) {
+	                _private._injectCss('<link id="AccessAuditCss" rel="stylesheet" type="text/css" href="' + chrome.extension.getURL('/inc/css/AccessAudit.css') + '" />');
+	            }
+	        },
+
+	        _injectCss : function(css) {
+	            if ($("head").length == 0) {
+	                    $("body").before(css);
+	                } else {
+	                    $("head").append(css);
+	                }
+	        },
+
 		}
 
 	    var _public = {
 	 		init: function() {
+	 			_private.injectCss();
+
 				chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
 				    switch (req.type) {
 				        case 'Audit':
@@ -66,7 +83,7 @@ if(AccessAudit == undefined) {
 						        		var title = audits[0].name;
 					        			var $els = $elements.filter(function(e) { return !$(e).hasClass(ndx)}) 
 					        			$els.addClass(ndx);
-					        			$els.wrap('<div style="border: 2px solid red" title="'+title+'">');
+					        			$els.wrap('<div class="AccessAuditWrapper" title="'+title+'">');
 						        		sendResponse(1);
 					        		}
 				        			break;
