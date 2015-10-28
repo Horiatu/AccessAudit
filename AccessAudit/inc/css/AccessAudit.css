@@ -1,9 +1,11 @@
 .AccessAuditWrapper {
-	border: 2px solid red; 
-	margin:-2px;
+	border: 1px dotted red !important; 
+	display: inherit !important;
+	--margin:-1px !important;
 	box-sizing: border-box;
+	background:pink;
 }
 
 .AccessAuditWrapper>* {
-	opacity:0.75;
+	opacity:0.5;
 }

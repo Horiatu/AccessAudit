@@ -73,7 +73,7 @@ if(AccessAudit == undefined) {
 				        	var ndx = req.index;
 				        	switch (req.hide) {
 				        		case true :
-				        			$('.'+ndx).unwrap().removeClass(ndx);
+				        			$('.'+ndx).removeClass('AccessAuditWrapper').removeClass(ndx)//.unwrap();
 						        	sendResponse(0);
 				        			break;
 				        		case false :
@@ -83,7 +83,8 @@ if(AccessAudit == undefined) {
 						        		var title = audits[0].name;
 					        			var $els = $elements.filter(function(e) { return !$(e).hasClass(ndx)}) 
 					        			$els.addClass(ndx);
-					        			$els.wrap('<div class="AccessAuditWrapper" title="'+title+'">');
+					        			$els.addClass('AccessAuditWrapper');
+					        			//$els.wrap('<div class="AccessAuditWrapper" title="'+title+'">');
 						        		sendResponse(1);
 					        		}
 				        			break;
