@@ -78,26 +78,60 @@ $(document).ready(function() {
     };
 
     runAudits = function(e) {
-        // https://github.com/GoogleChrome/accessibility-developer-tools
-        results = axs.Audit.run();
+        getSelectedTab().done(
+            function(tab) {
+                validateTab(tab).always(
+                    function(err) {
+                        if (err) {
+                            alert(err);
+                        } else {
+                            chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
+                                switch (msg.type) {
+                                    case 'results':
+                                        showResults(msg.results); 
+                                        break;
+                                }
+                            });
+
+                            $('#resultsList ul').html('');
+                            loadScripts(tab.id, [{
+                                allFrames: true,
+                                file: true,
+                                content: "/inc/js/jquery-2.1.4.min.js"
+                            }, {
+                                allFrames: true,
+                                file: true,
+                                content: "/inc/js/axs_testing.js"
+                            }
+                            , 
+                            {
+                                allFrames: false,
+                                file: true,
+                                content: "/inc/js/audit.js"
+                            }
+                            ], $.Deferred()).done(
+                                function() {
+                                    try {
+                                        //window.close();
+                                    } catch (e) {alert(e.message);}
+                                });
+                        }
+                    }
+                );
+            }
+        );
+    }
+
+    showResults = function(results) {
         var r = {PASS:'',NA:'',FAIL:''};
         $.each(results, function(index, rule){
             console.log(rule);
-            var bg = (rule.result=='PASS') 
-            var title = rule.result+': '+rule.rule.heading;
-            var dataElements = [];
-            if(rule.elements && rule.elements != undefined && rule.elements.length>0) {
-                title+= ' ('+rule.elements.length+')';
-                dataElements = rule.elements;
-            }
 
-            var className = (rule.result=='PASS') ? 'pass' : (rule.result=='FAIL') ? 'fail' : 'na';
+            var className = (rule.status=='PASS') ? 'pass' : (rule.status=='FAIL') ? 'fail' : 'na';
 
-            r[rule.result] += '<li class="'+className+'" title="'+title+'">';
-            // r[rule.result] += rule.result;
-            // r[rule.result] += ' ';
-            r[rule.result] += '<a href="'+rule.rule.url+'" target="blank">'+camel2Words(rule.rule.name)+'</a>';
-            r[rule.result] += '</li>\n';
+            r[rule.status] += '<li class="'+className+'" title="'+rule.title+'">';
+            r[rule.status] += '<a href="'+rule.url+'" target="blank">'+rule.name+'</a>';
+            r[rule.status] += '</li>\n';
         })
         $('#resultsList ul').html(r.FAIL+r.PASS+r.NA);
     }
@@ -120,7 +154,10 @@ $(document).ready(function() {
     $('#sampleBtn').click(openTestPage);
     $('#runBtn').click(runAudits);
 
-    var backgroundPage = chrome.extension.getBackgroundPage().Background;
+    
+
+
+    //var backgroundPage = chrome.extension.getBackgroundPage().Background;
 
     // getSelectedTab().done(function(tab) { 
     //     chrome.tabs.executeScript(tab.id, {
