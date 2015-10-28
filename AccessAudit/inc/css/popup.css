@@ -147,21 +147,33 @@ h1 span {
     margin-left: -29px;
 }
 
+#resultsWrapper {
+    margin-top: 8px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
 #resultsList {
     overflow-y: auto;
-    max-height: 400px;
+    max-height: 446px;
     width:400px;
+    background-color: gray;
 }
 #resultsList ul {
     list-style-type: none;
+    margin:0px;
+    margin-bottom: -1px;
 }
 #resultsList ul li {
     margin-left: -40px;
+    padding-bottom: 2px;
+    margin-bottom: 1px;
 }
 
 #resultsList ul li a {
     text-decoration: none;
     color: black;
+    padding: 4px;
 }
 #resultsList ul li a:visited {
   --color:gray;
@@ -169,4 +181,14 @@ h1 span {
 #resultsList ul li a:hover {
     text-decoration: underline;
     color: red;
+}
+
+.pass {
+    background:lightgreen;
+}
+.fail {
+    background:pink;
+}
+.na {
+    background:lightyellow;
 }

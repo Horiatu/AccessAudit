@@ -84,11 +84,16 @@ $(document).ready(function() {
         $.each(results, function(index, rule){
             console.log(rule);
             var bg = (rule.result=='PASS') 
-            ?"lightgreen"
-            :(rule.result=='FAIL')
-            ?"pink"
-            :"lightyellow";
-            r[rule.result] += '<li style="background:'+bg+';" title="'+rule.result+': '+rule.rule.heading+'">';
+            var title = rule.result+': '+rule.rule.heading;
+            var dataElements = [];
+            if(rule.elements && rule.elements != undefined && rule.elements.length>0) {
+                title+= ' ('+rule.elements.length+')';
+                dataElements = rule.elements;
+            }
+
+            var className = (rule.result=='PASS') ? 'pass' : (rule.result=='FAIL') ? 'fail' : 'na';
+
+            r[rule.result] += '<li class="'+className+'" title="'+title+'">';
             // r[rule.result] += rule.result;
             // r[rule.result] += ' ';
             r[rule.result] += '<a href="'+rule.rule.url+'" target="blank">'+camel2Words(rule.rule.name)+'</a>';
