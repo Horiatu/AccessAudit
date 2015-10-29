@@ -29,6 +29,50 @@ if(AccessAudit == undefined) {
 	                }
 	        },
 
+	        elMouseEnter : function(e) {
+	        	//debugger;
+	        },
+
+	        elMouseLeave : function(e) {
+	        	//debugger;
+	        },
+
+	        getElementsAtPoint : function(ev) {
+			    var els = _private.elementsFromPoint(ev.clientX, ev.clientY, ".AccessAuditMarker");
+			    if (els.length > 0) {
+			        console.log(els);
+			    }
+	        },
+
+	        elementsFromPoint : function (x, y, selector) {
+				var elements = [], previousPointerEvents = [], current, i, d;
+
+			    // get all elements via elementFromPoint, and remove them from hit-testing in order
+				while ((current = document.elementFromPoint(x,y)) && elements.indexOf(current)===-1 && current != null) {
+			        
+			        // push the element and its current style
+					elements.push(current);
+					
+					previousPointerEvents.push({
+		                value: current.style.getPropertyValue('pointer-events'),
+		                priority: current.style.getPropertyPriority('pointer-events')
+		            });
+			          
+			        // add "pointer-events: none", to get to the underlying element
+					current.style.setProperty('pointer-events', 'none', 'important');
+				}
+
+			    // restore the previous pointer-events values
+				for(i = previousPointerEvents.length; d=previousPointerEvents[--i]; ) {
+					elements[i].style.setProperty('pointer-events', d.value?d.value:'', d.priority); 
+				}
+			      
+			    if(selector && selector != undefined && selector !='') {
+			    	elements = $(elements).filter(selector).toArray();
+			    }
+			    return elements;
+			},
+
 		}
 
 	    var _public = {
@@ -48,7 +92,7 @@ if(AccessAudit == undefined) {
 							var id = 0;
 							$.each(audits, function(index, audit){
 								var elementsCount = 0;
-								var title = audit.result+': '+audit.rule.heading;
+								var title = audit.rule.heading;
 							    if(audit.elements && audit.elements != undefined && audit.elements.length>0) {
 							    	elementsCount = audit.elements.length;
 							    //     title+= ' ('+elementsCount+')';
@@ -73,7 +117,11 @@ if(AccessAudit == undefined) {
 				        	var ndx = req.index;
 				        	switch (req.hide) {
 				        		case true :
-				        			$('.'+ndx).removeClass('AccessAuditWrapper').removeClass(ndx)//.unwrap();
+				        			$('.'+ndx).removeClass('AccessAuditMarker').removeClass(ndx)//.unwrap();
+					        			.removeAttr('data-AAtitle')
+										.removeAttr('data-AAdescription')
+					        			.unbind("mouseenter")
+										.unbind("mouseleave");
 						        	sendResponse(0);
 				        			break;
 				        		case false :
@@ -83,8 +131,17 @@ if(AccessAudit == undefined) {
 						        		var title = audits[0].name;
 					        			var $els = $elements.filter(function(e) { return !$(e).hasClass(ndx)}) 
 					        			$els.addClass(ndx);
-					        			$els.addClass('AccessAuditWrapper');
-					        			//$els.wrap('<div class="AccessAuditWrapper" title="'+title+'">');
+					        			$els.addClass('AccessAuditMarker')
+					        			    .attr('title', audits[0].name)
+										    .attr('data-AAtitle', audits[0].name)
+										    .attr('data-AAdescription', audits[0].title)
+					        			    .bind('mouseenter', _private.elMouseEnter)
+					        			    .bind('mouseleave', _private.elMouseLeave);
+					        			
+					        			//$els.wrapInner('<div class="AccessAuditWrapper" title="'+title+'">');
+										
+										document.addEventListener("click", _private.getElementsAtPoint);
+
 						        		sendResponse(1);
 					        		}
 				        			break;

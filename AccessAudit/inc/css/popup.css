@@ -156,7 +156,7 @@ h1 span {
 #resultsList {
     overflow-y: auto;
     max-height: 446px;
-    width:400px;
+    min-width:420px;
     background-color: gray;
 }
 #resultsList ul {

@@ -1,11 +1,13 @@
-.AccessAuditWrapper {
-	border: 1px dotted red !important; 
+.AccessAuditMarker {
 	display: inherit !important;
-	--margin:-1px !important;
-	box-sizing: border-box;
 	background:pink;
+	box-shadow: 0 0 4px 2px red;
+	min-width:10px;
+	min-height:10px;
 }
 
-.AccessAuditWrapper>* {
-	opacity:0.5;
+.AccessAuditWrapper {
+	border: 1px dotted Blue !important; 
+	min-width:100px;
+	min-height:100px;
 }
