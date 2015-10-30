@@ -30,6 +30,8 @@ if(AccessAudit == undefined) {
 	        },
 
 	        getElementsAtPoint : function(ev) {
+	        	ev.stopPropagation();
+	        	ev.preventDefault();
 			    var els = _private.elementsFromPoint(ev.clientX, ev.clientY, ".AccessAuditMarker");
 			    if (els.length > 0) {
 			        console.log(els);
