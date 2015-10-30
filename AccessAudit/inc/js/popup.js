@@ -87,7 +87,6 @@ $(document).ready(function() {
                         if (err) {
                             alert(err);
                         } else {
-                            $('#resultsList').html('');
                             loadScripts(tab.id, [{
                                 allFrames: true,
                                 file: true,
@@ -118,14 +117,18 @@ $(document).ready(function() {
     }
 
     showResults = function(results) {
+        $('#resultsList').html('');
+        $('#resultsWrapper').addClass('hide');
+        if(!results || results == undefined || results.length == 0)
+            return
         var r = {PASS:'',NA:'',FAIL:''};
         $.each(results, function(index, rule){
-            console.log(rule);
+            //console.log(rule);
 
             var className = (rule.status=='PASS') ? 'pass' : (rule.status=='FAIL') ? 'fail' : 'na';
 
             r[rule.status] += '<li class="'+className+'" title="'+rule.title+'">';
-            r[rule.status] += '<div>';
+            r[rule.status] += '<div style="flex-direction: column;">';
             r[rule.status] += '<a href="'+rule.url+'" target="blank">'+rule.name+'</a>';
             if(rule.elements) {
                 r[rule.status] += '<div data-index="'+rule.id+'" class="lookup" title="Show '+rule.elements.length+' element'+(rule.elements.length>0?'s':'')+'"></div>'
@@ -133,20 +136,25 @@ $(document).ready(function() {
             r[rule.status] += '</div>';
             r[rule.status] += '</li>\n';
         })
+
+        if(r.FAIL+r.PASS+r.NA != '') {
+            $('#resultsWrapper').removeClass('hide');
+        }
         $('#resultsList').html('<ul>'+r.FAIL+r.PASS+r.NA+'</ul>');
         $('.lookup').click(showClick);
     }
 
     showClick = function(e) {
-        var hide = $(e.toElement).hasClass('hide');
+        var hide = $(e.toElement).hasClass('hideElements');
         var index = $(e.toElement).data('index');
         chrome.tabs.sendMessage(tabId, {
                 type:'Lookup', 
                 index:index, 
                 hide: hide,
             }, function(results) { 
-            $(e.toElement).toggleClass('hide');
-        });
+                $(e.toElement).toggleClass('hideElements');
+            }
+        );
     }
     
     $('#closeBtn').click(function(e) { window.close(); });

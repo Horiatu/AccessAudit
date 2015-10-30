@@ -33,25 +33,29 @@
         <img class='toolbarBtn' id='optionsBtn' alt='' title='Help & Options' src="/images/help.png"></img>
     </div>
 
-    <div>
-        <table width="100%" cellspacing="0" cellpadding="0">
+    <div id="requestBar">
+        <table width="100%" cellspacing="4px" cellpadding="0">
             <tr>
-                <td width="25%" style="vertical-align: top;">
-                    <div class="pickAll">
-                        <button id="runBtn" class="pick1" name="background" title="Start Audits">
+                <td style="vertical-align: top;">
+                    <div>
+                        <button id="runBtn" class="btn" title="Start Audits">
                             <img src="/images/audit.png" alt="audit"></img>
                             <span>Audit Page</span>
                         </button>
                     </div>
                 </td>
-                <td width="75%" id="fixSamples" style="display: none;">
+                <td width="100%" id="filterResults">
                 </td>
             </tr>
         </table>
     </div>
-    <div id="resultsWrapper">
-        <div id="resultsList">
-            <ul></ul>
+    <div id="resultsWrapper" class="hide">
+        <div id="resultsList"></div>
+        <div id="exportTools">
+            <button id="exportBtn" class="btn" title="Export">
+                <!-- <img src="/images/audit.png" alt="audit"></img> -->
+                <span>Export</span>
+            </button>
         </div>
     </div>
 </body>

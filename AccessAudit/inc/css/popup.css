@@ -98,12 +98,6 @@ h1 span {
   background-color: rgb(216, 216, 216);
 }
 
-.btn img {
-  margin-top: 2px;
-  margin-bottom: -3px;
-  cursor: pointer;
-  opacity: 0.5;
-}
 #toolbar {
     position:absolute;
     right:8px;
@@ -132,14 +126,6 @@ h1 span {
     top: 4px;
 }
 
-.btn img:hover, .toolbarBtn:not(.disabled):hover, #sampleBtn:hover {
-    opacity: 1;
-    
-    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=2, Color='#444')";
-    filter: url(#drop-shadow);
-    -webkit-filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
-    filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
-}
 .pick1{
     margin-top: 10px;
 }
@@ -148,24 +134,34 @@ h1 span {
 }
 
 #resultsWrapper {
-    margin-top: 8px;
     border: 1px solid gray;
     border-radius: 5px;
+    flex-direction: row;
+}
+
+.hide {
+  display:none;
 }
 
 #resultsList {
     overflow-y: auto;
-    max-height: 446px;
+    max-height: 380px;
     min-width:420px;
     background-color: gray;
+    --display:flex;
 }
 #resultsList ul {
-    list-style-type: none;
+    list-style: none;
     margin:0px;
-    margin-bottom: -1px;
+    padding:0;
+    white-space: nowrap;
 }
+
+#resultsList ul li div {
+    --flex-direction: column;
+}
+
 #resultsList ul li {
-    margin-left: -40px;
     padding-bottom: 2px;
     margin-bottom: 1px;
 }
@@ -173,10 +169,8 @@ h1 span {
 #resultsList ul li a {
     text-decoration: none;
     color: black;
-    padding: 4px;
-}
-#resultsList ul li a:visited {
-  --color:gray;
+    padding: 0 4px;
+    --display: flex;
 }
 #resultsList ul li a:hover {
     text-decoration: underline;
@@ -201,12 +195,43 @@ h1 span {
     opacity: 0.25;
     background-image: url("/images/searchBlue.png");
     background-repeat: no-repeat;
+    --display: flex;
 }
 
 .lookup:hover {
     opacity:1;
 }
 
-.hide {
+.hideElements {
     background-image: url("/images/searchRed.png");
+}
+
+.btn {
+  display: flex;
+}
+.btn span {
+  white-space: nowrap;
+  padding: 5px 8px 4px 4px;
+}
+.btn img {
+  margin: 2px 2px 2px 4px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.btn:hover img {
+    opacity: 1;
+    -webkit-filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
+}
+
+#requestBar {
+    margin: 24px 0 12px 0;
+}
+
+#requestBar table {
+    border-spacing: 0;
+}
+
+#exportTools {
+    padding: 12px;
+    border-top: 1px solid gray;
 }
