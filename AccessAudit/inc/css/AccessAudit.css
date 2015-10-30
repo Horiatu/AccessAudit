@@ -6,8 +6,32 @@
 	min-height:10px;
 }
 
-.AccessAuditWrapper {
-	border: 1px dotted Blue !important; 
-	min-width:100px;
-	min-height:100px;
+#AccessAuditOvr {
+	opacity: 1; 
+	background: transparent; 
+	border: 0 none transparent; 
+	margin:0; padding:0;
+	top:0; left:0;
+	height:100%; width:100%;
+	position: fixed;
+}
+
+#AccessAuditInfo {
+	--min-width: 100px;
+	--min-height: 100px;
+	background: white;
+	border: 1px solid black;
+	border-radius: 3px;
+	box-shadow: 2px 2px 2px gray;
+	position:absolute;
+}
+
+.infoHeader {
+	background:lightblue;
+	--display:table-header-group;
+	padding: 4px;
+}
+.infoElement {
+	padding: 4px;
+	border-bottom: 1px solid lightblue;
 }

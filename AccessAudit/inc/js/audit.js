@@ -29,18 +29,26 @@ if(AccessAudit == undefined) {
 	                }
 	        },
 
-	        elMouseEnter : function(e) {
-	        	//debugger;
-	        },
-
-	        elMouseLeave : function(e) {
-	        	//debugger;
-	        },
-
 	        getElementsAtPoint : function(ev) {
 			    var els = _private.elementsFromPoint(ev.clientX, ev.clientY, ".AccessAuditMarker");
 			    if (els.length > 0) {
 			        console.log(els);
+			        if($('#AccessAuditInfo').length==0) {
+			        	$('body').append('<div id="AccessAuditInfo"/>');
+			        }
+			        $('#AccessAuditInfo>*').remove();
+			    	$('#AccessAuditInfo').append("<div class='infoHeader'>"+els.length+" Failed Rule"+(els.length>1?"s":"")+"</div>" );
+			    	$.each(els, function(index, element) {
+			    		console.log(element);
+			    		var code = '';
+			    		//code += '<div>'+element.attributes['data-aatitle'].value+'</div>';
+			    		code += '<div style="max-width:300px;">'+element.attributes['data-aadescription'].value+'</div>';
+			    		$('#AccessAuditInfo').append("<div class='infoElement'>"+code+"</div>");
+			    	})
+			        
+			        $('#AccessAuditInfo').css('left',ev.pageX+10+'px').css('top',ev.pageY+'px')
+			    } else {
+			    	$('#AccessAuditInfo').remove();
 			    }
 	        },
 
@@ -117,30 +125,31 @@ if(AccessAudit == undefined) {
 				        	var ndx = req.index;
 				        	switch (req.hide) {
 				        		case true :
-				        			$('.'+ndx).removeClass('AccessAuditMarker').removeClass(ndx)//.unwrap();
+				        			$('.'+ndx)
 					        			.removeAttr('data-AAtitle')
 										.removeAttr('data-AAdescription')
-					        			.unbind("mouseenter")
-										.unbind("mouseleave");
+				        				.removeClass('AccessAuditMarker')
+				        				.removeClass(ndx)
+				        			if($('.AccessAuditMarker').length==0 && document.getElementById("AccessAuditOvr")) {
+				        				$("#AccessAuditOvr").unbind("click");
+				        				$("#AccessAuditOvr").remove();
+				        			}
 						        	sendResponse(0);
 				        			break;
 				        		case false :
 						        	var audits = _private.results.filter(function(a) { return a.id === ndx; });
 						        	if(audits && audits.length > 0) {
 							        	var $elements = $(audits[0].elements);	
-						        		var title = audits[0].name;
-					        			var $els = $elements.filter(function(e) { return !$(e).hasClass(ndx)}) 
-					        			$els.addClass(ndx);
-					        			$els.addClass('AccessAuditMarker')
-					        			    .attr('title', audits[0].name)
-										    .attr('data-AAtitle', audits[0].name)
-										    .attr('data-AAdescription', audits[0].title)
-					        			    .bind('mouseenter', _private.elMouseEnter)
-					        			    .bind('mouseleave', _private.elMouseLeave);
+						        		var $els = $elements.filter(function(e) { return !$(e).hasClass(ndx)}) 
+					        			$els.addClass(ndx)
+					        			    .addClass('AccessAuditMarker')
+					        			    .attr('data-AAtitle', audits[0].name)
+										    .attr('data-AAdescription', audits[0].title);
 					        			
-					        			//$els.wrapInner('<div class="AccessAuditWrapper" title="'+title+'">');
-										
-										document.addEventListener("click", _private.getElementsAtPoint);
+										if(!document.getElementById("AccessAuditOvr")) {
+						                    $("body").append('<div id="AccessAuditOvr"></div>');
+											$("#AccessAuditOvr").bind("click", _private.getElementsAtPoint);
+						                }
 
 						        		sendResponse(1);
 					        		}
