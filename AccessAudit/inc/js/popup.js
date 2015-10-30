@@ -96,8 +96,7 @@ $(document).ready(function() {
                                 allFrames: true,
                                 file: true,
                                 content: "/inc/js/axs_testing.js"
-                            }
-                            , 
+                            }, 
                             {
                                 allFrames: true,
                                 file: true,
@@ -155,5 +154,23 @@ $(document).ready(function() {
     $('#homeBtn').click(openHomePage);
     $('#sampleBtn').click(openTestPage);
     $('#runBtn').click(runAudits);
+
+
+    getSelectedTab().done(
+        function(tab) {
+            validateTab(tab).always(
+                function(err) {
+                    if (err) {
+                        alert(err);
+                    } else {
+                        tabId = tab.id;
+                        chrome.tabs.sendMessage(tabId, {type:'RefreshAudit'}, function(results) { 
+                            showResults(results); 
+                        });
+                    }
+                }
+            )
+        }
+    )
 
 });

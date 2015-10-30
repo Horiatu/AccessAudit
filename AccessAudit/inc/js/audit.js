@@ -41,7 +41,7 @@ if(AccessAudit == undefined) {
 			        	$('body').append('<div id="AccessAuditInfo"/>');
 			        }
 			        $('#AccessAuditInfo>*').remove();
-			    	$('#AccessAuditInfo').append("<div class='infoHeader'>"+els.length+" Failed Rule"+(els.length>1?"s":"")+"</div>" );
+			    	$('#AccessAuditInfo').append("<div class='infoHeader'>"+els.length+" Broken Rule"+(els.length>1?"s":"")+"</div>" );
 			    	$.each(els, function(index, element) {
 			    		console.log(element);
 			    		var code = '';
@@ -101,6 +101,19 @@ if(AccessAudit == undefined) {
 
 				chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
 				    switch (req.type) {
+				    	case 'RefreshAudit':
+		    				$('.AccessAuditMarker')
+			        			.removeAttr('data-AAtitle')
+								.removeAttr('data-AAdescription')
+		        				.removeClass('AccessAuditMarker')
+		        				.removeClass('.AccessAudit*');
+
+				    		$('#AccessAuditOvr').remove();
+				    		$('#AccessAuditInfo').remove();
+
+				    		if(_private.results != undefined && _private.results && _private.results.length>0)
+				    			sendResponse(_private.results);
+				    		break;
 				        case 'Audit':
 							var configuration = new axs.AuditConfiguration();
 							//configuration.ignoreSelectors('lowContrastElements', '.pretty');
@@ -130,7 +143,7 @@ if(AccessAudit == undefined) {
 								results.push(result);
 							});
 
-							console.log(results);        	
+							//console.log(results);        	
 							sendResponse(_private.results = results);
 				            break;
 				        case 'Lookup' :
