@@ -24,6 +24,7 @@ body {
   font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
   font-style: normal;
   font-size: inherit;
+  min-width: 400px;
 }
 .header {
     background-color: #eee;
@@ -184,7 +185,7 @@ h1 span {
     background:pink;
 }
 .na {
-    background:lightyellow;
+    background:#ffff7f;
 }
 
 .lookup {
@@ -234,4 +235,20 @@ h1 span {
 #exportTools {
     padding: 12px;
     border-top: 1px solid gray;
+}
+#filterResults {
+  text-align: right;
+}
+
+#filterResults span {
+    padding: 4px;
+    border-radius: 5px;
+}
+
+#filterResults label {
+    padding-right:4px;
+    opacity:0.5;
+}
+#filterResults label:hover {
+    opacity: 1;
 }
