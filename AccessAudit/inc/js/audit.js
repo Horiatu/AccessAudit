@@ -32,7 +32,9 @@ if(AccessAudit == undefined) {
 	        getElementsAtPoint : function(ev) {
 	        	ev.stopPropagation();
 	        	ev.preventDefault();
-			    var els = _private.elementsFromPoint(ev.clientX, ev.clientY, ".AccessAuditMarker");
+		        var x = ev.clientX;
+		        var y = ev.clientY;
+			    var els = _private.elementsFromPoint(x, y, ".AccessAuditMarker");
 			    if (els.length > 0) {
 			        console.log(els);
 			        if($('#AccessAuditInfo').length==0) {
@@ -48,7 +50,15 @@ if(AccessAudit == undefined) {
 			    		$('#AccessAuditInfo').append("<div class='infoElement'>"+code+"</div>");
 			    	})
 			        
-			        $('#AccessAuditInfo').css('left',ev.pageX+10+'px').css('top',ev.pageY+'px')
+			        var d = 4;
+			        var W = window.innerWidth;
+			        var H = window.innerHeight;
+			        var w = $('#AccessAuditInfo').width() + d;
+			        var h = $('#AccessAuditInfo').height() + d;
+
+			        $('#AccessAuditInfo')
+			        	.css('left',(ev.pageX + (x+w<W ? d : -w))+'px')
+			        	.css('top',(ev.pageY + (y+h<H ? d : -h))+'px')
 			    } else {
 			    	$('#AccessAuditInfo').remove();
 			    }
