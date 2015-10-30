@@ -156,7 +156,18 @@ $(document).ready(function() {
             }
         );
     }
+
+    showStat = function($cb) {
+        var cls = $cb.attr('id').substr(2).toLowerCase();
+        var $rows= $('#resultsList .'+cls);
+        if($cb.is(':checked')) $rows.removeClass('hide')
+        else $rows.addClass('hide');
+    }
     
+    $.each($('img'), function(index, value) {
+        $value = $(value);
+        $value.attr('src', chrome.extension.getURL($value.attr('src'))).attr('alt', '');
+    })
     $('#closeBtn').click(function(e) { window.close(); });
     $('#optionsBtn').click(openOptionsPage);
     $('#homeBtn').click(openHomePage);
@@ -171,6 +182,18 @@ $(document).ready(function() {
                     if (err) {
                         alert(err);
                     } else {
+                        chrome.storage.sync.get(['showPass', 'showNA'], function(a) {
+                            if(a['showPass']) $('#cbPass').attr('checked','');
+                            else $('#cbPass').removeAttr('checked');
+                            if(a['showNA']) $('#cbNA').attr('checked','');
+                            else $('#cbNA').removeAttr('checked');
+                        });
+
+                        $('#filterResults input[type=checkbox]').change(function() {
+                            showStat($(this))
+                        });
+
+
                         tabId = tab.id;
                         chrome.tabs.sendMessage(tabId, {type:'RefreshAudit'}, function(results) { 
                             showResults(results); 

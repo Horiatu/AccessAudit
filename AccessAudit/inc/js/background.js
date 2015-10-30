@@ -15,11 +15,13 @@ Background.getOptionOrDefault = function(a, option, value) {
 
 Background.getDefaults = function() {
     var gdDfr = $.Deferred();
-    chrome.storage.sync.get('testPageUrl',
+    chrome.storage.sync.get(['testPageUrl','showPass', 'showNA'],
     function(a) {
         defaults = {
             type:'defaults',
             testPageUrl : Background.getOptionOrDefault(a, 'testPageUrl', ''),
+            showPass : Background.getOptionOrDefault(a, 'showPass', true),
+            showNA : Background.getOptionOrDefault(a, 'showNA', false),
         };
         gdDfr.resolve(defaults);
     });

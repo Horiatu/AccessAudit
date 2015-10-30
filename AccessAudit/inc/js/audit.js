@@ -119,7 +119,7 @@ if(AccessAudit == undefined) {
 							//configuration.ignoreSelectors('lowContrastElements', '.pretty');
 							configuration.showUnsupportedRulesWarning = false;
 							var audits = axs.Audit.run(configuration);
-							//console.log(audits);
+							console.log(audits);
 
 							var results = [];
 							var id = 0;
@@ -135,15 +135,16 @@ if(AccessAudit == undefined) {
 									status: audit.result, 
 									name: _private.camel2Words(audit.rule.name),
 									title: title,
+									severity: audit.rule.severity,
 									url: audit.rule.url
 								}
 								if(elementsCount>0) {
-									result.elements = audit.elements;
+									result.elements = elementsCount;
 								}
 								results.push(result);
 							});
 
-							//console.log(results);        	
+							console.log(results);        	
 							sendResponse(_private.results = results);
 				            break;
 				        case 'Lookup' :

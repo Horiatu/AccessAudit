@@ -252,3 +252,10 @@ h1 span {
 #filterResults label:hover {
     opacity: 1;
 }
+
+input[type=checkbox] {
+  width: 18px;
+  height: 18px;
+  margin: 2px; 
+  vertical-align: top;
+}
