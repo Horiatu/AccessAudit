@@ -11,7 +11,7 @@ $(document).ready(function() {
         });
 
         return dfd.promise();
-    },
+    }
 
     validateTab = function(tab) {
         var dfd = $.Deferred();
@@ -26,7 +26,7 @@ $(document).ready(function() {
         }
 
         return dfd.promise();
-    },
+    }
 
     scriptDesc = function(script) {
         return (
@@ -38,7 +38,7 @@ $(document).ready(function() {
                 "code": script.content
             }
         )
-    },
+    }
 
     loadScripts = function(tabid, scripts, dfr) {
         var options = scriptDesc(scripts.shift());
@@ -61,23 +61,23 @@ $(document).ready(function() {
             dfr.resolve(tpu);
         });
         return dfr.promise();
-    };
+    }
 
     openTestPage = function(e) {
         getTestPageUrl().done(function(testPageUrl) {
             window.open(testPageUrl);
         });
-    };
+    }
 
     openOptionsPage = function(e) {
         window.open(chrome.extension.getURL('/inc/html/options.html'),'_blank');
-    };
+    }
 
     openHomePage = function(e) {
         window.open('http://pages.pathcom.com/~horiatu/WCAG/index.html','_blank');
-    };
+    }
 
-    tabId = null,
+    tabId = null
 
     runAudits = function(e) {
         getSelectedTab().done(
@@ -87,6 +87,8 @@ $(document).ready(function() {
                         if (err) {
                             alert(err);
                         } else {
+                            tabId = tab.id;
+
                             loadScripts(tab.id, [{
                                 allFrames: true,
                                 file: true,
@@ -104,7 +106,7 @@ $(document).ready(function() {
                             ], $.Deferred()).done(
                                 function() {
                                     try {
-                                        chrome.tabs.sendMessage(tabId = tab.id, {type:'Audit'}, function(results) { 
+                                        chrome.tabs.sendMessage(tabId, {type:'Audit'}, function(results) { 
                                             showResults(results); 
                                         });
                                     } catch (e) {alert(e.message);}
@@ -121,13 +123,13 @@ $(document).ready(function() {
         $('#resultsWrapper').addClass('hide');
         if(!results || results == undefined || results.length == 0)
             return
-        var r = {PASS:'',NA:'',FAIL:''};
+        var r = {PASS:'', NA:'', FAIL:''};
         $.each(results, function(index, rule){
             //console.log(rule);
 
             var className = (rule.status=='PASS') ? 'pass' : (rule.status=='FAIL') ? 'fail' : 'na';
 
-            r[rule.status] += '<li class="'+className+'" title="'+rule.title+'">';
+            r[rule.status] += '<li class="'+className+(!options[rule.status] ? ' hide' : '')+'" title="'+rule.title+'">';
             r[rule.status] += '<div style="flex-direction: column;">';
             r[rule.status] += '<a href="'+rule.url+'" target="blank">'+rule.name+'</a>';
             if(rule.elements) {
@@ -160,20 +162,30 @@ $(document).ready(function() {
     showStat = function($cb) {
         var cls = $cb.attr('id').substr(2).toLowerCase();
         var $rows= $('#resultsList .'+cls);
-        if($cb.is(':checked')) $rows.removeClass('hide')
+        var show = $cb.is(':checked');
+
+        if(show) $rows.removeClass('hide') 
         else $rows.addClass('hide');
+
+        var obj = {};
+        var key = cls.toUpperCase();
+        obj[key] = show;
+        chrome.storage.sync.set(obj);
+        options[key] = show;
     }
+
     
     $.each($('img'), function(index, value) {
         $value = $(value);
         $value.attr('src', chrome.extension.getURL($value.attr('src'))).attr('alt', '');
     })
+
     $('#closeBtn').click(function(e) { window.close(); });
     $('#optionsBtn').click(openOptionsPage);
     $('#homeBtn').click(openHomePage);
     $('#sampleBtn').click(openTestPage);
-    $('#runBtn').click(runAudits);
 
+    var options = null
 
     getSelectedTab().done(
         function(tab) {
@@ -182,21 +194,28 @@ $(document).ready(function() {
                     if (err) {
                         alert(err);
                     } else {
-                        chrome.storage.sync.get(['showPass', 'showNA'], function(a) {
-                            if(a['showPass']) $('#cbPass').attr('checked','');
-                            else $('#cbPass').removeAttr('checked');
-                            if(a['showNA']) $('#cbNA').attr('checked','');
-                            else $('#cbNA').removeAttr('checked');
-                        });
-
-                        $('#filterResults input[type=checkbox]').change(function() {
-                            showStat($(this))
-                        });
-
-
                         tabId = tab.id;
-                        chrome.tabs.sendMessage(tabId, {type:'RefreshAudit'}, function(results) { 
-                            showResults(results); 
+                        var Background = chrome.extension.getBackgroundPage().Background;
+                        Background.getDefaults().done(function(response) {
+                        //chrome.runtime.sendMessage({type:'get-defaults'}, function(response) {
+                            options = response; 
+                            console.log(options); 
+
+                            if(options.PASS) $('#cbPass').attr('checked','')
+                            else $('#cbPass').removeAttr('checked');
+
+                            if(options.NA) $('#cbNA').attr('checked','')
+                            else $('#cbNA').removeAttr('checked');
+
+                            $('#filterResults input[type=checkbox]').change(function() {
+                                showStat($(this))
+                            });
+
+                            $('#runBtn').click(runAudits);
+
+                            chrome.tabs.sendMessage(tabId, {type:'RefreshAudit'}, function(results) { 
+                                showResults(results); 
+                            });
                         });
                     }
                 }
@@ -204,4 +223,4 @@ $(document).ready(function() {
         }
     )
 
-});
+})

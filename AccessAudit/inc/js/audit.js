@@ -36,7 +36,7 @@ if(AccessAudit == undefined) {
 		        var y = ev.clientY;
 			    var els = _private.elementsFromPoint(x, y, ".AccessAuditMarker");
 			    if (els.length > 0) {
-			        console.log(els);
+			        //console.log(els);
 			        if($('#AccessAuditInfo').length==0) {
 			        	$('body').append('<div id="AccessAuditInfo"/>');
 			        }
@@ -119,7 +119,7 @@ if(AccessAudit == undefined) {
 							//configuration.ignoreSelectors('lowContrastElements', '.pretty');
 							configuration.showUnsupportedRulesWarning = false;
 							var audits = axs.Audit.run(configuration);
-							console.log(audits);
+							//console.log(audits);
 
 							var results = [];
 							var id = 0;
@@ -139,12 +139,12 @@ if(AccessAudit == undefined) {
 									url: audit.rule.url
 								}
 								if(elementsCount>0) {
-									result.elements = elementsCount;
+									result.elements = audit.elements;
 								}
 								results.push(result);
 							});
 
-							console.log(results);        	
+							//console.log(results);        	
 							sendResponse(_private.results = results);
 				            break;
 				        case 'Lookup' :
