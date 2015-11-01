@@ -43,7 +43,7 @@ if(AccessAudit == undefined) {
 			        $('#AccessAuditInfo>*').remove();
 			    	$('#AccessAuditInfo').append("<div class='infoHeader'>"+els.length+" Broken Rule"+(els.length>1?"s":"")+"</div>" );
 			    	$.each(els, function(index, element) {
-			    		console.log(element);
+			    		console.info(element);
 			    		var code = '';
 			    		//code += '<div>'+element.attributes['data-aatitle'].value+'</div>';
 			    		code += '<div style="max-width:300px;">'+element.attributes['data-aadescription'].value+'</div>';

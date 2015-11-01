@@ -171,6 +171,7 @@ $(document).ready(function() {
         var key = cls.toUpperCase();
         obj[key] = show;
         chrome.storage.sync.set(obj);
+        //chrome.storage.sync.get(null, function (data) { console.info(data) })
         options[key] = show;
     }
 
@@ -199,7 +200,7 @@ $(document).ready(function() {
                         Background.getDefaults().done(function(response) {
                         //chrome.runtime.sendMessage({type:'get-defaults'}, function(response) {
                             options = response; 
-                            console.log(options); 
+                            //console.log(options); 
 
                             if(options.PASS) $('#cbPass').attr('checked','')
                             else $('#cbPass').removeAttr('checked');

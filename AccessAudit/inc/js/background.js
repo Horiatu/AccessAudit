@@ -12,7 +12,7 @@ Background.getDefaults = function() {
     chrome.storage.sync.get(null,
     function(a) {
         options = {
-            testPageUrl : Background.getOptionOrDefault(a, 'testPageUrl', 'http://apps.esri.ca/templates/WCAGViewer/index.html'),
+            testPageUrl : Background.getOptionOrDefault(a, 'testPageUrl', ''),
             PASS : Background.getOptionOrDefault(a, 'PASS', true),
             NA : Background.getOptionOrDefault(a, 'NA', false),
             FAIL : true
