@@ -168,14 +168,18 @@ $(document).ready(function() {
 
                 callback: function(key, element) {
                     //alert('Clicked ' + key + ' on ' + $(element).attr('id'));
-                    console.log(key);
-                    console.log($(element).closest('li').data('index'));
-                    console.log($(element).closest('li').data('url'));
+                    // console.log($(element).closest('li').data('index'));
+                    // console.log($(element).closest('li').data('url'));
                     switch (key) {
                         case 'info' :
                             window.open($(element).closest('li').data('url'),'_blank');
                             break;
                         case 'remove' :
+                            console.log($(element));
+                            alert('Rule "'+element.innerHTML+'" '+
+                                'has been removed from further audits.\n\n'+
+                                'To restore it, open the Options Page.\n');
+                            $(element).closest('li').remove();
                             break;
                         case 'cancel' :
                             break;
