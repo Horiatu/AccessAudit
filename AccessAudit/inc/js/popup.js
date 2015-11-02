@@ -149,7 +149,7 @@ $(document).ready(function() {
             }
             r[rule.status] += '</td>';
             r[rule.status] += '<td class="ruleName">'+rule.name+'</td>';
-            r[rule.status] += '<td class="ruleMenu"><img src="/images/menu.png" title="Options"></img></td>'
+            //r[rule.status] += '<td class="ruleMenu"><img src="/images/menu.png" title="Options"></img></td>'
             r[rule.status] += '</tr></table>';
             r[rule.status] += '</li>\n';
         })
@@ -160,7 +160,44 @@ $(document).ready(function() {
         $('#resultsList').html('<ul>'+r.FAIL+r.PASS+r.NA+'</ul>');
         $('.fail .ruleSeverity').click(showClick);
         $('.fail .ruleName').click(showClick);
-    }
+ 
+         $(function() {
+            var context = $('#resultsList').nuContextMenu({
+
+                items: '.ruleName',
+
+                callback: function(key, element) {
+                    alert('Clicked ' + key + ' on ' + $(element).attr('id'));
+                },
+
+                // Define menu items here
+                // key: {...}
+                menu: {
+
+                    'info': {
+                        title: 'Show More Info',
+                        // Font awesome icons here
+                        //icon: 'archive',
+                    },
+
+                    'remove': {
+                        title: 'Remove',
+                        //icon: 'check',
+                    },
+
+                    // If the value is 'separator' then an 
+                    // <hr> node is added
+                    'void': 'separator',
+
+                    'cancel': {
+                        title: 'Cancel',
+                        //icon: 'trash',
+                    },
+                }
+            });
+        });
+
+   }
 
     showClick = function(e) {
         var $e = $(e.toElement).closest('li');
@@ -198,13 +235,12 @@ $(document).ready(function() {
         $value.attr('src', chrome.extension.getURL($value.attr('src'))).attr('alt', '');
     })
 
-    //$('#runBtn').button();
     $('#closeBtn').click(function(e) { window.close(); });
     $('#optionsBtn').click(openOptionsPage);
     $('#homeBtn').click(openHomePage);
     $('#sampleBtn').click(openTestPage);
-
-    var options = null
+    
+    var options = null;
 
     getSelectedTab().done(
         function(tab) {

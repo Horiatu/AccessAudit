@@ -127,13 +127,13 @@ h1 span {
 }
 
 .pass {
-    background:lightgreen;
+    background:#ccffcc;
 }
 .fail {
-    background:pink;
+    background:mistyrose;
 }
 .na {
-    background:#ffff7f;
+    background:#ffffaa;
 }
 
 .btn {
