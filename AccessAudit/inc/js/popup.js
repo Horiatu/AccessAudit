@@ -129,7 +129,7 @@ $(document).ready(function() {
 
             var className = (rule.status=='PASS') ? 'pass' : (rule.status=='FAIL') ? 'fail' : 'na';
 
-            r[rule.status] += '<li data-index="'+rule.id+'" class="'+className+(!options[rule.status] ? ' hide' : '')+'" title="'+rule.title+'">';
+            r[rule.status] += '<li data-index="'+rule.id+'" data-url="'+rule.url+'" class="'+className+(!options[rule.status] ? ' hide' : '')+'" title="'+rule.title+'">';
             // r[rule.status] += '<div style="flex-direction: column;">';
             // r[rule.status] += '<a href="'+rule.url+'" target="blank">'+rule.name+'</a>';
             // if(rule.elements) {
@@ -167,7 +167,19 @@ $(document).ready(function() {
                 items: '.ruleName',
 
                 callback: function(key, element) {
-                    alert('Clicked ' + key + ' on ' + $(element).attr('id'));
+                    //alert('Clicked ' + key + ' on ' + $(element).attr('id'));
+                    console.log(key);
+                    console.log($(element).closest('li').data('index'));
+                    console.log($(element).closest('li').data('url'));
+                    switch (key) {
+                        case 'info' :
+                            window.open($(element).closest('li').data('url'),'_blank');
+                            break;
+                        case 'remove' :
+                            break;
+                        case 'cancel' :
+                            break;
+                    }
                 },
 
                 // Define menu items here
