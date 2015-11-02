@@ -181,7 +181,7 @@ $(document).ready(function() {
                     },
 
                     'remove': {
-                        title: 'Remove',
+                        title: 'Remove from Tests',
                         //icon: 'check',
                     },
 
