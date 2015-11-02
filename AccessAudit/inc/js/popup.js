@@ -180,8 +180,10 @@ $(document).ready(function() {
                                 'has been removed from further audits.\n\n'+
                                 'To restore it, open the Options Page.\n');
                             $(element).closest('li').remove();
+                            context.nuContextMenu('close');
                             break;
                         case 'cancel' :
+                            context.nuContextMenu('close');
                             break;
                     }
                 },

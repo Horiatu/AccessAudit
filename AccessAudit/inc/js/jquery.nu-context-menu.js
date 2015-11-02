@@ -160,6 +160,12 @@
             return true;
         },
 
+        close: function() {
+            this._menu.removeClass(this.options.activeClass);
+            //this._menuVisible = false;
+            return true;
+        },
+
     });
 
     $.fn[plugin] = function(options) {
