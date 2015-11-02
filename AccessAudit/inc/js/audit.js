@@ -23,10 +23,10 @@ if(AccessAudit == undefined) {
 
 	        _injectCss : function(css) {
 	            if ($("head").length == 0) {
-	                    $("body").before(css);
-	                } else {
-	                    $("head").append(css);
-	                }
+                    $("body").before(css);
+                } else {
+                    $("head").append(css);
+                }
 	        },
 
 	        getElementsAtPoint : function(ev) {

@@ -48,57 +48,12 @@ h1 span {
   padding-left: 8px;
 }
 
-#colors th {
-  text-align: right;
-  font-weight: normal;
-  padding: 4px;
-}
-.example {
-  font: normal 95%/141% helvetica, Verdana, Arial, sans-serif;
-  background-color: #037EAF; 
-  margin-top:10px; 
-}  
-.example span{
-  color: #0ff; 
-  padding: 10px;
-  float: inherit;
-  display: inline-block;
-} 
-.example .btn {
-  float:right;
-  padding:5px;
-  -webkit-filter: drop-shadow(4px 4px 8px white);
-}
-#colors {
-  width:100%;
-}
-#contrast {
-  width: 100%;
-  text-align: right;
-}
-#contrast span{
-  color: rgb(69, 69, 69);
-  font-size: 60px;
-  font:bold;
-  font-family: 'Poiret One';
-  --text-shadow: 2px 2px 2px cornflowerblue;
-}
 .contextMenu li,
 #jqContextMenu li {
   white-space: nowrap;
   font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
   font-size: 12px;
 }
-.txInput{
-  font-family: 'Source Code Pro';
-  font-weight: bold;
-  padding: 2px;
-  font-size: 12px;
-}
-.error{
-  background-color: rgb(216, 216, 216);
-}
-
 #toolbar {
     position:absolute;
     right:8px;
@@ -125,13 +80,6 @@ h1 span {
     position: absolute;
     display: inline-block;
     top: 4px;
-}
-
-.pick1{
-    margin-top: 10px;
-}
-.code{
-    margin-left: -29px;
 }
 
 #resultsWrapper {
@@ -188,25 +136,6 @@ h1 span {
     background:#ffff7f;
 }
 
-.lookup {
-    width:18px;
-    height:18px;
-    float: right;
-    margin: 3px;
-    opacity: 0.25;
-    background-image: url("/images/searchBlue.png");
-    background-repeat: no-repeat;
-    --display: flex;
-}
-
-.lookup:hover {
-    opacity:1;
-}
-
-.hideElements {
-    background-image: url("/images/searchRed.png");
-}
-
 .btn {
   display: flex;
 }
@@ -258,4 +187,44 @@ input[type=checkbox] {
   height: 18px;
   margin: 2px; 
   vertical-align: top;
+}
+
+#resultsList ul li.fail {
+    font-weight: normal;
+}
+
+#resultsList ul li:hover.fail {
+    font-weight: bold;
+}
+
+#resultsList ul li table {
+    width:100%;
+    border-spacing: 0;
+}
+
+#resultsList ul li table tr td img {
+    vertical-align: middle;
+}
+
+.hideElements table tr .ruleName {
+    color: red !important;
+}
+
+.ruleName {
+    width:100%;
+    font-size: 14px;
+    padding: 0 4px;
+    color:black;
+}
+
+.ruleSeverity {
+    width: 20px;
+}
+
+.ruleMenu {
+  opacity:0.1;
+}
+
+.ruleMenu:hover {
+  opacity:0.8;
 }
