@@ -29,49 +29,17 @@ legend {
   margin-top: 30px; 
 }
 
-.glassBox {
-  background-color: rgba(199, 199, 199, 0.5);
-  padding: 5px 20px;
-}
-.glassBox img {
-  width:50px;
-  height:50px;
-}
-.radio, .checkbox {
-  padding-left: 0px;
-  padding-right: 20px;
-}
-#gridSettings td {
-  vertical-align: top;
-  padding-right: 10px;
-}
-#grid table {
-   background:white;
-}
-#grid{
-  position:absolute;
-  margin-top: -8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-bottom: 10px;
-  z-index: 1000;
-  background-color: rgba(255,255,255,0.75);
-}
-#grid table tr td {
-  border: 1px solid rgba(128, 128, 128, 0.5);
-  width: 7px;
-  height: 7px;
-  padding-right: 00px;
-  }
 input[type=radio], input[type=checkbox] {
   width: 18px;
   height: 18px;
   margin: 2px; 
   vertical-align: top;
 }
+
 kbd{
   background-color: #777;
 }
+
 #testPageTry {
   white-space: nowrap; 
   margin: 4px; 
@@ -80,3 +48,11 @@ kbd{
   margin-left: -40px;
 }
 
+label {
+  margin-right:4px;
+  margin-top: 3px;
+}
+
+td {
+  vertical-align: top;
+}

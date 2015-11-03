@@ -118,6 +118,18 @@ $(document).ready(function() {
         );
     }
 
+    camel2Words = function(str) {
+        var arr = str.split("");
+
+        for (var i = arr.length - 1; i >= 0; i--) {
+            if (arr[i].match(/[A-Z]/)) {
+                arr.splice(i, 0, " ");
+            }
+        }
+        arr[0] = arr[0].toUpperCase();    
+        return arr.join("");
+    }
+
     showResults = function(results) {
         $('#resultsList').html('');
         $('#resultsWrapper').addClass('hide');
@@ -129,13 +141,7 @@ $(document).ready(function() {
 
             var className = (rule.status=='PASS') ? 'pass' : (rule.status=='FAIL') ? 'fail' : 'na';
 
-            r[rule.status] += '<li data-index="'+rule.id+'" data-url="'+rule.url+'" class="'+className+(!options[rule.status] ? ' hide' : '')+'" title="'+rule.title+'">';
-            // r[rule.status] += '<div style="flex-direction: column;">';
-            // r[rule.status] += '<a href="'+rule.url+'" target="blank">'+rule.name+'</a>';
-            // if(rule.elements) {
-            //     r[rule.status] += '<div data-index="'+rule.id+'" class="lookup" title="Show '+rule.elements.length+' element'+(rule.elements.length>0?'s':'')+'"></div>'
-            // }
-            // r[rule.status] += '</div>';
+            r[rule.status] += '<li data-name="'+rule.name+'" data-index="'+rule.id+'" data-url="'+rule.url+'" class="'+className+(!options[rule.status] ? ' hide' : '')+'" title="'+rule.title+'">';
             r[rule.status] += '<table><tr>';
             r[rule.status] += '<td class="ruleSeverity">';
             var brokeRules = rule.elements ? (': '+rule.elements.length+' element'+(rule.elements.length>0?'s':'')+' broke this rule.') : '';
@@ -148,7 +154,7 @@ $(document).ready(function() {
                     break;
             }
             r[rule.status] += '</td>';
-            r[rule.status] += '<td class="ruleName">'+rule.name+'</td>';
+            r[rule.status] += '<td class="ruleName">'+camel2Words(rule.name)+'</td>';
             //r[rule.status] += '<td class="ruleMenu"><img src="/images/menu.png" title="Options"></img></td>'
             r[rule.status] += '</tr></table>';
             r[rule.status] += '</li>\n';
@@ -176,6 +182,9 @@ $(document).ready(function() {
                             break;
                         case 'remove' :
                             console.log($(element));
+                            options.banned.push($(element).closest('li').data('name'));
+                            saveOption('banned', options.banned);
+
                             alert('Rule "'+element.innerHTML+'" '+
                                 'has been removed from further audits.\n\n'+
                                 'To restore it, open the Options Page.\n');
@@ -214,8 +223,7 @@ $(document).ready(function() {
                 }
             });
         });
-
-   }
+    }
 
     showClick = function(e) {
         var $e = $(e.toElement).closest('li');
@@ -239,15 +247,17 @@ $(document).ready(function() {
         if(show) $rows.removeClass('hide') 
         else $rows.addClass('hide');
 
-        var obj = {};
-        var key = cls.toUpperCase();
-        obj[key] = show;
-        chrome.storage.sync.set(obj);
-        //chrome.storage.sync.get(null, function (data) { console.info(data) })
-        options[key] = show;
+        saveOption(cls.toUpperCase(), show);
     }
 
-    
+    saveOption = function(key, value) {
+        var obj = {};
+        obj[key] = value;
+        chrome.storage.sync.set(obj);
+        //chrome.storage.sync.get(null, function (data) { console.info(data) })
+        options[key] = value;
+    }
+
     $.each($('img'), function(index, value) {
         $value = $(value);
         $value.attr('src', chrome.extension.getURL($value.attr('src'))).attr('alt', '');

@@ -38,10 +38,44 @@ function restore_options(optionsDfr) {
         }
     });
 
-    getOptions(optionsDfr).done(function(options) {
+    var Background = chrome.extension.getBackgroundPage().Background;
+    Background.getDefaults().done(function(options) {
+    //getOptions(optionsDfr).done(function(options) {
+        console.log(options);
         $('#testPageUrl').val(options.testPageUrl);
         testPageUrlChanged(options.testPageUrl);
+
+        $('#bannedRules option').remove();
+        $.each(options.banned, function(i, rule) {
+            $('#bannedRules').append('<option value="'+rule+'">'+camel2Words(rule)+'</option>');
+        })
+        $('#bannedRules').attr('size', Math.min(10, options.banned.length));
+        $('#bannedRules').change(function() {
+            var $selected = $('#bannedRules option:selected');
+            var count = $selected.length;
+            $('#deleteBtn').prop("disabled", count == 0);
+        })
+        $('#deleteBtn').prop("disabled", true);
+        $('#deleteBtn').click(function(e) {
+            $('#bannedRules option:selected').remove();
+
+            var banned = {};
+            banned['banned'] = $.map($('#bannedRules option'), function(opt) { return opt.value; });
+            chrome.storage.sync.set(banned);
+        });
     });
+}
+
+function camel2Words(str) {
+    var arr = str.split("");
+
+    for (var i = arr.length - 1; i >= 0; i--) {
+        if (arr[i].match(/[A-Z]/)) {
+            arr.splice(i, 0, " ");
+        }
+    }
+    arr[0] = arr[0].toUpperCase();    
+    return arr.join("");
 }
 
 function testPageUrlChanged(val) {

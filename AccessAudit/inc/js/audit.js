@@ -1,17 +1,17 @@
 if(AccessAudit == undefined) {
 	var AccessAudit = function() {
 	    var _private = {
-	 		camel2Words: function(str) {
-			    var arr = str.split("");
+	 	// 	camel2Words: function(str) {
+			//     var arr = str.split("");
 
-			    for (var i = arr.length - 1; i >= 0; i--) {
-			        if (arr[i].match(/[A-Z]/)) {
-			            arr.splice(i, 0, " ");
-			        }
-			    }
-			    arr[0] = arr[0].toUpperCase();    
-			    return arr.join("");
-			},
+			//     for (var i = arr.length - 1; i >= 0; i--) {
+			//         if (arr[i].match(/[A-Z]/)) {
+			//             arr.splice(i, 0, " ");
+			//         }
+			//     }
+			//     arr[0] = arr[0].toUpperCase();    
+			//     return arr.join("");
+			// },
 
 			results: [],
 
@@ -133,7 +133,7 @@ if(AccessAudit == undefined) {
 							    var result = {
 							    	id: 'AccessAudit'+id++,
 									status: audit.result, 
-									name: _private.camel2Words(audit.rule.name),
+									name: audit.rule.name,
 									title: title,
 									severity: audit.rule.severity,
 									url: audit.rule.url

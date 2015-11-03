@@ -1,40 +1,25 @@
 var Background = Background || {};
 
-Background.getOptionOrDefault = function(a, option, value) {
-    if(a[option] == undefined) {
-        a[option] = value;
+Background.getOptionOrDefault = function(data, option, value) {
+    if(data[option] == undefined) {
+        data[option] = value;
     }
-    return a[option];
+    return data[option];
 };
 
 Background.getDefaults = function() {
     var dfr = $.Deferred();
     chrome.storage.sync.get(null,
-    function(a) {
+    function(data) {
         options = {
-            testPageUrl : Background.getOptionOrDefault(a, 'testPageUrl', ''),
-            PASS : Background.getOptionOrDefault(a, 'PASS', true),
-            NA : Background.getOptionOrDefault(a, 'NA', false),
+            testPageUrl : Background.getOptionOrDefault(data, 'testPageUrl', ''),
+            PASS : Background.getOptionOrDefault(data, 'PASS', true),
+            NA : Background.getOptionOrDefault(data, 'NA', false),
+            banned : Background.getOptionOrDefault(data, 'banned', []),
             FAIL : true
         };
         dfr.resolve(options);
     });
     return dfr.promise();
 };
-
-
-chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
-    //sendResponse(req);
-    switch (req.type) {
-        case 'get-defaults':
-            //sendResponse(req);
-            //Background.
-            Background.getDefaults().done(function(options) {
-                console.log(options)
-                sendResponse(options);
-            });
-            break;
-    }}
-);
-
 
