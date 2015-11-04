@@ -27,7 +27,7 @@
   "options_page": "/inc/html/options.html",
 
   "permissions": [
-    "tabs", "activeTab", "<all_urls>", "storage", "contentSettings", "clipboardRead", "clipboardWrite"
+    "tabs", "activeTab", "<all_urls>", "https://*/*", "storage", "contentSettings", "clipboardRead", "clipboardWrite"
   ],
 
   "web_accessible_resources": [
@@ -42,6 +42,7 @@
     "/inc/boostrap/css/*.*",
     "/inc/boostrap/fonts/*.*",
     "/inc/boostrap/js/*.*"
+    
   ]
 
 }

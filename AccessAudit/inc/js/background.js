@@ -18,6 +18,9 @@ Background.getDefaults = function() {
             banned : Background.getOptionOrDefault(data, 'banned', []),
             FAIL : true
         };
+        if(options.testPageUrl == '') {
+            options.testPageUrl = 'http://apps.esri.ca/templates/WCAGViewer/index.html';
+        }
         dfr.resolve(options);
     });
     return dfr.promise();

@@ -51,22 +51,8 @@ $(document).ready(function() {
         return dfr.promise();
     }
 
-    getTestPageUrl = function() {
-        var dfr = $.Deferred();
-        var tpu = 'http://apps.esri.ca/templates/WCAGViewer/index.html';
-        chrome.storage.sync.get('testPageUrl', function(a) {
-            if(a['testPageUrl'] && a['testPageUrl'] != undefined && a['testPageUrl'] != '') {
-                tpu = a['testPageUrl'];
-            }
-            dfr.resolve(tpu);
-        });
-        return dfr.promise();
-    }
-
     openTestPage = function(e) {
-        getTestPageUrl().done(function(testPageUrl) {
-            window.open(testPageUrl);
-        });
+        window.open(options.testPageUrl,'_blank');
     }
 
     openOptionsPage = function(e) {
@@ -96,9 +82,9 @@ $(document).ready(function() {
                             }, {
                                 allFrames: true,
                                 file: true,
-                                content: "/inc/js/axs_testing.js"
-                            }, 
-                            {
+                                content: "/inc/js/axs_testing.js" 
+                                    // "https://raw.githubusercontent.com/GoogleChrome/accessibility-developer-tools/stable/dist/js/axs_testing.js"
+                            }, {
                                 allFrames: true,
                                 file: true,
                                 content: "/inc/js/audit.js"
@@ -106,7 +92,7 @@ $(document).ready(function() {
                             ], $.Deferred()).done(
                                 function() {
                                     try {
-                                        chrome.tabs.sendMessage(tabId, {type:'Audit'}, function(results) { 
+                                        chrome.tabs.sendMessage(tabId, {type:'Audit', banned:options.banned}, function(results) { 
                                             showResults(results); 
                                         });
                                     } catch (e) {alert(e.message);}

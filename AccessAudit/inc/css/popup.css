@@ -104,6 +104,7 @@ h1 span {
     margin:0px;
     padding:0;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 #resultsList ul li div {

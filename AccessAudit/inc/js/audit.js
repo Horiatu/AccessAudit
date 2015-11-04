@@ -116,7 +116,9 @@ if(AccessAudit == undefined) {
 				    		break;
 				        case 'Audit':
 							var configuration = new axs.AuditConfiguration();
-							//configuration.ignoreSelectors('lowContrastElements', '.pretty');
+							$.each(req.banned, function(i, rule) {
+								configuration.ignoreSelectors(rule,'*');
+							});
 							configuration.showUnsupportedRulesWarning = false;
 							var audits = axs.Audit.run(configuration);
 							//console.log(audits);
