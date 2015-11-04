@@ -10,9 +10,18 @@ $(document).ready(function() {
         window.open($('#testPageUrl').val());
     })
 
-    restore_options($.Deferred());
+    restore_options().done();
 });
 
+function loadAPItext(url) {
+    $.ajax({
+        url : url,
+        dataType: "text",
+        success : function (data) {
+            $("#APItext").text(data);
+        }
+    });
+}
 function addCssClass(className, classValue, styleId) {
     if(!styleId) styleId='css-modifier-container';
     if ($('#'+styleId).length == 0) {
@@ -29,15 +38,7 @@ function getOptions(optionsDfr) {
         
 
 // Restores select box state to saved value from localStorage.
-function restore_options(optionsDfr) {
-    chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
-        switch (req.type) {
-            case 'defaults':
-                optionsDfr.resolve(req);
-                break;
-        }
-    });
-
+function restore_options() {
     var Background = chrome.extension.getBackgroundPage().Background;
     Background.getDefaults().done(function(options) {
         console.log(options);
@@ -64,6 +65,19 @@ function restore_options(optionsDfr) {
             banned['banned'] = $.map($('#bannedRules option'), function(opt) { return opt.value; });
             chrome.storage.sync.set(banned);
         });
+
+        
+        switch (options.API) {
+            case 'Internal' : 
+                loadAPItext("/inc/js/axs_testing.js");
+                break;
+            case 'Latest' : 
+                loadAPItext("https://raw.github.com/GoogleChrome/accessibility-developer-tools/stable/dist/js/axs_testing.js");
+                break;
+            case 'Custom' : 
+                loadAPItext("F:/GitHub/AccessAudit/AccessAudit/inc/js/axs_testing.js");
+                break;
+        }
     });
 }
 

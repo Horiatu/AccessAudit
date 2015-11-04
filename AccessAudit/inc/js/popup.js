@@ -75,21 +75,29 @@ $(document).ready(function() {
                         } else {
                             tabId = tab.id;
 
-                            loadScripts(tab.id, [{
-                                allFrames: true,
-                                file: true,
-                                content: "/inc/js/jquery-2.1.4.min.js"
-                            }, {
-                                allFrames: true,
-                                file: true,
-                                content: "/inc/js/axs_testing.js" 
-                                    // "https://raw.githubusercontent.com/GoogleChrome/accessibility-developer-tools/stable/dist/js/axs_testing.js"
-                            }, {
-                                allFrames: true,
-                                file: true,
-                                content: "/inc/js/audit.js"
-                            }
-                            ], $.Deferred()).done(
+                            var apiCode = '';
+                            $.ajax({
+                                url : "/inc/js/axs_testing.js",
+                                    //"https://raw.githubusercontent.com/GoogleChrome/accessibility-developer-tools/stable/dist/js/axs_testing.js",
+                                    //"F:/GitHub/AccessAudit/AccessAudit/inc/js/axs_testing.js",
+                                dataType: "text",
+                                success : function (data) {
+                                   apiCode=data;
+
+                                    loadScripts(tab.id, [{
+                                        allFrames: true,
+                                        file: true,
+                                        content: "/inc/js/jquery-2.1.4.min.js"
+                                    }, {
+                                        allFrames: true,
+                                        file: false,
+                                        content: apiCode
+                                    }, {
+                                        allFrames: true,
+                                        file: true,
+                                        content: "/inc/js/audit.js"
+                                    }
+                                    ], $.Deferred()).done(
                                 function() {
                                     try {
                                         chrome.tabs.sendMessage(tabId, {type:'Audit', banned:options.banned}, function(results) { 
@@ -97,6 +105,8 @@ $(document).ready(function() {
                                         });
                                     } catch (e) {alert(e.message);}
                                 });
+                                }
+                            });
                         }
                     }
                 );
