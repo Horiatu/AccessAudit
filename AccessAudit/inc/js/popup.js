@@ -52,7 +52,7 @@ $(document).ready(function() {
     }
 
     openTestPage = function(e) {
-        window.open(options.testPageUrl,'_blank');
+        window.open((options.testPageUrl=='') ? options.defaultTestPage : options.testPageUrl,'_blank');
     }
 
     openOptionsPage = function(e) {

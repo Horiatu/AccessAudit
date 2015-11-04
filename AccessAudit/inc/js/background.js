@@ -12,15 +12,13 @@ Background.getDefaults = function() {
     chrome.storage.sync.get(null,
     function(data) {
         options = {
+            defaultTestPage: 'http://apps.esri.ca/templates/WCAGViewer/index.html',
             testPageUrl : Background.getOptionOrDefault(data, 'testPageUrl', ''),
             PASS : Background.getOptionOrDefault(data, 'PASS', true),
             NA : Background.getOptionOrDefault(data, 'NA', false),
             banned : Background.getOptionOrDefault(data, 'banned', []),
             FAIL : true
         };
-        if(options.testPageUrl == '') {
-            options.testPageUrl = 'http://apps.esri.ca/templates/WCAGViewer/index.html';
-        }
         dfr.resolve(options);
     });
     return dfr.promise();

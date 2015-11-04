@@ -40,11 +40,12 @@ function restore_options(optionsDfr) {
 
     var Background = chrome.extension.getBackgroundPage().Background;
     Background.getDefaults().done(function(options) {
-    //getOptions(optionsDfr).done(function(options) {
         console.log(options);
-        $('#testPageUrl').val(options.testPageUrl);
+        $('#testPageUrl')
+            .attr('placeholder', options.defaultTestPage)
+            .val(options.testPageUrl);
         testPageUrlChanged(options.testPageUrl);
-
+        
         $('#bannedRules option').remove();
         $.each(options.banned, function(i, rule) {
             $('#bannedRules').append('<option value="'+rule+'">'+camel2Words(rule)+'</option>');
