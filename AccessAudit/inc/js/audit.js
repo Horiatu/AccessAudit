@@ -1,3 +1,4 @@
+//alert(0);
 if(AccessAudit == undefined) {
 	var AccessAudit = function() {
 	    var _private = {
@@ -17,7 +18,7 @@ if(AccessAudit == undefined) {
 
 			injectCss: function() {
 	            if(!document.getElementById("AccessAuditCss")) {
-	                _private._injectCss('<link id="AccessAuditCss" rel="stylesheet" type="text/css" href="' + chrome.extension.getURL('/inc/css/AccessAudit.css') + '" />');
+	            	_private._injectCss('<link id="AccessAuditCss" rel="stylesheet" type="text/css" href="' + chrome.extension.getURL('/inc/css/AccessAudit.css') + '" />');
 	            }
 	        },
 
@@ -99,7 +100,7 @@ if(AccessAudit == undefined) {
 	 		init: function() {
 	 			_private.injectCss();
 
-				chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
+	 			chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
 				    switch (req.type) {
 				    	case 'RefreshAudit':
 		    				$('.AccessAuditMarker')
@@ -190,7 +191,7 @@ if(AccessAudit == undefined) {
 		}
 
 	    return _public;
-	}();
+	}
 
-	AccessAudit.init();
+	AccessAudit().init();
 }

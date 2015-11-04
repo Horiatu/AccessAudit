@@ -131,14 +131,19 @@ $(document).ready(function() {
             r[rule.status] += '<table><tr>';
             r[rule.status] += '<td class="ruleSeverity">';
             var brokeRules = rule.elements ? (': '+rule.elements.length+' element'+(rule.elements.length>0?'s':'')+' broke this rule.') : '';
+            var title = rule.status=='FAIL' ? '' : 'Would be ';
+            var img ='';
             switch (rule.severity) {
                 case 'Severe' : 
-                    r[rule.status] += '<img src="/images/severe.png" title="Severe'+brokeRules+'"></img>'
+                    title +='Severe';
+                    img = 'severe';
                     break;
                 case 'Warning' :
-                    r[rule.status] += '<img src="/images/warning.png" title="Warning'+brokeRules+'"></img>'
+                    title +='Warning';
+                    img = 'warning';
                     break;
             }
+            r[rule.status] += '<img src="/images/'+img+'.png" title="'+title+brokeRules+'"></img>'
             r[rule.status] += '</td>';
             r[rule.status] += '<td class="ruleName">'+camel2Words(rule.name)+'</td>';
             //r[rule.status] += '<td class="ruleMenu"><img src="/images/menu.png" title="Options"></img></td>'
@@ -152,16 +157,16 @@ $(document).ready(function() {
         $('#resultsList').html('<ul>'+r.FAIL+r.PASS+r.NA+'</ul>');
         $('.fail .ruleSeverity').click(showClick);
         $('.fail .ruleName').click(showClick);
- 
+
+        $('.pass .ruleSeverity img').css('opacity', 0.25);
+        $('.na .ruleSeverity img').css('opacity', 0.25);
+
          $(function() {
             var context = $('#resultsList').nuContextMenu({
 
                 items: '.ruleName',
 
                 callback: function(key, element) {
-                    //alert('Clicked ' + key + ' on ' + $(element).attr('id'));
-                    // console.log($(element).closest('li').data('index'));
-                    // console.log($(element).closest('li').data('url'));
                     switch (key) {
                         case 'info' :
                             window.open($(element).closest('li').data('url'),'_blank');
@@ -183,10 +188,7 @@ $(document).ready(function() {
                     }
                 },
 
-                // Define menu items here
-                // key: {...}
                 menu: {
-
                     'info': {
                         title: 'Show More Info',
                         // Font awesome icons here
@@ -195,16 +197,12 @@ $(document).ready(function() {
 
                     'remove': {
                         title: 'Remove from Tests',
-                        //icon: 'check',
                     },
 
-                    // If the value is 'separator' then an 
-                    // <hr> node is added
                     'void': 'separator',
 
                     'cancel': {
                         title: 'Cancel',
-                        //icon: 'trash',
                     },
                 }
             });
@@ -263,6 +261,7 @@ $(document).ready(function() {
                     if (err) {
                         alert(err);
                     } else {
+
                         tabId = tab.id;
                         var Background = chrome.extension.getBackgroundPage().Background;
                         Background.getDefaults().done(function(response) {
