@@ -77,7 +77,8 @@ $(document).ready(function() {
 
                             var apiCode = '';
                             $.ajax({
-                                url : "/inc/js/axs_testing.js",
+                                url : (options.API=="Internal") ? options.InternalAPI : (options.API=="Latest") ? options.LatestAPI : options.CustomAPI,
+                                    //"/inc/js/axs_testing.js",
                                     //"https://raw.githubusercontent.com/GoogleChrome/accessibility-developer-tools/stable/dist/js/axs_testing.js",
                                     //"F:/GitHub/AccessAudit/AccessAudit/inc/js/axs_testing.js",
                                 dataType: "text",
@@ -103,7 +104,8 @@ $(document).ready(function() {
                                         });
                                     } catch (e) {alert(e.message);}
                                 });
-                                }
+                                },
+                                error : function(e) { console.log({ajax:e})}
                             });
                         }
                     }

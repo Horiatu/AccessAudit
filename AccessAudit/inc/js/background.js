@@ -19,6 +19,8 @@ Background.getDefaults = function() {
             NA : Background.getOptionOrDefault(data, 'NA', false),
             banned : Background.getOptionOrDefault(data, 'banned', []),
             API : Background.getOptionOrDefault(data, 'API', 'Internal'),
+            InternalAPI : "/inc/js/axs_testing.js",
+            LatestAPI: "https://raw.github.com/GoogleChrome/accessibility-developer-tools/stable/dist/js/axs_testing.js",
             CustomAPI : Background.getOptionOrDefault(data, 'CustomAPI', '')
         };
         dfr.resolve(options);

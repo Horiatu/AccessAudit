@@ -105,10 +105,10 @@ function showAPI(option) {
     var file = '';
     switch (option) {
         case 'Internal' : 
-            file = "/inc/js/axs_testing.js";
+            file = Options.InternalAPI;
             break;
         case 'Latest' : 
-            file = "https://raw.github.com/GoogleChrome/accessibility-developer-tools/stable/dist/js/axs_testing.js";
+            file = Options.LatestAPI;
             break;
         case 'Custom' : 
             file = Options.CustomAPI;
