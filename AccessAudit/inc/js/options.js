@@ -10,16 +10,20 @@ $(document).ready(function() {
         window.open($('#testPageUrl').val());
     })
 
-    restore_options().done();
+    restore_options()
 });
 
 function loadAPItext(url) {
-    $.ajax({
+    return $.ajax({
         url : url,
-        dataType: "text",
-        success : function (data) {
-            $("#APItext").text(data);
-        }
+        dataType: "text"
+        //,
+        // success : function (data) {
+        //     $("#APItext").text(data).css('color', 'Black').removeAttr('data-error');
+        // },
+        // error: function(e) {
+        //     $("#APItext").text('\nFile not found.').css('color', 'red').attr('data-error', 'true');
+        // }
     });
 }
 function addCssClass(className, classValue, styleId) {
@@ -36,11 +40,12 @@ function getOptions(optionsDfr) {
     return optionsDfr.promise();
 };
         
-
+var Options = null;
 // Restores select box state to saved value from localStorage.
 function restore_options() {
     var Background = chrome.extension.getBackgroundPage().Background;
     Background.getDefaults().done(function(options) {
+        Options = options;
         console.log(options);
         $('#testPageUrl')
             .attr('placeholder', options.defaultTestPage)
@@ -66,18 +71,55 @@ function restore_options() {
             chrome.storage.sync.set(banned);
         });
 
-        
-        switch (options.API) {
-            case 'Internal' : 
-                loadAPItext("/inc/js/axs_testing.js");
-                break;
-            case 'Latest' : 
-                loadAPItext("https://raw.github.com/GoogleChrome/accessibility-developer-tools/stable/dist/js/axs_testing.js");
-                break;
-            case 'Custom' : 
-                loadAPItext("F:/GitHub/AccessAudit/AccessAudit/inc/js/axs_testing.js");
-                break;
-        }
+        $('#APIcb'+options.API).prop('checked', true);
+        $('#CustomAPI')
+        .toggle(options.API=='Custom')
+        .val(options.CustomAPI)
+        .on('input', function() {
+            var customAPI = $('#CustomAPI').val();
+            try {
+                loadAPItext(customAPI)
+                .success(function (data) {
+                    $("#APItext").text(data).css('color', 'Black');
+                    chrome.storage.sync.set({CustomAPI:customAPI});
+                })
+                .error(function(e) {
+                    $("#APItext").text('\nFile not found.').css('color', 'red');
+                });
+            } catch (e) {
+                console.log(e);
+                $("#APItext").text('');
+            }
+        });
+        $('input[type=radio][name=api]').change(function() {
+            var isChk = $(this).is(':checked');
+            chrome.storage.sync.set({API:$(this).val()});
+            $('#CustomAPI').toggle($(this).attr('id')=='APIcbCustom' && isChk);
+            showAPI($(this).val());
+        });
+        showAPI(options.API);
+    });
+}
+
+function showAPI(option) {
+    var file = '';
+    switch (option) {
+        case 'Internal' : 
+            file = "/inc/js/axs_testing.js";
+            break;
+        case 'Latest' : 
+            file = "https://raw.github.com/GoogleChrome/accessibility-developer-tools/stable/dist/js/axs_testing.js";
+            break;
+        case 'Custom' : 
+            file = Options.CustomAPI;
+            break;
+    }
+    loadAPItext(file)
+    .success(function (data) {
+        $("#APItext").text(data).css('color', 'Black');
+    })
+    .error(function(e) {
+        $("#APItext").text('\nFile not found.').css('color', 'red');
     });
 }
 

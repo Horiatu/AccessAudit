@@ -23,9 +23,14 @@
                 <div class="controls">
                     <label>Get API code </label><a href="https://github.com/GoogleChrome/accessibility-developer-tools" target="_blank">here (Accessibility Developer Tools)</a>
                     <br/>
-                    <input type="radio" name="api" value="Internal"/>Internal<br/>
-                    <input type="radio" name="api" value="Latest"/>Latest<br/>
-                    <input type="radio" name="api" value="Custom"/>Custom<br/>
+                    <input type="radio" name="api" id="APIcbInternal" value="Internal"/><label for="APIInternal">Internal</label><br/>
+                    <input type="radio" name="api" id="APIcbLatest" value="Latest"/><label for="APILatest">Latest stable</label><br/>
+                    <input type="radio" name="api" id="APIcbCustom" value="Custom"/><label for="APICustom">Custom</label>
+                    
+                    <input type="text" id="CustomAPI" style="width:100%; display: none;" />
+                    
+                    <br/>
+                    <br/>
                     <textarea id="APItext" rows="3" style="width:100%; background: lightgray;" readonly="true">
                     </textarea>
                 </div>
@@ -40,7 +45,7 @@
                     <p>Select multiple options using the <kbd>Ctrl</kbd> key and click, or click and select all with <kbd>Ctrl</kbd>+<kbd>a</kbd>.</p>
                     <select id="bannedRules" multiple style="width:100%">
                     </select>
-
+                    <br/><br/>
                     <button id="deleteBtn" title="Restore Selected Rules">
                         <!-- <img src="/images/audit.png" alt="audit"></img> -->
                         <span>Restore</span>

@@ -18,7 +18,8 @@ Background.getDefaults = function() {
             PASS : Background.getOptionOrDefault(data, 'PASS', true),
             NA : Background.getOptionOrDefault(data, 'NA', false),
             banned : Background.getOptionOrDefault(data, 'banned', []),
-            API : Background.getOptionOrDefault(data, 'API', 'Internal');
+            API : Background.getOptionOrDefault(data, 'API', 'Internal'),
+            CustomAPI : Background.getOptionOrDefault(data, 'CustomAPI', '')
         };
         dfr.resolve(options);
     });

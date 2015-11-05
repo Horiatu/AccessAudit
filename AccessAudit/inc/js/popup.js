@@ -81,9 +81,7 @@ $(document).ready(function() {
                                     //"https://raw.githubusercontent.com/GoogleChrome/accessibility-developer-tools/stable/dist/js/axs_testing.js",
                                     //"F:/GitHub/AccessAudit/AccessAudit/inc/js/axs_testing.js",
                                 dataType: "text",
-                                success : function (data) {
-                                   apiCode=data;
-
+                                success : function (apiCode) {
                                     loadScripts(tab.id, [{
                                         allFrames: true,
                                         file: true,
