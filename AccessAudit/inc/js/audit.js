@@ -94,11 +94,62 @@ if(AccessAudit == undefined) {
 			    return elements;
 			},
 
+	        addFilters: function(e) {
+	            if(!document.getElementById("svgFilters")) {
+	                var s = 
+	                    "<svg id='svgFilters' xmlns='http://www.w3.org/2000/svg' style='display:none'>\n"+
+						// "	<filter id='fancy-goo'>\n"+
+						// "	  <feGaussianBlur in='SourceGraphic' stdDeviation='10' result='blur' />\n"+
+						// "	  <feColorMatrix in='blur' mode='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9' result='goo' />\n"+
+						// "	  <feComposite in='SourceGraphic' in2='goo' operator='atop'/>\n"+
+						// "	</filter>\n"+
+						"    <filter id='pinkish'>\n"+
+	                    "        <feColorMatrix type='matrix' values='0.393 0.769 0.189 0 0  0.272 0.534 0.131 0 0  0.272 0.534 0.131 0 0  0     0     0     0.95 0'/>\n"+
+	                    "    </filter>\n"+
+						"    <filter id='blueish'>\n"+
+	                    "        <feColorMatrix type='matrix' values='0.272 0.534 0.131 0 0  0.272 0.534 0.131 0 0  0.393 0.769 0.189 0 0  0     0     0     0.95 0'/>\n"+
+	                    "    </filter>\n"+
+						// "    <filter id='protanopia'>\n"+
+	     //                "        <feColorMatrix type='matrix' values='0.56667 0.43333 0.00000 0 0 0.55833 0.44167 0.00000 0 0 0.00000 0.24167 0.75833 0 0 0 0 0 1 0'/>\n"+
+	     //                "    </filter>\n"+
+	     //                "    <filter id='protanomaly'>\n"+
+	     //                "        <feColorMatrix type='matrix' values='0.817 0.183 0 0 0 0.333 0.667 0 0 0 0 0.125 0.875 0 0 0 0 0 1 0'/>\n"+
+	     //                "    </filter>\n"+
+	     //                "    <filter id='deuteranopia'>\n"+
+	     //                "        <feColorMatrix type='matrix' values='0.4251 0.6934 -0.1147 0 0 0.3417 0.5882 0.0692 0 0 -0.0105 0.0234 0.9870 0 0 0 0 0 1 0'/>\n"+
+	     //                "    </filter>\n"+
+	     //                "    <filter id='deuteranomaly'>\n"+
+	     //                "        <feColorMatrix type='matrix' values='0.8 0.2 0 0 0 0.258 0.742 0 0 0 0 0.142 0.858 0 0 0 0 0 1 0'/>\n"+
+	     //                "    </filter>\n"+
+	     //                "    <filter id='tritanopia'>\n"+
+	     //                "        <feColorMatrix type='matrix' values='0.95000 0.05000 0.00000 0 0 0.00000 0.43333 0.56700 0 0 0.00000 0.47500 0.52500 0 0 0 0 0 1 0'/>\n"+
+	     //                "    </filter>\n"+
+	     //                "    <filter id='tritanomaly'>\n"+
+	     //                "        <feColorMatrix type='matrix' values='0.967 0.033 0 0 0 0 0.733 0.267 0 0 0 0.183 0.817 0 0 0 0 0 1 0'/>\n"+
+	     //                "    </filter>\n"+
+	     //                "    <filter id='achromatopsia'>\n"+
+	     //                "        <feColorMatrix type='matrix' values='0.299 0.587 0.114 0 0 0.299 0.587 0.114 0 0 0.299 0.587 0.114 0 0 0 0 0 1 0'/>\n"+
+	     //                "    </filter>\n"+
+	     //                "    <filter id='achromatomaly'>\n"+
+	     //                "        <feColorMatrix type='matrix' values='0.618 0.320 0.062 0 0 0.163 0.775 0.062 0 0 0.163 0.320 0.516 0 0 0 0 0 1 0'/>\n"+
+	     //                "    </filter>\n"+
+	     //                "    <filter id='normalFilter'>\n"+
+	     //                "        <feColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0'/>\n"+
+	     //                "    </filter>\n"+
+	                    "</svg>";
+
+	                $("body").append(s);
+	            }
+	        },
+
+
 		}
 
 	    var _public = {
 	 		init: function() {
 	 			_private.injectCss();
+
+	 			_private.addFilters();
 
 	 			chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
 				    switch (req.type) {
