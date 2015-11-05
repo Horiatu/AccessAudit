@@ -208,6 +208,7 @@ if(AccessAudit == undefined) {
 				    					$('#svgFilters').remove();
 				    					$('#AccessAuditCss').remove();
 				        			}
+						                jQuery(document).unbind('keydown').unbind('keyup');
 						        	sendResponse(0);
 				        			break;
 				        		case false :
@@ -226,6 +227,17 @@ if(AccessAudit == undefined) {
 											_private.injectCss();
 											_private.addFilters();
 						                }
+						                jQuery(document)
+						                .bind('keydown',function(e){
+   											if (e.ctrlKey) {
+   												$("#AccessAuditOvr").hide();
+   											}
+   										})
+						                .bind('keyup',function(e){
+   											if (!e.ctrlKey) {
+   												$("#AccessAuditOvr").show();
+   											}
+   										})
 
 						        		sendResponse(1);
 					        		}
