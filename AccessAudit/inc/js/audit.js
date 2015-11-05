@@ -229,15 +229,24 @@ if(AccessAudit == undefined) {
 						                }
 						                jQuery(document)
 						                .bind('keydown',function(e){
-   											if (e.ctrlKey) {
+   											if (
+   												(e.ctrlKey || req.controlKeys.indexOf("keyCtrl")==-1) &&
+   												(e.altKey || req.controlKeys.indexOf("keyAlt")==-1) &&
+   												(e.shiftKey || req.controlKeys.indexOf("keyShift")==-1)
+   											) {
    												$("#AccessAuditOvr").hide();
+   												$('#AccessAuditInfo').remove();
    											}
    										})
 						                .bind('keyup',function(e){
-   											if (!e.ctrlKey) {
+   											if (
+   												(!e.ctrlKey || req.controlKeys.indexOf("keyCtrl")==-1) &&
+   												(!e.altKey || req.controlKeys.indexOf("keyAlt")==-1) &&
+   												(!e.shiftKey || req.controlKeys.indexOf("keyShift")==-1)
+   											) {
    												$("#AccessAuditOvr").show();
    											}
-   										})
+   										});
 
 						        		sendResponse(1);
 					        		}

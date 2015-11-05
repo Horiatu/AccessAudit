@@ -227,6 +227,7 @@ $(document).ready(function() {
                 type:'Lookup', 
                 index:index, 
                 hide: hide,
+                controlKeys : options.controlKeys,
             }, function(results) { 
                 $e.toggleClass('hideElements');
             }

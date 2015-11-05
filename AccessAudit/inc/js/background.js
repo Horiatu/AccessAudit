@@ -21,7 +21,8 @@ Background.getDefaults = function() {
             API : Background.getOptionOrDefault(data, 'API', 'Internal'),
             InternalAPI : "/inc/js/axs_testing.js",
             LatestAPI: "https://raw.github.com/GoogleChrome/accessibility-developer-tools/stable/dist/js/axs_testing.js",
-            CustomAPI : Background.getOptionOrDefault(data, 'CustomAPI', '')
+            CustomAPI : Background.getOptionOrDefault(data, 'CustomAPI', ''),
+            controlKeys : Background.getOptionOrDefault(data, 'controlKeys', ['keyCtrl'])
         };
         dfr.resolve(options);
     });
