@@ -50,6 +50,22 @@ if(AccessAudit == undefined) {
 			    		code += '<div style="max-width:300px;">'+element.attributes['data-aadescription'].value+'</div>';
 			    		$('#AccessAuditInfo').append("<div class='infoElement'>"+code+"</div>");
 			    	})
+
+			    	$.each($('.infoElement'), function(i, element){
+			    		var $el = $(els[i]);
+			    		$(element).hover(
+			    			function() {
+			    				$(els).removeClass("AccessAuditMarker");
+						    	$( this ).addClass("highlightInfo");
+						    	$el.addClass("AccessAuditHighlight");	
+							}, 
+							function() {
+								$(els).addClass("AccessAuditMarker");
+								$( this ).removeClass("highlightInfo");
+						    	$el.removeClass("AccessAuditHighlight");	
+							}
+						)
+			    	});
 			        
 			        var d = 4;
 			        var W = window.innerWidth;
@@ -94,7 +110,7 @@ if(AccessAudit == undefined) {
 			    return elements;
 			},
 
-	        addFilters: function(e) {
+	        addFilters: function() {
 	            if(!document.getElementById("svgFilters")) {
 	                var s = 
 	                    "<svg id='svgFilters' xmlns='http://www.w3.org/2000/svg' style='display:none'>\n"+
@@ -109,40 +125,11 @@ if(AccessAudit == undefined) {
 						"    <filter id='blueish'>\n"+
 	                    "        <feColorMatrix type='matrix' values='0.272 0.534 0.131 0 0  0.272 0.534 0.131 0 0  0.393 0.769 0.189 0 0  0     0     0     0.95 0'/>\n"+
 	                    "    </filter>\n"+
-						// "    <filter id='protanopia'>\n"+
-	     //                "        <feColorMatrix type='matrix' values='0.56667 0.43333 0.00000 0 0 0.55833 0.44167 0.00000 0 0 0.00000 0.24167 0.75833 0 0 0 0 0 1 0'/>\n"+
-	     //                "    </filter>\n"+
-	     //                "    <filter id='protanomaly'>\n"+
-	     //                "        <feColorMatrix type='matrix' values='0.817 0.183 0 0 0 0.333 0.667 0 0 0 0 0.125 0.875 0 0 0 0 0 1 0'/>\n"+
-	     //                "    </filter>\n"+
-	     //                "    <filter id='deuteranopia'>\n"+
-	     //                "        <feColorMatrix type='matrix' values='0.4251 0.6934 -0.1147 0 0 0.3417 0.5882 0.0692 0 0 -0.0105 0.0234 0.9870 0 0 0 0 0 1 0'/>\n"+
-	     //                "    </filter>\n"+
-	     //                "    <filter id='deuteranomaly'>\n"+
-	     //                "        <feColorMatrix type='matrix' values='0.8 0.2 0 0 0 0.258 0.742 0 0 0 0 0.142 0.858 0 0 0 0 0 1 0'/>\n"+
-	     //                "    </filter>\n"+
-	     //                "    <filter id='tritanopia'>\n"+
-	     //                "        <feColorMatrix type='matrix' values='0.95000 0.05000 0.00000 0 0 0.00000 0.43333 0.56700 0 0 0.00000 0.47500 0.52500 0 0 0 0 0 1 0'/>\n"+
-	     //                "    </filter>\n"+
-	     //                "    <filter id='tritanomaly'>\n"+
-	     //                "        <feColorMatrix type='matrix' values='0.967 0.033 0 0 0 0 0.733 0.267 0 0 0 0.183 0.817 0 0 0 0 0 1 0'/>\n"+
-	     //                "    </filter>\n"+
-	     //                "    <filter id='achromatopsia'>\n"+
-	     //                "        <feColorMatrix type='matrix' values='0.299 0.587 0.114 0 0 0.299 0.587 0.114 0 0 0.299 0.587 0.114 0 0 0 0 0 1 0'/>\n"+
-	     //                "    </filter>\n"+
-	     //                "    <filter id='achromatomaly'>\n"+
-	     //                "        <feColorMatrix type='matrix' values='0.618 0.320 0.062 0 0 0.163 0.775 0.062 0 0 0.163 0.320 0.516 0 0 0 0 0 1 0'/>\n"+
-	     //                "    </filter>\n"+
-	     //                "    <filter id='normalFilter'>\n"+
-	     //                "        <feColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0'/>\n"+
-	     //                "    </filter>\n"+
 	                    "</svg>";
 
 	                $("body").append(s);
 	            }
 	        },
-
-
 		}
 
 	    var _public = {
@@ -158,10 +145,13 @@ if(AccessAudit == undefined) {
 			        			.removeAttr('data-AAtitle')
 								.removeAttr('data-AAdescription')
 		        				.removeClass('AccessAuditMarker')
+		        				.removeClass('AccessAuditHighlight')
 		        				.removeClass('.AccessAudit*');
 
 				    		$('#AccessAuditOvr').remove();
 				    		$('#AccessAuditInfo').remove();
+				    		$('#svgFilters').remove();
+				    		$('#AccessAuditCss').remove();
 
 				    		if(_private.results != undefined && _private.results && _private.results.length>0)
 				    			sendResponse(_private.results);
@@ -209,10 +199,14 @@ if(AccessAudit == undefined) {
 					        			.removeAttr('data-AAtitle')
 										.removeAttr('data-AAdescription')
 				        				.removeClass('AccessAuditMarker')
+				        				.removeClass('AccessAuditHighlight')
 				        				.removeClass(ndx)
-				        			if($('.AccessAuditMarker').length==0 && document.getElementById("AccessAuditOvr")) {
+				        			if($('.AccessAuditMarker, .AccessAuditHighlight').length==0 && document.getElementById("AccessAuditOvr")) {
 				        				$("#AccessAuditOvr").unbind("click");
 				        				$("#AccessAuditOvr").remove();
+				        				$('#AccessAuditInfo').remove();
+				    					$('#svgFilters').remove();
+				    					$('#AccessAuditCss').remove();
 				        			}
 						        	sendResponse(0);
 				        			break;
@@ -229,6 +223,8 @@ if(AccessAudit == undefined) {
 										if(!document.getElementById("AccessAuditOvr")) {
 						                    $("body").append('<div id="AccessAuditOvr"></div>');
 											$("#AccessAuditOvr").bind("click", _private.getElementsAtPoint);
+											_private.injectCss();
+											_private.addFilters();
 						                }
 
 						        		sendResponse(1);

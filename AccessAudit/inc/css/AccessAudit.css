@@ -14,10 +14,14 @@
 
 .AccessAuditHighlight {
 	display: inherit !important;
-	background:white;
 	min-width:10px;
 	min-height:10px;
-	-webkit-filter: drop-shadow(0px 0px 2px red) drop-shadow(0px 0px 4px red);
+	---webkit-filter: drop-shadow(0px 0px 2px red) drop-shadow(0px 0px 4px red);
+	box-shadow: red 0px 0px 10px 0px;
+}
+
+.AccessAuditHighlight:not[background-image] {
+	background: white;
 }
 
 #AccessAuditOvr {
@@ -50,4 +54,7 @@
 .infoElement {
 	padding: 4px;
 	border-bottom: 1px solid lightblue;
+}
+.highlightInfo {
+	box-shadow: orangered 0px 0px 10px 0px inset;
 }
