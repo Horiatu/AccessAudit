@@ -156,7 +156,6 @@ $(document).ready(function() {
             r[rule.status] += '<img src="/images/'+img+'.png" title="'+title+brokeRules+'"></img>'
             r[rule.status] += '</td>';
             r[rule.status] += '<td class="ruleName">'+camel2Words(rule.name)+'</td>';
-            //r[rule.status] += '<td class="ruleMenu"><img src="/images/menu.png" title="Options"></img></td>'
             r[rule.status] += '</tr></table>';
             r[rule.status] += '</li>\n';
         })
@@ -171,7 +170,7 @@ $(document).ready(function() {
         $('.pass .ruleSeverity img').css('opacity', 0.25);
         $('.na .ruleSeverity img').css('opacity', 0.25);
 
-         $(function() {
+        $(function() {
             var context = $('#resultsList').nuContextMenu({
 
                 items: '.ruleName',
@@ -217,6 +216,53 @@ $(document).ready(function() {
                 }
             });
         });
+
+        var openReport = function() {
+            var addRule = function(rule) {
+                xml += '<rule id="'+rule.name+'">\n'
+                xml += '<name>'+camel2Words(rule.name)+'</name>\n'
+                xml += '<description>'+rule.title+'</description>\n'
+                xml += '<url><CData>'+rule.url+'</CData></url>\n'
+                if(rule.paths) {
+                    xml += '<elements count="'+rule.paths.length+'">\n'
+                    $.each(rule.paths, function(i, p){
+                        xml += '<xpath><cdata>'+p+'</cdata><xpath>\n'
+                    });
+                    xml += '</elements>\n'
+                }
+                xml += '</rule>\n'
+            }
+            if(!results || results == undefined || results.length == 0)
+                return;
+            var xml = "<?xml version='1.0'?>\n<results>\n";
+
+            var stats = ['FAIL'];
+            if(options.PASS) stats.push('PASS');
+            if(options.NA) stats.push('NA');
+            $.each(stats, function(l,n) {
+                var fs = $(results).filter(function(i,r) {return r.status==n});
+                if(fs.length>0) {
+                    xml += '<'+n+' count="'+fs.length+'">\n'
+                    $.each(['Severe','Warning'], function(j,s) {
+                        var ss = $(fs).filter(function(i,r) {return r.severity==s});
+                        if(ss.length>0) {
+                            xml += '<'+s+' count="'+ss.length+'">\n'
+                            $.each(ss, function(k, rule){
+                                addRule(rule);
+                            });
+                            xml += '</'+s+'>\n'
+                        }
+                    })
+                    xml += '</'+n+'>\n'
+                }
+            })
+            xml += '</results>';
+
+            var wnd = window.open("", "_blank");
+            wnd.document.write(xml);
+        };
+
+        $('#exportBtn').unbind('click').bind('click', openReport);
     }
 
     showClick = function(e) {

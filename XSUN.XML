@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="XSUN.XSL" ?>
+<Contacts>
+  <Country>
+    <CountryName>Canada</CountryName>
+    <CountryCode>CA</CountryCode>
+    <State_Province>
+      <State_ProvinceName Code="AL">Alberta</State_ProvinceName>
+      <State_ProvinceCode>AL</State_ProvinceCode>
+      <Office>
+        <City>Calgary</City>
+        <Address1>1620 - 2A Street NW</Address1>
+        <Address2></Address2>
+        <Zip>T5S1L3</Zip>
+        <Phone1>(403)277-7913</Phone1>
+        <TollFree>(800)295-1131</TollFree>
+        <Registration />
+      </Office>
+      <Office>
+        <City>Edmonton</City>
+        <Address1>10440 176th Street</Address1>
+        <Address2 />
+        <Zip>T5S1L3</Zip>
+        <Phone1>(780)414-1667</Phone1>
+        <TollFree>(888)554-5545</TollFree>
+        <Registration />
+      </Office>
+    </State_Province>
+    <State_Province>
+      <State_ProvinceName Code="BC">BRITISH COLUMBIA</State_ProvinceName>
+      <State_ProvinceCode>BC</State_ProvinceCode>
+      <Office>
+        <City>Vancouver</City>
+        <Address1>301 - 402 West Pender Street</Address1>
+        <Address2 />
+        <Zip>V6B1T6</Zip>
+        <Phone1>(604)688-0444</Phone1>
+        <TollFree>(800)570-4950</TollFree>
+        <Registration>Pacific Sun Holidays B.C. registration no. 2915-3</Registration>
+      </Office>
+      <Office>
+        <City>Surrey</City>
+        <Address1>102 - 14727 108th Street</Address1>
+        <Address2 />
+        <Zip>V3R1V9</Zip>
+        <Phone1>(604)585-6556</Phone1>
+        <TollFree>(877)644-0909</TollFree>
+        <Registration>Pacific Sun Holidays B.C. registration no. 3592-1</Registration>
+      </Office>
+      <Office>
+        <City>Victoria</City>
+        <Address1>311 - 895 Fort Street</Address1>
+        <Address2 />
+        <Zip>V8W/1H7</Zip>
+        <Phone1>(250)405-3420</Phone1>
+        <TollFree>(877)272-7753</TollFree>
+        <Registration>Pacific Sun Holidays B.C. registration no. 3733-2</Registration>
+      </Office>
+    </State_Province>
+  </Country>
+  <Country>
+    <CountryName>UNITED STATES</CountryName>
+    <CountryCode>US</CountryCode>
+    <State_Province>
+      <State_ProvinceName Code="NY">New York</State_ProvinceName>
+      <State_ProvinceCode>NY</State_ProvinceCode>
+      <Office>
+        <City>Buffalo</City>
+        <Address1>2919 Sheridan Drive</Address1>
+        <Address2>Tonawanda</Address2>
+        <Zip>14150</Zip>
+        <Phone1>(716)831-8942</Phone1>
+        <TollFree>(800)994-6603</TollFree>
+        <Registration>operating as TRAVEL DEALS</Registration>
+      </Office>
+    </State_Province>
+  </Country>
+</Contacts>
