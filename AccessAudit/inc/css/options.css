@@ -60,3 +60,11 @@ td {
 #testPageUrl {
   margin-top: -2px;
 }
+
+#resetBtn {
+  float: right;
+  font-size: 18px;
+  display: inline;
+  padding: 4px 14px;
+}
+

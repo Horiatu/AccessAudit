@@ -10,6 +10,13 @@ $(document).ready(function() {
         window.open($('#testPageUrl').val());
     })
 
+    $('#resetBtn').click(function() {
+        if(confirm("Are you sure you want to reset all options?")) { 
+            chrome.storage.sync.clear();
+            window.location.reload(false); 
+        }
+    })
+
     restore_options()
 });
 
@@ -17,15 +24,9 @@ function loadAPItext(url) {
     return $.ajax({
         url : url,
         dataType: "text"
-        //,
-        // success : function (data) {
-        //     $("#APItext").text(data).css('color', 'Black').removeAttr('data-error');
-        // },
-        // error: function(e) {
-        //     $("#APItext").text('\nFile not found.').css('color', 'red').attr('data-error', 'true');
-        // }
     });
 }
+
 function addCssClass(className, classValue, styleId) {
     if(!styleId) styleId='css-modifier-container';
     if ($('#'+styleId).length == 0) {
