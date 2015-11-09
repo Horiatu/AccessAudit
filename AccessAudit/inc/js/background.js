@@ -61,7 +61,7 @@ Background.openReport = function(report, header, footer, cssHref) {
 
         var wnd = window.open('','_blank');
         wnd.document.write($('#work').html());
-        $('#work').clear();
+        $('#work').empty();
     })
     .error(function(e) {
         console.log(e);

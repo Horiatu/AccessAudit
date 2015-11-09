@@ -1,0 +1,11 @@
+#header {
+	border-bottom: 1px solid black;
+}
+
+#report {
+	margin: 10px 0;
+}
+#footer {
+	border-top: 1px solid black;
+	color: gray;
+}
