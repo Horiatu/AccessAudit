@@ -9,3 +9,21 @@
 	border-top: 1px solid gray;
 	color: gray;
 }
+
+ol li {
+	margin-bottom: 4px;
+}
+
+.description {
+	margin-bottom: 0;
+}
+
+.Severe {
+	background-color: pink;
+}
+
+.Warning {
+		background-color: #f0af70;
+}
+
+li:nth-child(odd) { background: #f0f0f0; }

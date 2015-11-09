@@ -220,7 +220,7 @@ $(document).ready(function() {
         var openReport = function() {
             var addRule = function(rule) {
                 //reportBody+='<h4>'+camel2Words(rule.name)+'</h4>';
-                reportBody+='<h4 class="description">'+rule.title+'</h4>';
+                reportBody+='<h4 class="description '+rule.severity+'">'+rule.title+'</h4>';
                 reportBody+='<a class="ruleUrl" href="'+rule.url+'" target="_blank">'+rule.url+'</a>';
                 if(rule.paths) {
                     reportBody += '<p>'+rule.paths.length+' element'+(rule.paths.length!=1?'s':'')+' break'+(rule.paths.length==1?'s':'')+' this rule:</p>';
@@ -258,7 +258,7 @@ $(document).ready(function() {
                 }
             })
 
-            Background.openReport(reportBody,'','<h2>End Report</h2>');
+            Background.openReport(reportBody,'',new Date());
         };
 
         $('#exportBtn').unbind('click').bind('click', openReport);

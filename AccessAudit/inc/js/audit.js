@@ -5,17 +5,17 @@ if(AccessAudit == undefined) {
 			results: [],
 
 			injectCss: function() {
-	            if(!document.getElementById("AccessAuditCss")) {
-	            	_private._injectCss('<link id="AccessAuditCss" rel="stylesheet" type="text/css" href="' + chrome.extension.getURL('/inc/css/AccessAudit.css') + '" />');
-	            }
-	        },
+		        var _injectCss = function(css) {
+		            if ($("head").length == 0) {
+	                    $("body").before(css);
+	                } else {
+	                    $("head").append(css);
+	                }
+		        };
 
-	        _injectCss : function(css) {
-	            if ($("head").length == 0) {
-                    $("body").before(css);
-                } else {
-                    $("head").append(css);
-                }
+	            if(!document.getElementById("AccessAuditCss")) {
+	            	_injectCss('<link id="AccessAuditCss" rel="stylesheet" type="text/css" href="' + chrome.extension.getURL('/inc/css/AccessAudit.css') + '" />');
+	            }
 	        },
 
 	        getElementsAtPoint : function(ev) {
@@ -123,9 +123,11 @@ if(AccessAudit == undefined) {
 			    var allNodes = document.getElementsByTagName('*'); 
 			    for (var segs = []; elm && elm.nodeType == 1; elm = elm.parentNode) 
 			    { 
+			    	if(elm.tagName.toLowerCase()=='html') 
+			    		continue; // !!! make it an option
 			        if (elm.hasAttribute('id')) { 
 			                var uniqueIdCount = 0; 
-			                for (var n=0;n < allNodes.length;n++) { 
+			                for (var n=0; n < allNodes.length; n++) { 
 			                    if (allNodes[n].hasAttribute('id') && allNodes[n].id == elm.id) uniqueIdCount++; 
 			                    if (uniqueIdCount > 1) break; 
 			                }; 
@@ -139,8 +141,9 @@ if(AccessAudit == undefined) {
 			            segs.unshift(elm.localName.toLowerCase() + '[@class="' + elm.getAttribute('class') + '"]'); 
 			        } else { 
 			            for (i = 1, sib = elm.previousSibling; sib; sib = sib.previousSibling) { 
-			                if (sib.localName == elm.localName)  i++; }; 
-			                segs.unshift(elm.localName.toLowerCase() + '[' + i + ']'); 
+			                if (sib.localName == elm.localName)  i++; 
+			            }; 
+			            segs.unshift(elm.localName.toLowerCase() + '[' + i + ']'); 
 			        }; 
 			    }; 
 			    return segs.length ? '/' + segs.join('/') : null; 
