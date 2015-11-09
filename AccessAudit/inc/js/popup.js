@@ -219,8 +219,8 @@ $(document).ready(function() {
 
         var openReport = function() {
             var addRule = function(rule) {
-                xml += '<rule id="'+rule.name+'">\n'
-                xml += '<name>'+camel2Words(rule.name)+'</name>\n'
+                xml += '<rule name="'+rule.name+'">\n'
+                xml += '<title>'+camel2Words(rule.name)+'</title>\n'
                 xml += '<description>'+rule.title+'</description>\n'
                 xml += '<url><CData>'+rule.url+'</CData></url>\n'
                 if(rule.paths) {
@@ -234,8 +234,9 @@ $(document).ready(function() {
             }
             if(!results || results == undefined || results.length == 0)
                 return;
-            var xml = "<?xml version='1.0'?>\n<results>\n";
-
+            var xml = "<?xml version='1.0'?>\n";
+            xml += "<?xml-stylesheet href='"+chrome.extension.getURL('/inc/css/report.xsl')+"' type='text/xsl' ?>\n";
+            xml += '<results>\n'
             var stats = ['FAIL'];
             if(options.PASS) stats.push('PASS');
             if(options.NA) stats.push('NA');
@@ -256,10 +257,12 @@ $(document).ready(function() {
                     xml += '</'+n+'>\n'
                 }
             })
-            xml += '</results>';
+            xml += '</results>\n';
 
-            var wnd = window.open("", "_blank");
+            console.log(xml);
+            var wnd = window.open();
             wnd.document.write(xml);
+
         };
 
         $('#exportBtn').unbind('click').bind('click', openReport);

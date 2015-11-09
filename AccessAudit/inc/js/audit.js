@@ -216,11 +216,9 @@ if(AccessAudit == undefined) {
 									url: audit.rule.url
 								}
 								if(elementsCount>0) {
-									//console.log(audit.elements)
 									result.elements = audit.elements;
 									result.paths = $(audit.elements).map(function(i,e) { 
 										var xpath = _private.createXPathFromElement(e);
-										console.log(xpath);
 										return xpath;
 									});
 								}

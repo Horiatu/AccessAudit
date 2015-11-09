@@ -37,11 +37,12 @@
     "/images/logos/*.png",
     "/images/cursors/*.cur",
     "/inc/css/*.css",
+    "/inc/css/*.xsl",
     "/inc/js/*.js",
     "/inc/html/*.html",
     "/inc/boostrap/css/*.*",
     "/inc/boostrap/fonts/*.*",
     "/inc/boostrap/js/*.*"
   ]
-  
+
 }
