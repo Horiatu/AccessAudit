@@ -219,49 +219,60 @@ $(document).ready(function() {
 
         var openReport = function() {
             var addRule = function(rule) {
-                xml += '<rule name="'+rule.name+'">\n'
-                xml += '<title>'+camel2Words(rule.name)+'</title>\n'
-                xml += '<description>'+rule.title+'</description>\n'
-                xml += '<url><CData>'+rule.url+'</CData></url>\n'
-                if(rule.paths) {
-                    xml += '<elements count="'+rule.paths.length+'">\n'
-                    $.each(rule.paths, function(i, p){
-                        xml += '<xpath><cdata>'+p+'</cdata><xpath>\n'
-                    });
-                    xml += '</elements>\n'
-                }
-                xml += '</rule>\n'
+                // xml += '<rule name="'+rule.name+'">\n'
+                // xml += '<title>'+camel2Words(rule.name)+'</title>\n'
+                // xml += '<description>'+rule.title+'</description>\n'
+                // xml += '<url><CData>'+rule.url+'</CData></url>\n'
+                // if(rule.paths) {
+                //     xml += '<elements count="'+rule.paths.length+'">\n'
+                //     $.each(rule.paths, function(i, p){
+                //         xml += '<xpath><cdata>'+p+'</cdata><xpath>\n'
+                //     });
+                //     xml += '</elements>\n'
+                // }
+                // xml += '</rule>\n'
             }
             if(!results || results == undefined || results.length == 0)
                 return;
-            var xml = "<?xml version='1.0'?>\n";
-            xml += "<?xml-stylesheet href='"+chrome.extension.getURL('/inc/css/report.xsl')+"' type='text/xsl' ?>\n";
-            xml += '<results>\n'
+            // var xml = "<?xml version='1.0'?>\n";
+            // xml += "<?xml-stylesheet href='"+chrome.extension.getURL('/inc/css/report.xsl')+"' type='text/xsl' ?>\n";
+            // xml += '<results>\n'
+
             var stats = ['FAIL'];
             if(options.PASS) stats.push('PASS');
             if(options.NA) stats.push('NA');
+
             $.each(stats, function(l,n) {
                 var fs = $(results).filter(function(i,r) {return r.status==n});
                 if(fs.length>0) {
-                    xml += '<'+n+' count="'+fs.length+'">\n'
+                    // xml += '<'+n+' count="'+fs.length+'">\n'
+
                     $.each(['Severe','Warning'], function(j,s) {
                         var ss = $(fs).filter(function(i,r) {return r.severity==s});
                         if(ss.length>0) {
-                            xml += '<'+s+' count="'+ss.length+'">\n'
+                            //xml += '<'+s+' count="'+ss.length+'">\n'
+
                             $.each(ss, function(k, rule){
                                 addRule(rule);
                             });
-                            xml += '</'+s+'>\n'
+                            //xml += '</'+s+'>\n'
+
                         }
                     })
-                    xml += '</'+n+'>\n'
+                    //xml += '</'+n+'>\n'
+
                 }
             })
-            xml += '</results>\n';
+            // xml += '</results>\n';
 
-            console.log(xml);
-            var wnd = window.open();
-            wnd.document.write(xml);
+            //console.log(xml);
+            Background.openReport('Report body','','<h2>End Report</h2>');
+            // var wnd = window.open('/inc/html/report.html', '_blank');
+            // alert(wnd);
+            // alert(wnd.document);
+            // alert(wnd.document.getElementById('footer'));
+            // $(wnd.document.getElementById('footer')).append('<h2>End Report</h2>');
+            //wnd.document.write(xml);
 
         };
 
@@ -313,6 +324,7 @@ $(document).ready(function() {
     $('#sampleBtn').click(openTestPage);
     
     var options = null;
+    var Background = null;
 
     getSelectedTab().done(
         function(tab) {
@@ -323,7 +335,7 @@ $(document).ready(function() {
                     } else {
 
                         tabId = tab.id;
-                        var Background = chrome.extension.getBackgroundPage().Background;
+                        Background = chrome.extension.getBackgroundPage().Background;
                         Background.getDefaults().done(function(response) {
                         //chrome.runtime.sendMessage({type:'get-defaults'}, function(response) {
                             options = response; 

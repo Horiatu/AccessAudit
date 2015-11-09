@@ -29,3 +29,42 @@ Background.getDefaults = function() {
     return dfr.promise();
 };
 
+Background.openReport = function(report, header, footer, cssHref) {
+
+    // var wnd = window.open('/inc/html/report.html', '_blank');
+    // if(footer && footer != undefined && footer != '')
+    //     $(wnd.document.getElementById('footer')).append(footer);
+
+    $.ajax({
+        url : '/inc/html/report.html',
+        dataType: "html"
+    })
+    .success(function(data) {
+        $('#work').append(data);
+        if(cssHref && cssHref != undefined && cssHref != '')
+        {
+            $('#work').find('head').append('<link id="reportCss" href="'+cssHref+'" rel="stylesheet" type="text/css">');
+        }
+        if(header && header != undefined && header != '')
+        {
+            $('#work').find('#header').html(header);
+        }
+        if(report && report != undefined && report != '')
+        {
+            $('#work').find('#report').html(report);
+        }
+        if(footer && footer != undefined && footer != '')
+        {
+            $('#work').find('#footer').html(footer);
+        }
+
+
+        var wnd = window.open('','_blank');
+        wnd.document.write($('#work').html());
+        $('#work').clear();
+    })
+    .error(function(e) {
+        console.log(e);
+    });
+}
+

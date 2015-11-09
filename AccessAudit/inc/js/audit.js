@@ -1,18 +1,6 @@
-//alert(0);
 if(AccessAudit == undefined) {
 	var AccessAudit = function() {
 	    var _private = {
-	 	// 	camel2Words: function(str) {
-			//     var arr = str.split("");
-
-			//     for (var i = arr.length - 1; i >= 0; i--) {
-			//         if (arr[i].match(/[A-Z]/)) {
-			//             arr.splice(i, 0, " ");
-			//         }
-			//     }
-			//     arr[0] = arr[0].toUpperCase();    
-			//     return arr.join("");
-			// },
 
 			results: [],
 
