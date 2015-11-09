@@ -219,24 +219,22 @@ $(document).ready(function() {
 
         var openReport = function() {
             var addRule = function(rule) {
-                // xml += '<rule name="'+rule.name+'">\n'
-                // xml += '<title>'+camel2Words(rule.name)+'</title>\n'
-                // xml += '<description>'+rule.title+'</description>\n'
-                // xml += '<url><CData>'+rule.url+'</CData></url>\n'
-                // if(rule.paths) {
-                //     xml += '<elements count="'+rule.paths.length+'">\n'
-                //     $.each(rule.paths, function(i, p){
-                //         xml += '<xpath><cdata>'+p+'</cdata><xpath>\n'
-                //     });
-                //     xml += '</elements>\n'
-                // }
-                // xml += '</rule>\n'
+                //reportBody+='<h4>'+camel2Words(rule.name)+'</h4>';
+                reportBody+='<h4 class="description">'+rule.title+'</h4>';
+                reportBody+='<a class="ruleUrl" href="'+rule.url+'" target="_blank">'+rule.url+'</a>';
+                if(rule.paths) {
+                    reportBody += '<p>'+rule.paths.length+' element'+(rule.paths.length!=1?'s':'')+' break'+(rule.paths.length==1?'s':'')+' this rule:</p>';
+                    reportBody += '<ol start="1">'
+                    $.each(rule.paths, function(i, p){
+                        reportBody += '<li>'+p+'</li>'
+                    });
+                    reportBody += '</ol>'
+                }
             }
             if(!results || results == undefined || results.length == 0)
                 return;
-            // var xml = "<?xml version='1.0'?>\n";
-            // xml += "<?xml-stylesheet href='"+chrome.extension.getURL('/inc/css/report.xsl')+"' type='text/xsl' ?>\n";
-            // xml += '<results>\n'
+
+            var reportBody = "";
 
             var stats = ['FAIL'];
             if(options.PASS) stats.push('PASS');
@@ -245,35 +243,22 @@ $(document).ready(function() {
             $.each(stats, function(l,n) {
                 var fs = $(results).filter(function(i,r) {return r.status==n});
                 if(fs.length>0) {
-                    // xml += '<'+n+' count="'+fs.length+'">\n'
+                    reportBody += '<h2>There are '+fs.length+' '+n+' rules:</h2>';
 
                     $.each(['Severe','Warning'], function(j,s) {
                         var ss = $(fs).filter(function(i,r) {return r.severity==s});
                         if(ss.length>0) {
-                            //xml += '<'+s+' count="'+ss.length+'">\n'
+                            reportBody += '<h3>'+ss.length+' '+s+':</h2>';
 
                             $.each(ss, function(k, rule){
                                 addRule(rule);
                             });
-                            //xml += '</'+s+'>\n'
-
                         }
                     })
-                    //xml += '</'+n+'>\n'
-
                 }
             })
-            // xml += '</results>\n';
 
-            //console.log(xml);
-            Background.openReport('Report body','','<h2>End Report</h2>');
-            // var wnd = window.open('/inc/html/report.html', '_blank');
-            // alert(wnd);
-            // alert(wnd.document);
-            // alert(wnd.document.getElementById('footer'));
-            // $(wnd.document.getElementById('footer')).append('<h2>End Report</h2>');
-            //wnd.document.write(xml);
-
+            Background.openReport(reportBody,'','<h2>End Report</h2>');
         };
 
         $('#exportBtn').unbind('click').bind('click', openReport);
