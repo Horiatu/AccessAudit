@@ -29,7 +29,7 @@ Background.getDefaults = function() {
     return dfr.promise();
 };
 
-Background.openReport = function(report, header, footer, cssHref) {
+Background.openReport = function(page, report, header, footer, cssHref) {
 
     // var wnd = window.open('/inc/html/report.html', '_blank');
     // if(footer && footer != undefined && footer != '')
@@ -45,10 +45,17 @@ Background.openReport = function(report, header, footer, cssHref) {
         {
             $('#work').find('head').append('<link id="reportCss" href="'+cssHref+'" rel="stylesheet" type="text/css">');
         }
+        var $header=$('#work').find('#header');
         if(header && header != undefined && header != '')
         {
-            $('#work').find('#header').html(header);
+            $header.html(header);
         }
+        $header.append(page.title+'<br/>');
+        $header.append(page.url);
+        if(page.favIconUrl && page.favIconUrl!=undefined && page.favIconUrl != '') {
+            $header.append('<img src="'+page.favIconUrl+'" style="float:right; width:16px; height:16px;"/>');
+        }
+
         if(report && report != undefined && report != '')
         {
             $('#work').find('#report').html(report);

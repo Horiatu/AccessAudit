@@ -40,11 +40,11 @@ $(document).ready(function() {
         )
     }
 
-    loadScripts = function(tabid, scripts, dfr) {
+    loadScripts = function(scripts, dfr) {
         var options = scriptDesc(scripts.shift());
-        chrome.tabs.executeScript(tabid, options, function() {
+        chrome.tabs.executeScript(page.id, options, function() {
             if (scripts.length != 0)
-                loadScripts(tabid, scripts, dfr);
+                loadScripts(scripts, dfr);
             else
                 dfr.resolve();
         });
@@ -63,7 +63,7 @@ $(document).ready(function() {
         window.open('http://pages.pathcom.com/~horiatu/WCAG/index.html','_blank');
     }
 
-    tabId = null
+    page = {id:null, title:null, url:null, favIconUrl:null}
 
     runAudits = function(e) {
         getSelectedTab().done(
@@ -73,7 +73,7 @@ $(document).ready(function() {
                         if (err) {
                             alert(err);
                         } else {
-                            tabId = tab.id;
+                            page.id = tab.id;
 
                             var apiCode = '';
                             $.ajax({
@@ -83,7 +83,7 @@ $(document).ready(function() {
                                     //"F:/GitHub/AccessAudit/AccessAudit/inc/js/axs_testing.js",
                                 dataType: "text",
                                 success : function (apiCode) {
-                                    loadScripts(tab.id, [{
+                                    loadScripts([{
                                         allFrames: true,
                                         file: true,
                                         content: "/inc/js/jquery-2.1.4.min.js"
@@ -99,7 +99,7 @@ $(document).ready(function() {
                                     ], $.Deferred()).done(
                                 function() {
                                     try {
-                                        chrome.tabs.sendMessage(tabId, {type:'Audit', banned:options.banned}, function(results) { 
+                                        chrome.tabs.sendMessage(page.id, {type:'Audit', banned:options.banned}, function(results) { 
                                             showResults(results); 
                                         });
                                     } catch (e) {alert(e.message);}
@@ -220,7 +220,7 @@ $(document).ready(function() {
         var openReport = function() {
             var addRule = function(rule) {
                 //reportBody+='<h4>'+camel2Words(rule.name)+'</h4>';
-                reportBody+='<h4 class="description '+rule.severity+'">'+rule.title+'</h4>';
+                reportBody+='<h4 class="description '+rule.status.toLowerCase()+' '+rule.severity+'">'+rule.title+'</h4>';
                 reportBody+='<a class="ruleUrl" href="'+rule.url+'" target="_blank">'+rule.url+'</a>';
                 if(rule.paths) {
                     reportBody += '<p>'+rule.paths.length+' element'+(rule.paths.length!=1?'s':'')+' break'+(rule.paths.length==1?'s':'')+' this rule:</p>';
@@ -236,21 +236,29 @@ $(document).ready(function() {
 
             var reportBody = "";
 
-            var stats = ['FAIL'];
-            if(options.PASS) stats.push('PASS');
-            if(options.NA) stats.push('NA');
+            var statLbls = ['FAIL'];
+            if(options.PASS) statLbls.push('PASS');
+            if(options.NA) statLbls.push('NA');
 
-            $.each(stats, function(l,n) {
-                var fs = $(results).filter(function(i,r) {return r.status==n});
+            var comments = 
+            {
+                FAIL:'This implies that there were elements on the page that did not pass this audit rule. This is the only result you will probably be interested in.',
+                PASS:'This implies that there were elements on the page that may potentially have failed this audit rule, but they passed. Congratulations!',
+                NA:'This implies that there were no elements on the page that may potentially have failed this audit rule. For example, an audit rule that checks video elements for subtitles would return this result if there were no video elements on the page.'
+            };
+
+            $.each(statLbls, function(l, stat) {
+                var fs = $(results).filter(function(i,r) {return r.status==stat});
                 if(fs.length>0) {
-                    reportBody += '<h2>There are '+fs.length+' '+n+' rules:</h2>';
+                    reportBody += '<h2>There are '+fs.length+' '+stat.toLowerCase()+'-rule'+(fs.length==1?'':'s')+':</h2>';
+                    reportBody += '<p class="note">'+comments[stat]+'</p>'
 
-                    $.each(['Severe','Warning'], function(j,s) {
-                        var ss = $(fs).filter(function(i,r) {return r.severity==s});
-                        if(ss.length>0) {
-                            reportBody += '<h3>'+ss.length+' '+s+':</h2>';
+                    $.each(['Severe','Warning'], function(j, svr) {
+                        var svrRules = $(fs).filter(function(i,r) {return r.severity==svr});
+                        if(svrRules.length>0) {
+                            reportBody += '<h3>'+svrRules.length+(stat!='FAIL'?' would be ':' ')+svr+':</h2>';
 
-                            $.each(ss, function(k, rule){
+                            $.each(svrRules, function(k, rule){
                                 addRule(rule);
                             });
                         }
@@ -258,7 +266,7 @@ $(document).ready(function() {
                 }
             })
 
-            Background.openReport(reportBody,'',new Date());
+            Background.openReport(page, reportBody,'',new Date());
         };
 
         $('#exportBtn').unbind('click').bind('click', openReport);
@@ -268,7 +276,7 @@ $(document).ready(function() {
         var $e = $(e.toElement).closest('li');
         var hide = $e.hasClass('hideElements');
         var index = $e.data('index');
-        chrome.tabs.sendMessage(tabId, {
+        chrome.tabs.sendMessage(page.id, {
                 type:'Lookup', 
                 index:index, 
                 hide: hide,
@@ -319,7 +327,11 @@ $(document).ready(function() {
                         alert(err);
                     } else {
 
-                        tabId = tab.id;
+                        page.id = tab.id;
+                        page.title = tab.title;
+                        page.url = tab.url;
+                        page.favIconUrl = tab.favIconUrl;
+
                         Background = chrome.extension.getBackgroundPage().Background;
                         Background.getDefaults().done(function(response) {
                         //chrome.runtime.sendMessage({type:'get-defaults'}, function(response) {
@@ -338,7 +350,7 @@ $(document).ready(function() {
 
                             $('#runBtn').click(runAudits);
 
-                            chrome.tabs.sendMessage(tabId, {type:'RefreshAudit'}, function(results) { 
+                            chrome.tabs.sendMessage(page.id, {type:'RefreshAudit'}, function(results) { 
                                 showResults(results); 
                             });
                         });
@@ -347,5 +359,4 @@ $(document).ready(function() {
             )
         }
     )
-
 })
