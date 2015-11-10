@@ -50,11 +50,11 @@ Background.openReport = function(page, report, header, footer, cssHref) {
         {
             $header.html(header);
         }
-        $header.append(page.title+'<br/>');
-        $header.append(page.url);
+        $header.append('<b>'+page.title+'</b>');
         if(page.favIconUrl && page.favIconUrl!=undefined && page.favIconUrl != '') {
             $header.append('<img src="'+page.favIconUrl+'" style="float:right; width:16px; height:16px;"/>');
         }
+        $header.append('<br/>'+page.url);
 
         if(report && report != undefined && report != '')
         {
