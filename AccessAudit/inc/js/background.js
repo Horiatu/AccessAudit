@@ -22,7 +22,9 @@ Background.getDefaults = function() {
             InternalAPI : "/inc/js/axs_testing.js",
             LatestAPI: "https://raw.github.com/GoogleChrome/accessibility-developer-tools/stable/dist/js/axs_testing.js",
             CustomAPI : Background.getOptionOrDefault(data, 'CustomAPI', ''),
-            controlKeys : Background.getOptionOrDefault(data, 'controlKeys', ['keyCtrl'])
+            controlKeys : Background.getOptionOrDefault(data, 'controlKeys', ['keyCtrl']),
+            expandHiddenElements : Background.getOptionOrDefault(data, 'expandHiddenElements', true),
+            minWHExpandHiddenElements : Background.getOptionOrDefault(data, 'minWHExpandHiddenElements', 10)
         };
         dfr.resolve(options);
     });

@@ -68,3 +68,6 @@ td {
   padding: 4px 14px;
 }
 
+.hide {
+  display: none;
+}

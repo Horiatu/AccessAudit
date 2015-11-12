@@ -30,7 +30,10 @@
                     <br/>
                     <textarea id="APItext" rows="3" style="width:100%; background: lightgray;" readonly="true">
                     </textarea>
-                    <input type="text" id="CustomAPI" style="width:100%; display: none;" />
+                    <div id="CustomAPIdiv" style="display: none;">
+                        <label for="CustomAPI">Since Google API evolves, create your own library of APIs saved at various dates. <br/>Enter here the path to your preffered API:</label>
+                        <input type="text" id="CustomAPI" style="width:100%;" />
+                    </div>
                 </div>
             </fieldset>
         </div>
@@ -43,6 +46,12 @@
                     <input type="checkbox" name="controlKeys" id="keyCtrl" value="keyCtrl"/><label for="keyCtrl">Ctrl</label><span>+</span>
                     <input type="checkbox" name="controlKeys" id="keyAlt" value="keyAlt"/><label for="keyAlt">Alt</label><span>+</span>
                     <input type="checkbox" name="controlKeys" id="keyShift" value="keyShift"/><label for="keyShift">Shift</label><br/><br/>
+
+                    <input type="checkbox" name="expand" id="expand" /><label for="expand">Try to expand hidden elements.</label><br/>
+                    <div id="expandDiv" style="display:none;">
+                        <label for="minWH" style="margin-left:40px">Minimul width/height:</label>
+                        <input type="number" id="minWH" min="10" max="400" step="5" value="10"/>
+                    </div>
                 </div>
             </fieldset>
         </div>

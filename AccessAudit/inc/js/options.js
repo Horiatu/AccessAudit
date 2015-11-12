@@ -73,8 +73,9 @@ function restore_options() {
         });
 
         $('#APIcb'+options.API).prop('checked', true);
+        $('#CustomAPIdiv')
+        .toggle(options.API=='Custom');
         $('#CustomAPI')
-        .toggle(options.API=='Custom')
         .val(options.CustomAPI)
         .on('input', function() {
             var customAPI = $('#CustomAPI').val();
@@ -95,7 +96,7 @@ function restore_options() {
         $('input[type=radio][name=api]').change(function() {
             var isChk = $(this).is(':checked');
             chrome.storage.sync.set({API:$(this).val()});
-            $('#CustomAPI').toggle($(this).attr('id')=='APIcbCustom' && isChk);
+            $('#CustomAPIdiv').toggle($(this).attr('id')=='APIcbCustom' && isChk);
             showAPI($(this).val());
         });
         showAPI(options.API);
@@ -114,7 +115,34 @@ function restore_options() {
             }
             chrome.storage.sync.set({controlKeys:options.controlKeys});
         });
+
+        $('#minWH').prop('value', options.minWHExpandHiddenElements);
+        $('#expand').prop('checked', options.expandHiddenElements);
+        showExpandWH(options.expandHiddenElements);
+        $('#expand').change(function() {
+            var isChk = $(this).is(':checked');
+            showExpandWH(isChk);
+            chrome.storage.sync.set({expandHiddenElements:isChk});
+            }
+        );
+        $('#minWH').on('input', function() {
+            var n = Number($(this).prop('value'));
+            if(n>=$(this).prop('min') && n<=$(this).prop('max')) {
+                chrome.storage.sync.set({minWHExpandHiddenElements:n});
+                $(this).css('color', 'black')
+            }
+            else {
+                $(this).css('color', 'red')
+            }
+        })
     });
+}
+
+function showExpandWH(isChk) {
+    if(isChk)
+        $('#expandDiv').show();
+    else 
+        $('#expandDiv').hide();
 }
 
 function showAPI(option) {
