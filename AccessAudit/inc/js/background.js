@@ -12,6 +12,7 @@ Background.getDefaults = function() {
     chrome.storage.sync.get(null,
     function(data) {
         options = {
+            type:'defaults',
             defaultTestPage: 'http://apps.esri.ca/templates/WCAGViewer/index.html',
             testPageUrl : Background.getOptionOrDefault(data, 'testPageUrl', ''),
             FAIL : true,
@@ -75,5 +76,4 @@ Background.openReport = function(page, report, header, footer, cssHref) {
     .error(function(e) {
         console.log(e);
     });
-}
-
+};

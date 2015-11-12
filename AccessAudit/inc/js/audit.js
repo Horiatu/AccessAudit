@@ -16,7 +16,7 @@ if(AccessAudit == undefined) {
 	            if(!document.getElementById("AccessAuditCss")) {
 	            	_injectCss('<link id="AccessAuditCss" rel="stylesheet" type="text/css" href="' + chrome.extension.getURL('/inc/css/AccessAudit.css') + '" />');
 	            }
-	        },
+	     	},
 
 	        getElementsAtPoint : function(ev) {
 	        	ev.stopPropagation();
@@ -148,12 +148,6 @@ if(AccessAudit == undefined) {
 			    }; 
 			    return segs.length ? '/' + segs.join('/') : null; 
 			}, 
-
-			// lookupElementByXPath : function(path){ 
-			//     var evaluator = new XPathEvaluator(); 
-			//     var result = evaluator.evaluate(path, document.documentElement, null,XPathResult.FIRST_ORDERED_NODE_TYPE, null); 
-			//     return  result.singleNodeValue; 
-			// },
 		}
 
 	    var _public = {
@@ -176,6 +170,7 @@ if(AccessAudit == undefined) {
 				    		$('#AccessAuditInfo').remove();
 				    		$('#svgFilters').remove();
 				    		$('#AccessAuditCss').remove();
+				    		$('#AccessAuditPlusCss').remove();
 
 				    		if(_private.results != undefined && _private.results && _private.results.length>0)
 				    			sendResponse(_private.results);
@@ -235,6 +230,7 @@ if(AccessAudit == undefined) {
 				        				$('#AccessAuditInfo').remove();
 				    					$('#svgFilters').remove();
 				    					$('#AccessAuditCss').remove();
+				    					$('#AccessAuditPlusCss').remove();
 				        			}
 						                jQuery(document).unbind('keydown').unbind('keyup');
 						        	sendResponse(0);

@@ -78,9 +78,6 @@ $(document).ready(function() {
                             var apiCode = '';
                             $.ajax({
                                 url : (options.API=="Internal") ? options.InternalAPI : (options.API=="Latest") ? options.LatestAPI : options.CustomAPI,
-                                    //"/inc/js/axs_testing.js",
-                                    //"https://raw.githubusercontent.com/GoogleChrome/accessibility-developer-tools/stable/dist/js/axs_testing.js",
-                                    //"F:/GitHub/AccessAudit/AccessAudit/inc/js/axs_testing.js",
                                 dataType: "text",
                                 success : function (apiCode) {
                                     loadScripts([{
@@ -95,6 +92,19 @@ $(document).ready(function() {
                                         allFrames: true,
                                         file: true,
                                         content: "/inc/js/audit.js"
+                                    }, {
+                                        allFrames: true,
+                                        file: false,
+                                        content: 
+                                            options.expandHiddenElements ?
+                                            '$(\'<style id="AccessAuditPlusCss">'+
+                                            '.AccessAuditMarker, .AccessAuditHighlight {'+
+                                            ' display: inherit !important;'+
+                                            ' min-width:'+options.minWHExpandHiddenElements+'px;'+
+                                            ' min-height:'+options.minWHExpandHiddenElements+'px;'+
+                                            '}'+
+                                            '</style>\').appendTo("head")'
+                                            :''
                                     }
                                     ], $.Deferred()).done(
                                 function() {
@@ -119,8 +129,7 @@ $(document).ready(function() {
 
         for (var i = arr.length - 1; i >= 0; i--) {
             if (arr[i].match(/[A-Z]/)) {
-                arr.splice(i, 0, " ");
-            }
+                arr.splice(i, 0, " ");            }
         }
         arr[0] = arr[0].toUpperCase();    
         return arr.join("");

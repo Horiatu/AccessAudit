@@ -1,21 +1,14 @@
 .AccessAuditMarker {
-/*	display: inherit !important;
+/*	
 	background:pink;
-	min-width:10px;
-	min-height:10px;
 	-webkit-filter: url('#pinkish') drop-shadow(0px 0px 2px red) drop-shadow(0px 0px 4px red);
 */
 	display: inherit !important;
 	background:lightblue;
-	min-width:10px;
-	min-height:10px;
 	-webkit-filter: url('#blueish') drop-shadow(0px 0px 2px blue) drop-shadow(0px 0px 4px blue);
 }
 
 .AccessAuditHighlight {
-	display: inherit !important;
-	min-width:10px;
-	min-height:10px;
 	---webkit-filter: drop-shadow(0px 0px 2px red) drop-shadow(0px 0px 4px red);
 	box-shadow: red 0px 0px 10px 0px;
 }
