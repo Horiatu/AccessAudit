@@ -51,3 +51,26 @@
 .highlightInfo {
 	box-shadow: orangered 0px 0px 10px 0px inset;
 }
+
+.forceButton {
+	float: right;
+    margin-top: -19px;
+    opacity:0.5;
+}
+
+.forceButton:hover {
+	opacity:1;
+}
+
+.forceAltTextDiv {
+	width:100%;
+	display: none;
+}
+.forceAltTextDiv input{
+	width:90%;
+}
+
+.forceAltTextExecute {
+	margin-top: 0;
+}
+

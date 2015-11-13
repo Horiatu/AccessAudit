@@ -18,38 +18,52 @@ if(AccessAudit == undefined) {
 	            }
 	     	},
 
+			els : [],
+
 	        getElementsAtPoint : function(ev) {
 	        	ev.stopPropagation();
 	        	ev.preventDefault();
 		        var x = ev.clientX;
 		        var y = ev.clientY;
-			    var els = _private.elementsFromPoint(x, y, ".AccessAuditMarker");
-			    if (els.length > 0) {
+			    _private.els = _private.elementsFromPoint(x, y, ".AccessAuditMarker");
+			    if (_private.els.length > 0) {
 			        //console.log(els);
 			        if($('#AccessAuditInfo').length==0) {
 			        	$('body').append('<div id="AccessAuditInfo"/>');
 			        }
 			        $('#AccessAuditInfo>*').remove();
-			    	$('#AccessAuditInfo').append("<div class='infoHeader'>"+els.length+" Broken Rule"+(els.length>1?"s":"")+"</div>" );
-			    	$.each(els, function(index, element) {
+			    	$('#AccessAuditInfo').append("<div class='infoHeader'>"+ _private.els.length+" Broken Rule"+( _private.els.length>1?"s":"")+"</div>" );
+			    	$.each(_private.els, function(index, element) {
 			    		console.info(element);
 			    		var code = '';
-			    		//code += '<div>'+element.attributes['data-aatitle'].value+'</div>';
+			    		var aatitle = element.attributes['data-aatitle'].value;
 			    		code += '<div style="max-width:300px;">'+element.attributes['data-aadescription'].value+'</div>';
-			    		$('#AccessAuditInfo').append("<div class='infoElement'>"+code+"</div>");
-			    	})
+			    		
+			    		switch(aatitle) {
+			    			case 'imagesWithoutAltText':
+			    			 	code += _private.forceAltText(index);
+			    			 	break;
+			    			case 'lowContrastElements':
+			    				code += _private.forceLowContrast(element);
+			    				braek;
+			    		}
+
+			    		$('#AccessAuditInfo').append("<div class='infoElement' data-AAtitle='"+aatitle+"'>"+code+"</div>");
+			    	});
+
+			    	_private.addForceButtonsEvents();
 
 			    	$.each($('.infoElement'), function(i, element){
-			    		var $el = $(els[i]);
+			    		var $el = $(_private.els[i]);
 			    		$(element).hover(
 			    			function() {
-			    				$(els).removeClass("AccessAuditMarker");
-						    	$( this ).addClass("highlightInfo");
+			    				$(_private.els).removeClass("AccessAuditMarker");
+						    	$(this).addClass("highlightInfo");
 						    	$el.addClass("AccessAuditHighlight");	
 							}, 
 							function() {
-								$(els).addClass("AccessAuditMarker");
-								$( this ).removeClass("highlightInfo");
+								$(_private.els).addClass("AccessAuditMarker");
+								$(this).removeClass("highlightInfo");
 						    	$el.removeClass("AccessAuditHighlight");	
 							}
 						)
@@ -67,6 +81,49 @@ if(AccessAudit == undefined) {
 			    } else {
 			    	$('#AccessAuditInfo').remove();
 			    }
+	        },
+
+	        //hoverInfoElement : null,
+
+	        addForceButtonsEvents : function() {
+
+		    	$.each($('.forceAltText'), function(i, element){
+		    		var $btnShow = $(this);
+		    		$btnShow.click(function() {
+			    		$btnShow.hide();
+			    		$btnShow.parent("div").find(".forceAltTextDiv").show();
+		    		})
+		    	})
+		    	$.each($('.forceAltTextExecute'), function(i, element){
+		    		$(this).click(function() {
+		    			var index = Number($(this).attr('data-index'));
+		    			var el = _private.els[index];
+		    			if(el!=null)
+		    			{
+		    				var altText = $(this).parent('.forceAltTextDiv').find('input[type=text]').val();
+		    				if(altText=='') {
+		    					$(el).removeAttr('alt');
+		    				} else {
+		    					$(el).attr('alt', altText.trim());
+		    					$(el).attr('data-comment', 'add Alt Text: "'+altText.trim()+'"');
+		    				}
+		    				console.info(el);
+		    			}
+		    		})
+		    	})
+		    },
+
+	        forceAltText : function(index) {
+	        	var addInCode = '<img src="'+chrome.extension.getURL("/images/force.png")+'" class="forceButton forceAltText" title="force Alt text"/>';
+	        	addInCode += '<div class="forceAltTextDiv">'
+	        	addInCode += '<input type="text" placeholder="enter Alt text here"></input>'
+				addInCode += '<img src="'+chrome.extension.getURL("/images/force.png")+'" class="forceButton forceAltTextExecute" title="force Alt text" data-index="'+index+'"/>'
+				addInCode += '</div>'
+	        	return addInCode;
+	        },
+
+	        forceLowContrast : function(element) {
+	        	return '';
 	        },
 
 	        elementsFromPoint : function (x, y, selector) {
