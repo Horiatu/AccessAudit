@@ -86,12 +86,17 @@ if(AccessAudit == undefined) {
 	        //hoverInfoElement : null,
 
 	        addForceButtonsEvents : function() {
-
 		    	$.each($('.forceAltText'), function(i, element){
 		    		var $btnShow = $(this);
 		    		$btnShow.click(function() {
 			    		$btnShow.hide();
-			    		$btnShow.parent("div").find(".forceAltTextDiv").show();
+			    		var $forceAltTextDiv = $btnShow.parent("div").find(".forceAltTextDiv");
+			    		$forceAltTextDiv.show();
+			    		$forceAltTextDiv.find('input').focus().keyup(function(e) {
+			    			if(e.keyCode==13) {
+			    				$forceAltTextDiv.find('.forceAltTextExecute').trigger('click');
+			    			}
+			    		});
 		    		})
 		    	})
 		    	$.each($('.forceAltTextExecute'), function(i, element){
@@ -205,6 +210,17 @@ if(AccessAudit == undefined) {
 			    }; 
 			    return segs.length ? '/' + segs.join('/') : null; 
 			}, 
+
+			getResultData: function(result) {
+				return $(result.elements).map(function(i,e) { 
+					var d = {path:_private.createXPathFromElement(e)};
+					var comment = $(e).attr('data-comment');
+					if(comment && comment!=undefined) {
+						d['comment'] = comment;
+					}
+					return d;
+				});
+			}
 		}
 
 	    var _public = {
@@ -214,6 +230,7 @@ if(AccessAudit == undefined) {
 	 			_private.addFilters();
 
 	 			chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
+				    //console.log(req.type);
 				    switch (req.type) {
 				    	case 'RefreshAudit':
 		    				$('.AccessAuditMarker')
@@ -230,6 +247,9 @@ if(AccessAudit == undefined) {
 				    		//$('#AccessAuditPlusCss').remove();
 
 				    		if(_private.results != undefined && _private.results && _private.results.length>0)
+				    			$.each(_private.results, function(i, result) {
+				    				result.data = _private.getResultData(result);
+				    			});
 				    			sendResponse(_private.results);
 				    		break;
 				        case 'Audit':
@@ -268,10 +288,7 @@ if(AccessAudit == undefined) {
 								}
 								if(elementsCount>0) {
 									result.elements = audit.elements;
-									result.paths = $(audit.elements).map(function(i,e) { 
-										var xpath = _private.createXPathFromElement(e);
-										return xpath;
-									});
+									result.data = _private.getResultData(result);
 								}
 								results.push(result);
 							});

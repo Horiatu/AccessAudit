@@ -227,59 +227,68 @@ $(document).ready(function() {
             });
         });
 
-        var openReport = function() {
-            var addRule = function(rule) {
-                //reportBody+='<h4>'+camel2Words(rule.name)+'</h4>';
-                reportBody+='<h4 class="description '+rule.status.toLowerCase()+' '+rule.severity+'">'+rule.title+'</h4>';
-                reportBody+='<a class="ruleUrl" href="'+rule.url+'" target="_blank">'+rule.url+'</a>';
-                if(rule.paths) {
-                    reportBody += '<p>'+rule.paths.length+' element'+(rule.paths.length!=1?'s':'')+' break'+(rule.paths.length==1?'s':'')+' this rule:</p>';
-                    reportBody += '<ol start="1">'
-                    $.each(rule.paths, function(i, p){
-                        reportBody += '<li>'+p+'</li>'
-                    });
-                    reportBody += '</ol>'
-                }
+        $('#exportBtn').unbind('click').bind('click', function() {
+            //chrome.tabs.sendMessage(page.id, {type:'RefreshAudit'}, function(results) { 
+                openReport(results); 
+            //});
+        });
+    }
+
+    openReport = function(results) {
+        var addRule = function(rule) {
+            //reportBody+='<h4>'+camel2Words(rule.name)+'</h4>';
+            reportBody+='<h4 class="description '+rule.status.toLowerCase()+' '+rule.severity+'">'+rule.title+'</h4>';
+            reportBody+='<a class="ruleUrl" href="'+rule.url+'" target="_blank">'+rule.url+'</a>';
+            if(rule.data) {
+                reportBody += '<p>'+rule.data.length+' element'+(rule.data.length!=1?'s':'')+' break'+(rule.data.length==1?'s':'')+' this rule:</p>';
+                reportBody += '<ol start="1">'
+                $.each(rule.data, function(i, p){
+                    reportBody += '<li>';
+                    reportBody += p.path;
+                    if(p.comment && p.comment!=undefined && p.comment!='') {
+                        reportBody += '<br/><span class="suggest">*** Auditor suggests: '+p.comment+'</span>';
+                    }
+                    reportBody += '</li>';
+                });
+                reportBody += '</ol>'
             }
-            if(!results || results == undefined || results.length == 0)
-                return;
+        }
+        if(!results || results == undefined || results.length == 0)
+            return;
 
-            var reportBody = "";
+        var reportBody = "";
 
-            var statLbls = ['FAIL'];
-            if(options.PASS) statLbls.push('PASS');
-            if(options.NA) statLbls.push('NA');
+        var statLbls = ['FAIL'];
+        if(options.PASS) statLbls.push('PASS');
+        if(options.NA) statLbls.push('NA');
 
-            var comments = 
-            {
-                FAIL:'This implies that there were elements on the page that did not pass this audit rule. This is the only result you will probably be interested in.',
-                PASS:'This implies that there were elements on the page that may potentially have failed this audit rule, but they passed. Congratulations!',
-                NA:'This implies that there were no elements on the page that may potentially have failed this audit rule. For example, an audit rule that checks video elements for subtitles would return this result if there were no video elements on the page.'
-            };
-
-            $.each(statLbls, function(l, stat) {
-                var fs = $(results).filter(function(i,r) {return r.status==stat});
-                if(fs.length>0) {
-                    reportBody += '<h2>There are '+fs.length+' '+stat.toLowerCase()+'-rule'+(fs.length==1?'':'s')+':</h2>';
-                    reportBody += '<p class="note">'+comments[stat]+'</p>'
-
-                    $.each(['Severe','Warning'], function(j, svr) {
-                        var svrRules = $(fs).filter(function(i,r) {return r.severity==svr});
-                        if(svrRules.length>0) {
-                            reportBody += '<h3>'+svrRules.length+(stat!='FAIL'?' would be ':' ')+svr+':</h2>';
-
-                            $.each(svrRules, function(k, rule){
-                                addRule(rule);
-                            });
-                        }
-                    })
-                }
-            })
-
-            Background.openReport(page, reportBody,'',new Date());
+        var comments = 
+        {
+            FAIL:'This implies that there were elements on the page that did not pass this audit rule. This is the only result you will probably be interested in.',
+            PASS:'This implies that there were elements on the page that may potentially have failed this audit rule, but they passed. Congratulations!',
+            NA:'This implies that there were no elements on the page that may potentially have failed this audit rule. For example, an audit rule that checks video elements for subtitles would return this result if there were no video elements on the page.'
         };
 
-        $('#exportBtn').unbind('click').bind('click', openReport);
+        $.each(statLbls, function(l, stat) {
+            var fs = $(results).filter(function(i,r) {return r.status==stat});
+            if(fs.length>0) {
+                reportBody += '<h2>There are '+fs.length+' '+stat.toLowerCase()+'-rule'+(fs.length==1?'':'s')+':</h2>';
+                reportBody += '<p class="note">'+comments[stat]+'</p>'
+
+                $.each(['Severe','Warning'], function(j, svr) {
+                    var svrRules = $(fs).filter(function(i,r) {return r.severity==svr});
+                    if(svrRules.length>0) {
+                        reportBody += '<h3>'+svrRules.length+(stat!='FAIL'?' would be ':' ')+svr+':</h2>';
+
+                        $.each(svrRules, function(k, rule){
+                            addRule(rule);
+                        });
+                    }
+                })
+            }
+        })
+
+        Background.openReport(page, reportBody,'',new Date());
     }
 
     showClick = function(e) {

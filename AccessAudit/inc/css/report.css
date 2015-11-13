@@ -59,3 +59,8 @@ p.note {
 	max-width: 600px;
 }
 
+.suggest{
+	margin-left: 40px;
+    font-style: italic;
+    font-weight: bold;
+}
