@@ -170,7 +170,7 @@ if(AccessAudit == undefined) {
 				    		$('#AccessAuditInfo').remove();
 				    		$('#svgFilters').remove();
 				    		$('#AccessAuditCss').remove();
-				    		$('#AccessAuditPlusCss').remove();
+				    		//$('#AccessAuditPlusCss').remove();
 
 				    		if(_private.results != undefined && _private.results && _private.results.length>0)
 				    			sendResponse(_private.results);
@@ -181,6 +181,14 @@ if(AccessAudit == undefined) {
 								configuration.ignoreSelectors(rule,'*');
 							});
 							configuration.showUnsupportedRulesWarning = false;
+
+							$('.AccessAuditMarker')
+			        			.removeAttr('data-AAtitle')
+								.removeAttr('data-AAdescription')
+		        				.removeClass('AccessAuditMarker')
+		        				.removeClass('AccessAuditHighlight')
+		        				.removeClass('.AccessAudit*');
+		        			$('#AccessAuditOvr').remove();
 							var audits = axs.Audit.run(configuration);
 							//console.log(audits);
 
@@ -230,7 +238,7 @@ if(AccessAudit == undefined) {
 				        				$('#AccessAuditInfo').remove();
 				    					$('#svgFilters').remove();
 				    					$('#AccessAuditCss').remove();
-				    					$('#AccessAuditPlusCss').remove();
+				    					//$('#AccessAuditPlusCss').remove();
 				        			}
 						                jQuery(document).unbind('keydown').unbind('keyup');
 						        	sendResponse(0);

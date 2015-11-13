@@ -155,7 +155,7 @@ function showAPI(option) {
             file = Options.LatestAPI;
             break;
         case 'Custom' : 
-            file = Options.CustomAPI;
+            file = Options.CustomAPI == '' ? Options.InternalAPI : Options.CustomAPI;
             break;
     }
     loadAPItext(file)

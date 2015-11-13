@@ -72,12 +72,13 @@ $(document).ready(function() {
                     function(err) {
                         if (err) {
                             alert(err);
-                        } else {
+                        } else 
+                        {
                             page.id = tab.id;
 
                             var apiCode = '';
                             $.ajax({
-                                url : (options.API=="Internal") ? options.InternalAPI : (options.API=="Latest") ? options.LatestAPI : options.CustomAPI,
+                                url : (options.API=="Internal") ? options.InternalAPI : (options.API=="Latest") ? options.LatestAPI : (options.CustomAPI == '' ? options.InternalAPI : options.CustomAPI),
                                 dataType: "text",
                                 success : function (apiCode) {
                                     loadScripts([{
@@ -103,7 +104,7 @@ $(document).ready(function() {
                                             ' min-width:'+options.minWHExpandHiddenElements+'px;'+
                                             ' min-height:'+options.minWHExpandHiddenElements+'px;'+
                                             '}'+
-                                            '</style>\').appendTo("head")'
+                                            '</style>\').appendTo("head");'
                                             :''
                                     }
                                     ], $.Deferred()).done(
@@ -332,9 +333,10 @@ $(document).ready(function() {
         function(tab) {
             validateTab(tab).always(
                 function(err) {
-                    if (err) {
-                        alert(err);
-                    } else {
+                    // if (err) {
+                    //     alert(err);
+                    // } else 
+                    {
 
                         page.id = tab.id;
                         page.title = tab.title;
