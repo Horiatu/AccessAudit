@@ -45,7 +45,7 @@ if(AccessAudit == undefined) {
 			    			 	break;
 			    			case 'lowContrastElements':
 			    				code += _private.forceLowContrast(element);
-			    				braek;
+			    				break;
 			    		}
 
 			    		$('#AccessAuditInfo').append("<div class='infoElement' data-AAtitle='"+aatitle+"'>"+code+"</div>");
@@ -128,7 +128,25 @@ if(AccessAudit == undefined) {
 	        },
 
 	        forceLowContrast : function(element) {
-	        	return '';
+	        	var b = axs.properties.getContrastRatioProperties(element);
+	        	var code = '<div class="contrast">';
+	        	code += '<span>This';
+	        	code += '&nbsp;<span style="background-color:'+b.backgroundColor+'; color:'+b.foregroundColor+'; border:solid 1px '+b.foregroundColor+';">&nbsp;Element&nbsp;</span>&nbsp;';
+	        	code += 'has the contrast: '+b.value;
+	        	code += '</span>';
+	        	if(b.suggestedColors && b.suggestedColors != undefined){
+	        		code += '<br/><Span>Suggestions:</Span><br/>';
+	        		for (k in b.suggestedColors) {
+	        			var bg = b.suggestedColors[k].bg;
+	        			var fg = b.suggestedColors[k].fg;
+	        			code += '<div style="background-color:'+bg+'; color:'+fg+'; border:solid 1px '+fg+'; width:100%; margin:1px;">&nbsp;';
+	        			code += fg+' on '+bg+' - '+b.suggestedColors[k].contrast+':1 (for '+k+')';
+	        			code += '&nbsp;</div>';
+	        			//code += '<br/>';
+	        		}
+	        	}
+	        	code += '</div>';
+	        	return code;
 	        },
 
 	        elementsFromPoint : function (x, y, selector) {
