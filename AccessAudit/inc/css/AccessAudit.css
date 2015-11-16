@@ -44,6 +44,10 @@
 	color:black;
 }
 
+#infoClose {
+	float:right;
+}
+
 .infoHeader {
 	background:lightblue;
 	--display:table-header-group;

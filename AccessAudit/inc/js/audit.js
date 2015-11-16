@@ -33,6 +33,10 @@ if(AccessAudit == undefined) {
 			        }
 			        $('#AccessAuditInfo>*').remove();
 			    	$('#AccessAuditInfo').append("<div class='infoHeader'>"+ _private.els.length+" Broken Rule"+( _private.els.length>1?"s":"")+"</div>" );
+			    	$('.infoHeader').append('<img id="infoClose" src="'+chrome.extension.getURL('/images/x.png')+'" title="close">');
+			    	$('#infoClose').click(function() {
+			    		$('#AccessAuditInfo').remove();
+			    	});
 			    	$.each(_private.els, function(index, element) {
 			    		console.info(element);
 			    		var code = '';
