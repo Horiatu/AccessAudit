@@ -131,7 +131,10 @@ if(AccessAudit == undefined) {
 	        	var b = axs.properties.getContrastRatioProperties(element);
 	        	var code = '<div class="contrast">';
 	        	code += '<span>This';
-	        	code += '&nbsp;<span style="background-color:'+b.backgroundColor+'; color:'+b.foregroundColor+'; border:solid 1px '+b.foregroundColor+';">&nbsp;Element&nbsp;</span>&nbsp;';
+	        	code += '&nbsp;<span ';
+	        	code += 'style="background-color:'+b.backgroundColor+'; color:'+b.foregroundColor+'; border:solid 1px '+b.foregroundColor+';" ';
+				code += 'title="'+b.foregroundColor+' on '+b.backgroundColor+'"';
+	        	code += '>&nbsp;Element&nbsp;</span>&nbsp;';
 	        	code += 'has the contrast: '+b.value;
 	        	code += '</span>';
 	        	if(b.suggestedColors && b.suggestedColors != undefined){
@@ -139,7 +142,7 @@ if(AccessAudit == undefined) {
 	        		for (k in b.suggestedColors) {
 	        			var bg = b.suggestedColors[k].bg;
 	        			var fg = b.suggestedColors[k].fg;
-	        			code += '<div style="background-color:'+bg+'; color:'+fg+'; border:solid 1px '+fg+'; width:100%; margin:1px;">&nbsp;';
+	        			code += '<div style="background-color:'+bg+'; color:'+fg+'; border:solid 1px '+fg+'; margin:1px;">&nbsp;';
 	        			code += fg+' on '+bg+' - '+b.suggestedColors[k].contrast+':1 (for '+k+')';
 	        			code += '&nbsp;</div>';
 	        			//code += '<br/>';
@@ -256,7 +259,8 @@ if(AccessAudit == undefined) {
 								.removeAttr('data-AAdescription')
 		        				.removeClass('AccessAuditMarker')
 		        				.removeClass('AccessAuditHighlight')
-		        				.removeClass('.AccessAudit*');
+		        				.removeClass('forceVisible')
+				        		.removeClass('.AccessAudit*');
 
 				    		$('#AccessAuditOvr').remove();
 				    		$('#AccessAuditInfo').remove();
@@ -282,6 +286,7 @@ if(AccessAudit == undefined) {
 								.removeAttr('data-AAdescription')
 		        				.removeClass('AccessAuditMarker')
 		        				.removeClass('AccessAuditHighlight')
+		        				.removeClass('forceVisible')
 		        				.removeClass('.AccessAudit*');
 		        			$('#AccessAuditOvr').remove();
 							var audits = axs.Audit.run(configuration);
@@ -323,6 +328,7 @@ if(AccessAudit == undefined) {
 										.removeAttr('data-AAdescription')
 				        				.removeClass('AccessAuditMarker')
 				        				.removeClass('AccessAuditHighlight')
+				        				.removeClass('forceVisible')
 				        				.removeClass(ndx)
 				        			if($('.AccessAuditMarker, .AccessAuditHighlight').length==0 && document.getElementById("AccessAuditOvr")) {
 				        				$("#AccessAuditOvr").unbind("click");
@@ -344,6 +350,15 @@ if(AccessAudit == undefined) {
 					        			    .addClass('AccessAuditMarker')
 					        			    .attr('data-AAtitle', audits[0].name)
 										    .attr('data-AAdescription', audits[0].title);
+
+										$.each($('.AccessAuditMarker'), function(i, hid) {
+											try {
+												console.log(hid);
+												if(axs.utils.isElementOrAncestorHidden(hid)) {
+													$(hid).addClass('forceVisible');
+												}
+											} catch (e) {}
+										});
 					        			
 										if(!document.getElementById("AccessAuditOvr")) {
 						                    $("body").append('<div id="AccessAuditOvr"></div>');

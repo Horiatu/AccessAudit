@@ -99,10 +99,10 @@ $(document).ready(function() {
                                         content: 
                                             options.expandHiddenElements ?
                                             '$(\'<style id="AccessAuditPlusCss">'+
-                                            '.AccessAuditMarker, .AccessAuditHighlight {'+
-                                            //' display: inherit !important;'+
-                                            //' min-width:'+options.minWHExpandHiddenElements+'px;'+
-                                            //' min-height:'+options.minWHExpandHiddenElements+'px;'+
+                                            '.forceVisible {'+
+                                            ' display: inherit !important;'+
+                                            ' min-width:'+options.minWHExpandHiddenElements+'px;'+
+                                            ' min-height:'+options.minWHExpandHiddenElements+'px;'+
                                             '}'+
                                             '</style>\').appendTo("head");'
                                             :''
