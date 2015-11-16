@@ -120,7 +120,11 @@ if(AccessAudit == undefined) {
 		    			}
 		    		})
 		    	})
-		    	$.each($('.forceColor img'), function(i, element){
+		    	$('#suggestBtn').unbind('click').bind('click', function() {
+	        		$(this).parent('div').parent('div').find('#suggestions').show()
+	        		$(this).hide();
+	        	})
+				$.each($('.forceColor img'), function(i, element){
 		    		$(this).click(function() {
 		    			var index = Number($(this).attr('data-index'));
 		    			var el = _private.els[index];
@@ -147,15 +151,17 @@ if(AccessAudit == undefined) {
 	        forceLowContrast : function(element, index) {
 	        	var b = axs.properties.getContrastRatioProperties(element);
 	        	var code = '<div class="contrast">';
-	        	code += '<span>This';
+	        	code += '<div>This';
 	        	code += '&nbsp;<span ';
 	        	code += 'style="background-color:'+b.backgroundColor+'; color:'+b.foregroundColor+'; border:solid 1px '+b.foregroundColor+';" ';
 				code += 'title="'+b.foregroundColor+' on '+b.backgroundColor+'"';
 	        	code += '>&nbsp;Element&nbsp;</span>&nbsp;';
-	        	code += 'has the contrast: '+b.value;
-	        	code += '</span>';
+	        	code += 'has the contrast: '+b.value+':1';
 	        	if(b.suggestedColors && b.suggestedColors != undefined){
-	        		code += '<br/><Span>Suggestions:</Span><br/>';
+		        	code += '<img id="suggestBtn" src="'+chrome.extension.getURL('/images/suggest.png')+'" title="suggest colors">';
+		        	code += '</div>';
+	        		code += '<div id="suggestions" style="display:none;">';
+	        		code += '<Span>Suggestions:</Span><br/>';
 	        		for (k in b.suggestedColors) {
 	        			var bg = b.suggestedColors[k].bg;
 	        			var fg = b.suggestedColors[k].fg;
@@ -163,10 +169,13 @@ if(AccessAudit == undefined) {
 	        			code += fg+' on '+bg+' - '+b.suggestedColors[k].contrast+':1 (for '+k+')&nbsp;';
 	        			code += '<img src="'+chrome.extension.getURL("/images/force.png")+'" title="force color" data-index="'+index+'"/>';
 	        			code += '</div>';
-	        			//code += '<br/>';
 	        		}
+	        		code += '</div>';
 	        	}
-	        	code += '</div>';
+	        	else 
+	        		code += '</div>';	
+	        	//code += '</div>';
+
 	        	return code;
 	        },
 

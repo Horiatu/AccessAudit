@@ -44,8 +44,12 @@
 	color:black;
 }
 
-#infoClose {
+#infoClose, #suggestBtn {
 	float:right;
+	opacity:0.5;
+}
+#infoClose:hover, #suggestBtn:hover {
+	opacity:1;
 }
 
 .infoHeader {
