@@ -44,7 +44,7 @@ if(AccessAudit == undefined) {
 			    			 	code += _private.forceAltText(index);
 			    			 	break;
 			    			case 'lowContrastElements':
-			    				code += _private.forceLowContrast(element);
+			    				code += _private.forceLowContrast(element, index);
 			    				break;
 			    		}
 
@@ -116,6 +116,19 @@ if(AccessAudit == undefined) {
 		    			}
 		    		})
 		    	})
+		    	$.each($('.forceColor img'), function(i, element){
+		    		$(this).click(function() {
+		    			var index = Number($(this).attr('data-index'));
+		    			var el = _private.els[index];
+		    			if(el!=null)
+		    			{
+		    				var $div = $(this).closest('div');
+		    				$(el).css('color', $div.css('color'));
+		    				$(el).css('background-color', $div.css('background-color'));
+		    				$(el).attr('data-comment', 'set colors to'+$div.text()+'.');
+		    			}
+		    		})
+		    	})
 		    },
 
 	        forceAltText : function(index) {
@@ -127,7 +140,7 @@ if(AccessAudit == undefined) {
 	        	return addInCode;
 	        },
 
-	        forceLowContrast : function(element) {
+	        forceLowContrast : function(element, index) {
 	        	var b = axs.properties.getContrastRatioProperties(element);
 	        	var code = '<div class="contrast">';
 	        	code += '<span>This';
@@ -142,9 +155,10 @@ if(AccessAudit == undefined) {
 	        		for (k in b.suggestedColors) {
 	        			var bg = b.suggestedColors[k].bg;
 	        			var fg = b.suggestedColors[k].fg;
-	        			code += '<div style="background-color:'+bg+'; color:'+fg+'; border:solid 1px '+fg+'; margin:1px;">&nbsp;';
-	        			code += fg+' on '+bg+' - '+b.suggestedColors[k].contrast+':1 (for '+k+')';
-	        			code += '&nbsp;</div>';
+	        			code += '<div style="background-color:'+bg+'; color:'+fg+'; border:solid 1px '+fg+'; " class="forceColor">&nbsp;';
+	        			code += fg+' on '+bg+' - '+b.suggestedColors[k].contrast+':1 (for '+k+')&nbsp;';
+	        			code += '<img src="'+chrome.extension.getURL("/images/force.png")+'" title="force color" data-index="'+index+'"/>';
+	        			code += '</div>';
 	        			//code += '<br/>';
 	        		}
 	        	}

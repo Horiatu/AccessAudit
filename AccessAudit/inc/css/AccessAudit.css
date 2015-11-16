@@ -41,6 +41,7 @@
 	box-shadow: 2px 2px 2px gray;
 	position:absolute;
 	z-index: 2147483647;
+	color:black;
 }
 
 .infoHeader {
@@ -78,3 +79,15 @@
 	margin-top: 0;
 }
 
+.forceColor {
+	margin:1px;
+	padding:1px;
+}
+.forceColor img {
+	float: right;
+	opacity:0.5;
+}
+
+.forceColor img:hover{
+	opacity:1;
+}
