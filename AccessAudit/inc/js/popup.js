@@ -97,14 +97,27 @@ $(document).ready(function() {
                                         allFrames: true,
                                         file: false,
                                         content: 
-                                            options.expandHiddenElements ?
-                                            '$(\'<style id="AccessAuditPlusCss">'+
+                                        options.expandHiddenElements || options.hightlightWithSemiTransparentCover ?
+                                            ('$(\'<style id="AccessAuditPlusCss">'+
+                                            (options.expandHiddenElements ?
                                             '.forceVisible {'+
                                             ' display: inherit !important;'+
                                             ' min-width:'+options.minWHExpandHiddenElements+'px;'+
                                             ' min-height:'+options.minWHExpandHiddenElements+'px;'+
+                                            '}'
+                                            :'')+
+                                            (options.hightlightWithSemiTransparentCover ?
+                                            '.AccessAuditMarker:not(html) {'+
+                                            //' background:lightblue;'+
+                                            ' -webkit-filter: url("#blueish") drop-shadow(0px 0px 2px blue) drop-shadow(0px 0px 4px blue);'+
                                             '}'+
+                                            '.AccessAuditHighlight:not(html) {'+
+                                            //' background:pink;'+
+                                            ' -webkit-filter: url("#pinkish") drop-shadow(0px 0px 2px red) drop-shadow(0px 0px 4px red);'+
+                                            '}'
+                                            :'')+
                                             '</style>\').appendTo("head");'
+                                            )
                                             :''
                                     }
                                     ], $.Deferred()).done(

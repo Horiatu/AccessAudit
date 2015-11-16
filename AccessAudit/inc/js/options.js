@@ -134,7 +134,14 @@ function restore_options() {
             else {
                 $(this).css('color', 'red')
             }
-        })
+        });
+
+        $('#highlight').prop('checked', options.hightlightWithSemiTransparentCover);
+        $('#highlight').change(function() {
+            var isChk = $(this).is(':checked');
+            chrome.storage.sync.set({hightlightWithSemiTransparentCover:isChk});
+            }
+        );
     });
 }
 

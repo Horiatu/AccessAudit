@@ -25,7 +25,8 @@ Background.getDefaults = function() {
             CustomAPI : Background.getOptionOrDefault(data, 'CustomAPI', ''),
             controlKeys : Background.getOptionOrDefault(data, 'controlKeys', ['keyCtrl']),
             expandHiddenElements : Background.getOptionOrDefault(data, 'expandHiddenElements', true),
-            minWHExpandHiddenElements : Background.getOptionOrDefault(data, 'minWHExpandHiddenElements', 10)
+            minWHExpandHiddenElements : Background.getOptionOrDefault(data, 'minWHExpandHiddenElements', 10),
+            hightlightWithSemiTransparentCover : Background.getOptionOrDefault(data, 'hightlightWithSemiTransparentCover', false)
         };
         dfr.resolve(options);
     });
