@@ -229,3 +229,12 @@ input[type=checkbox] {
 .ruleMenu:hover {
   opacity:0.8;
 }
+
+.error {
+    background: orangered;
+    color:white;
+    display: none;
+    text-align: center;
+    border: 2px inset;
+    font-size: 14px;
+}

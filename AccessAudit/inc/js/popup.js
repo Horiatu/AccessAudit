@@ -71,7 +71,10 @@ $(document).ready(function() {
                 validateTab(tab).always(
                     function(err) {
                         if (err) {
-                            alert(err);
+                            $error=$('.error');
+                            $error.css('display', 'block');
+                            $error.html(err);
+                            //alert(err);
                         } else 
                         {
                             page.id = tab.id;

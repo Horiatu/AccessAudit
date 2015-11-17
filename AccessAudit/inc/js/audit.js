@@ -121,7 +121,7 @@ if(AccessAudit == undefined) {
 		    		})
 		    	})
 		    	$('#suggestBtn').unbind('click').bind('click', function() {
-	        		$(this).parent('div').parent('div').find('#suggestions').show()
+	        		$(this).parent('div').parent('div').find('#suggestions').show();
 	        		$(this).hide();
 	        	})
 				$.each($('.forceColor img'), function(i, element){
