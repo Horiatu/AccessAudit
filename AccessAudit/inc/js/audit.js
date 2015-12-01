@@ -21,10 +21,23 @@ if(AccessAudit == undefined) {
 			els : [],
 
 	        getElementsAtPoint : function(ev) {
-	        	ev.stopPropagation();
-	        	ev.preventDefault();
 		        var x = ev.clientX;
 		        var y = ev.clientY;
+	        	ev.stopPropagation();
+	        	ev.preventDefault();
+	        	if (
+					(ev.ctrlKey || controlKeys.indexOf("keyCtrl")==-1) &&
+					(ev.altKey || controlKeys.indexOf("keyAlt")==-1) &&
+					(ev.shiftKey || controlKeys.indexOf("keyShift")==-1)
+				) {
+					$("#AccessAuditOvr").hide();
+					$('#AccessAuditInfo').remove();
+					var el = document.elementFromPoint(x, y);
+					el.click();
+					$("#AccessAuditOvr").show();
+					return;
+				} 
+
 			    _private.els = _private.elementsFromPoint(x, y, ".AccessAuditMarker");
 			    if (_private.els.length > 0) {
 			        //console.log(els);
@@ -393,26 +406,27 @@ if(AccessAudit == undefined) {
 											_private.injectCss();
 											_private.addFilters();
 						                }
-						                jQuery(document)
-						                .bind('keydown',function(e){
-   											if (
-   												(e.ctrlKey || req.controlKeys.indexOf("keyCtrl")==-1) &&
-   												(e.altKey || req.controlKeys.indexOf("keyAlt")==-1) &&
-   												(e.shiftKey || req.controlKeys.indexOf("keyShift")==-1)
-   											) {
-   												$("#AccessAuditOvr").hide();
-   												$('#AccessAuditInfo').remove();
-   											}
-   										})
-						                .bind('keyup',function(e){
-   											if (
-   												(!e.ctrlKey || req.controlKeys.indexOf("keyCtrl")==-1) &&
-   												(!e.altKey || req.controlKeys.indexOf("keyAlt")==-1) &&
-   												(!e.shiftKey || req.controlKeys.indexOf("keyShift")==-1)
-   											) {
-   												$("#AccessAuditOvr").show();
-   											}
-   										});
+						                controlKeys = req.controlKeys;
+						       //          jQuery(document)
+						       //          .bind('keydown',function(e){
+   										// 	if (
+   										// 		(e.ctrlKey || req.controlKeys.indexOf("keyCtrl")==-1) &&
+   										// 		(e.altKey || req.controlKeys.indexOf("keyAlt")==-1) &&
+   										// 		(e.shiftKey || req.controlKeys.indexOf("keyShift")==-1)
+   										// 	) {
+   										// 		$("#AccessAuditOvr").hide();
+   										// 		$('#AccessAuditInfo').remove();
+   										// 	}
+   										// })
+						       //          .bind('keyup',function(e){
+   										// 	if (
+   										// 		(!e.ctrlKey || req.controlKeys.indexOf("keyCtrl")==-1) &&
+   										// 		(!e.altKey || req.controlKeys.indexOf("keyAlt")==-1) &&
+   										// 		(!e.shiftKey || req.controlKeys.indexOf("keyShift")==-1)
+   										// 	) {
+   										// 		$("#AccessAuditOvr").show();
+   										// 	}
+   										// });
 
 						        		sendResponse(1);
 					        		}
