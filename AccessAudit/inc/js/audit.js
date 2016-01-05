@@ -407,27 +407,6 @@ if(AccessAudit == undefined) {
 											_private.addFilters();
 						                }
 						                controlKeys = req.controlKeys;
-						       //          jQuery(document)
-						       //          .bind('keydown',function(e){
-   										// 	if (
-   										// 		(e.ctrlKey || req.controlKeys.indexOf("keyCtrl")==-1) &&
-   										// 		(e.altKey || req.controlKeys.indexOf("keyAlt")==-1) &&
-   										// 		(e.shiftKey || req.controlKeys.indexOf("keyShift")==-1)
-   										// 	) {
-   										// 		$("#AccessAuditOvr").hide();
-   										// 		$('#AccessAuditInfo').remove();
-   										// 	}
-   										// })
-						       //          .bind('keyup',function(e){
-   										// 	if (
-   										// 		(!e.ctrlKey || req.controlKeys.indexOf("keyCtrl")==-1) &&
-   										// 		(!e.altKey || req.controlKeys.indexOf("keyAlt")==-1) &&
-   										// 		(!e.shiftKey || req.controlKeys.indexOf("keyShift")==-1)
-   										// 	) {
-   										// 		$("#AccessAuditOvr").show();
-   										// 	}
-   										// });
-
 						        		sendResponse(1);
 					        		}
 				        			break;

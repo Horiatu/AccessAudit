@@ -146,10 +146,14 @@ function restore_options() {
 }
 
 function showExpandWH(isChk) {
-    if(isChk)
+    if(isChk) {
         $('#expandDiv').show();
-    else 
+        $('#collapseDiv').hide();
+    }
+    else {
         $('#expandDiv').hide();
+        $('#collapseDiv').show();
+    }
 }
 
 function showAPI(option) {

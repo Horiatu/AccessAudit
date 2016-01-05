@@ -28,9 +28,11 @@
                     <input type="radio" name="api" id="APIcbCustom" value="Custom"/><label for="APICustom">Your file</label>
                     
                     <br/>
-                    <textarea id="APItext" rows="3" style="width:100%; background: lightgray;" readonly="true">
-                    </textarea>
-                    <div id="CustomAPIdiv" style="display: none;">
+                    <div style="padding:5px 3px 0px 3px; background-color: #eeeeee;">
+                        <textarea id="APItext" rows="3" readonly="true">
+                        </textarea>
+                    </div>
+                    <div id="CustomAPIdiv" style="margin-top:5px; display: none;">
                         <label for="CustomAPI">Since Google API evolves, create your own library of APIs saved at various dates. <br/>Enter here the path to your preffered API:</label>
                         <input type="text" id="CustomAPI" style="width:100%;" placeholder="(Defaults to Internal)"/>
                     </div>
@@ -55,6 +57,9 @@
                         <label for="minWH">Min width/height:</label>
                         <input type="number" id="minWH" min="0" max="400" step="5" value="10"/>
                         <p>Sometimes hidden elements have no size.</p>
+                    </div>
+                    <div id="collapseDiv" style="margin-left:40px;">
+                        <p>Alternatively, go in the debugger’s log to see the code of the element and  <kbd>right-click</kbd> to locate it in the HTML code.</p>
                     </div>
 
                 </div>
