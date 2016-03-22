@@ -47,6 +47,8 @@
 #infoClose, #suggestBtn {
 	float:right;
 	opacity:0.5;
+	width:18px;
+	height:18px;
 }
 #infoClose:hover, #suggestBtn:hover {
 	opacity:1;
