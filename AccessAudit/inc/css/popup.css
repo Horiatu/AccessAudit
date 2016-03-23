@@ -70,10 +70,14 @@ h1 span {
     width:15px;
     height:15px;
     cursor: pointer;
-    opacity: 0.25;
+    opacity: 0.5;
+}
+.toolbarBtn:not(.disabled):hover{
+    opacity: 1;
+    -webkit-filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
 }
 .disabled {
-    opacity: 0.15;
+    opacity: 0.25;
 }
 #closeBtn {
     right: 4px;

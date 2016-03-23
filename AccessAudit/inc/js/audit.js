@@ -180,7 +180,7 @@ if(AccessAudit == undefined) {
 	        			var fg = b.suggestedColors[k].fg;
 	        			code += '<div style="background-color:'+bg+'; color:'+fg+'; border:solid 1px '+fg+'; " class="forceColor">&nbsp;';
 	        			code += fg+' on '+bg+' - '+b.suggestedColors[k].contrast+':1 (for '+k+')&nbsp;';
-	        			code += '<img src="'+chrome.extension.getURL("/images/force.png")+'" title="force color" data-index="'+index+'"/>';
+	        			code += '<img src="'+chrome.extension.getURL("/images/force.png")+'" class="forceButton" title="force color" data-index="'+index+'"/>';
 	        			code += '</div>';
 	        		}
 	        		code += '</div>';
