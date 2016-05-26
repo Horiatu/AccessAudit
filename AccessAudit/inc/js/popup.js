@@ -11,7 +11,7 @@ $(document).ready(function() {
         });
 
         return dfd.promise();
-    }
+    };
 
     validateTab = function(tab) {
         var dfd = $.Deferred();
@@ -26,7 +26,7 @@ $(document).ready(function() {
         }
 
         return dfd.promise();
-    }
+    };
 
     scriptDesc = function(script) {
         return (
@@ -37,33 +37,33 @@ $(document).ready(function() {
                 allFrames: script.allFrames,
                 "code": script.content
             }
-        )
-    }
+        );
+    };
 
     loadScripts = function(scripts, dfr) {
         var options = scriptDesc(scripts.shift());
         chrome.tabs.executeScript(page.id, options, function() {
-            if (scripts.length != 0)
+            if (scripts.length !== 0)
                 loadScripts(scripts, dfr);
             else
                 dfr.resolve();
         });
         return dfr.promise();
-    }
+    };
 
     openTestPage = function(e) {
-        window.open((options.testPageUrl=='') ? options.defaultTestPage : options.testPageUrl,'_blank');
-    }
+        window.open((options.testPageUrl==='') ? options.defaultTestPage : options.testPageUrl,'_blank');
+    };
 
     openOptionsPage = function(e) {
         window.open(chrome.extension.getURL('/inc/html/options.html'),'_blank');
-    }
+    };
 
     openHomePage = function(e) {
-        window.open('http://pages.pathcom.com/~horiatu/WCAG/index.html','_blank');
-    }
+        window.open('https://docs.google.com/presentation/d/1ZAJ8dCCZ9mapb_cnZcRse5mJsihAnGhrQDLzso4su8Q/edit?usp=sharing','_blank');
+    };
 
-    page = {id:null, title:null, url:null, favIconUrl:null}
+    page = {id:null, title:null, url:null, favIconUrl:null};
 
     runAudits = function(e) {
         getSelectedTab().done(
@@ -132,14 +132,14 @@ $(document).ready(function() {
                                     } catch (e) {alert(e.message);}
                                 });
                                 },
-                                error : function(e) { console.log({ajax:e})}
+                                error : function(e) { console.log({ajax:e});}
                             });
                         }
                     }
                 );
             }
         );
-    }
+    };
 
     camel2Words = function(str) {
         var arr = str.split("");
@@ -150,13 +150,13 @@ $(document).ready(function() {
         }
         arr[0] = arr[0].toUpperCase();    
         return arr.join("");
-    }
+    };
 
     showResults = function(results) {
         $('#resultsList').html('');
         $('#resultsWrapper').addClass('hide');
-        if(!results || results == undefined || results.length == 0)
-            return
+        if(!results || results === undefined || results.length === 0)
+            return;
         var r = {PASS:'', NA:'', FAIL:''};
         $.each(results, function(index, rule){
             //console.log(rule);
@@ -179,14 +179,14 @@ $(document).ready(function() {
                     img = 'warning';
                     break;
             }
-            r[rule.status] += '<img src="/images/'+img+'.png" title="'+title+brokeRules+'"></img>'
+            r[rule.status] += '<img src="/images/'+img+'.png" title="'+title+brokeRules+'"></img>';
             r[rule.status] += '</td>';
             r[rule.status] += '<td class="ruleName">'+camel2Words(rule.name)+'</td>';
             r[rule.status] += '</tr></table>';
             r[rule.status] += '</li>\n';
-        })
+        });
 
-        if(r.FAIL+r.PASS+r.NA != '') {
+        if(r.FAIL+r.PASS+r.NA !== '') {
             $('#resultsWrapper').removeClass('hide');
         }
         $('#resultsList').html('<ul>'+r.FAIL+r.PASS+r.NA+'</ul>');
@@ -248,7 +248,7 @@ $(document).ready(function() {
                 openReport(results); 
             //});
         });
-    }
+    };
 
     openReport = function(results) {
         var addRule = function(rule) {
@@ -257,19 +257,19 @@ $(document).ready(function() {
             reportBody+='<a class="ruleUrl" href="'+rule.url+'" target="_blank">'+rule.url+'</a>';
             if(rule.data) {
                 reportBody += '<p>'+rule.data.length+' element'+(rule.data.length!=1?'s':'')+' break'+(rule.data.length==1?'s':'')+' this rule:</p>';
-                reportBody += '<ol start="1">'
+                reportBody += '<ol start="1">';
                 $.each(rule.data, function(i, p){
                     reportBody += '<li>';
                     reportBody += p.path;
-                    if(p.comment && p.comment!=undefined && p.comment!='') {
+                    if(p.comment && p.comment!==undefined && p.comment!=='') {
                         reportBody += '<br/><span class="suggest">*** Auditor suggests: '+p.comment+'</span>';
                     }
                     reportBody += '</li>';
                 });
-                reportBody += '</ol>'
+                reportBody += '</ol>';
             }
-        }
-        if(!results || results == undefined || results.length == 0)
+        };
+        if(!results || results === undefined || results.length === 0)
             return;
 
         var reportBody = "";
@@ -286,13 +286,13 @@ $(document).ready(function() {
         };
 
         $.each(statLbls, function(l, stat) {
-            var fs = $(results).filter(function(i,r) {return r.status==stat});
+            var fs = $(results).filter(function(i,r) {return r.status==stat;});
             if(fs.length>0) {
                 reportBody += '<h2>There are '+fs.length+' '+stat.toLowerCase()+'-rule'+(fs.length==1?'':'s')+':</h2>';
-                reportBody += '<p class="note">'+comments[stat]+'</p>'
+                reportBody += '<p class="note">'+comments[stat]+'</p>';
 
                 $.each(['Severe','Warning'], function(j, svr) {
-                    var svrRules = $(fs).filter(function(i,r) {return r.severity==svr});
+                    var svrRules = $(fs).filter(function(i,r) {return r.severity==svr;});
                     if(svrRules.length>0) {
                         reportBody += '<h3>'+svrRules.length+(stat!='FAIL'?' would be ':' ')+svr+':</h2>';
 
@@ -300,12 +300,12 @@ $(document).ready(function() {
                             addRule(rule);
                         });
                     }
-                })
+                });
             }
-        })
+        });
 
         Background.openReport(page, reportBody,'',new Date());
-    }
+    };
 
     showClick = function(e) {
         var $e = $(e.toElement).closest('li');
@@ -320,18 +320,18 @@ $(document).ready(function() {
                 $e.toggleClass('hideElements');
             }
         );
-    }
+    };
 
     showStat = function($cb) {
         var cls = $cb.attr('id').substr(2).toLowerCase();
         var $rows= $('#resultsList .'+cls);
         var show = $cb.is(':checked');
 
-        if(show) $rows.removeClass('hide') 
+        if(show) $rows.removeClass('hide');
         else $rows.addClass('hide');
 
         saveOption(cls.toUpperCase(), show);
-    }
+    };
 
     saveOption = function(key, value) {
         var obj = {};
@@ -339,12 +339,12 @@ $(document).ready(function() {
         chrome.storage.sync.set(obj);
         //chrome.storage.sync.get(null, function (data) { console.info(data) })
         options[key] = value;
-    }
+    };
 
     $.each($('img'), function(index, value) {
         $value = $(value);
         $value.attr('src', chrome.extension.getURL($value.attr('src'))).attr('alt', '');
-    })
+    });
 
     $('#closeBtn').click(function(e) { window.close(); });
     $('#optionsBtn').click(openOptionsPage);
@@ -374,14 +374,14 @@ $(document).ready(function() {
                             options = response; 
                             //console.log(options); 
 
-                            if(options.PASS) $('#cbPass').attr('checked','')
+                            if(options.PASS) $('#cbPass').attr('checked','');
                             else $('#cbPass').removeAttr('checked');
 
-                            if(options.NA) $('#cbNA').attr('checked','')
+                            if(options.NA) $('#cbNA').attr('checked','');
                             else $('#cbNA').removeAttr('checked');
 
                             $('#filterResults input[type=checkbox]').change(function() {
-                                showStat($(this))
+                                showStat($(this));
                             });
 
                             $('#runBtn').click(runAudits);
@@ -392,7 +392,7 @@ $(document).ready(function() {
                         });
                     }
                 }
-            )
+            );
         }
-    )
-})
+    );
+});
