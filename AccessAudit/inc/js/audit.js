@@ -1,4 +1,4 @@
-if(AccessAudit == undefined) {
+if(AccessAudit === undefined) {
 	var AccessAudit = function() {
 	    var _private = {
 
@@ -6,7 +6,7 @@ if(AccessAudit == undefined) {
 
 			injectCss: function() {
 		        var _injectCss = function(css) {
-		            if ($("head").length == 0) {
+		            if ($("head").length === 0) {
 	                    $("body").before(css);
 	                } else {
 	                    $("head").append(css);
@@ -41,7 +41,7 @@ if(AccessAudit == undefined) {
 			    _private.els = _private.elementsFromPoint(x, y, ".AccessAuditMarker");
 			    if (_private.els.length > 0) {
 			        //console.log(els);
-			        if($('#AccessAuditInfo').length==0) {
+			        if($('#AccessAuditInfo').length===0) {
 			        	$('body').append('<div id="AccessAuditInfo"/>');
 			        }
 			        $('#AccessAuditInfo>*').remove();
@@ -51,7 +51,7 @@ if(AccessAudit == undefined) {
 			    		$('#AccessAuditInfo').remove();
 			    	});
 			    	$.each(_private.els, function(index, element) {
-			    		console.info(element);
+			    		//console.info(element);
 			    		var code = '';
 			    		var aatitle = element.attributes['data-aatitle'].value;
 			    		code += '<div style="max-width:300px;">'+element.attributes['data-aadescription'].value+'</div>';
@@ -83,7 +83,7 @@ if(AccessAudit == undefined) {
 								$(this).removeClass("highlightInfo");
 						    	$el.removeClass("AccessAuditHighlight");	
 							}
-						)
+						);
 			    	});
 			        
 			        var d = 4;
@@ -94,7 +94,7 @@ if(AccessAudit == undefined) {
 
 			        $('#AccessAuditInfo')
 			        	.css('left',(ev.pageX + (x+w<W ? d : -w))+'px')
-			        	.css('top',(ev.pageY + (y+h<H ? d : -h))+'px')
+			        	.css('top',(ev.pageY + (y+h<H ? d : -h))+'px');
 			    } else {
 			    	$('#AccessAuditInfo').remove();
 			    }
@@ -114,50 +114,50 @@ if(AccessAudit == undefined) {
 			    				$forceAltTextDiv.find('.forceAltTextExecute').trigger('click');
 			    			}
 			    		});
-		    		})
-		    	})
+		    		});
+		    	});
 		    	$.each($('.forceAltTextExecute'), function(i, element){
 		    		$(this).click(function() {
 		    			var index = Number($(this).attr('data-index'));
 		    			var el = _private.els[index];
-		    			if(el!=null)
+		    			if(el!==null)
 		    			{
 		    				var altText = $(this).parent('.forceAltTextDiv').find('input[type=text]').val();
-		    				if(altText=='') {
+		    				if(altText==='') {
 		    					$(el).removeAttr('alt');
 		    				} else {
 		    					$(el).attr('alt', altText.trim());
 		    					$(el).attr('data-comment', 'add Alt Text: "'+altText.trim()+'"');
 		    				}
-		    				console.info(el);
+		    				//console.info(el);
 		    			}
-		    		})
-		    	})
+		    		});
+		    	});
 		    	$('#suggestBtn').unbind('click').bind('click', function() {
 	        		$(this).parent('div').parent('div').find('#suggestions').show();
 	        		$(this).hide();
-	        	})
+	        	});
 				$.each($('.forceColor img'), function(i, element){
 		    		$(this).click(function() {
 		    			var index = Number($(this).attr('data-index'));
 		    			var el = _private.els[index];
-		    			if(el!=null)
+		    			if(el!==null)
 		    			{
 		    				var $div = $(this).closest('div');
 		    				$(el).css('color', $div.css('color'));
 		    				$(el).css('background-color', $div.css('background-color'));
 		    				$(el).attr('data-comment', 'set colors to'+$div.text()+'.');
 		    			}
-		    		})
-		    	})
+		    		});
+		    	});
 		    },
 
 	        forceAltText : function(index) {
 	        	var addInCode = '<img src="'+chrome.extension.getURL("/images/force.png")+'" class="forceButton forceAltText" title="force Alt text"/>';
-	        	addInCode += '<div class="forceAltTextDiv">'
-	        	addInCode += '<input type="text" placeholder="enter Alt text here"></input>'
-				addInCode += '<img src="'+chrome.extension.getURL("/images/force.png")+'" class="forceButton forceAltTextExecute" title="force Alt text" data-index="'+index+'"/>'
-				addInCode += '</div>'
+	        	addInCode += '<div class="forceAltTextDiv">';
+	        	addInCode += '<input type="text" placeholder="enter Alt text here"></input>';
+				addInCode += '<img src="'+chrome.extension.getURL("/images/force.png")+'" class="forceButton forceAltTextExecute" title="force Alt text" data-index="'+index+'"/>';
+				addInCode += '</div>';
 	        	return addInCode;
 	        },
 
@@ -170,12 +170,12 @@ if(AccessAudit == undefined) {
 				code += 'title="'+b.foregroundColor+' on '+b.backgroundColor+'"';
 	        	code += '>&nbsp;Element&nbsp;</span>&nbsp;';
 	        	code += 'has the contrast: '+b.value+':1';
-	        	if(b.suggestedColors && b.suggestedColors != undefined){
+	        	if(b.suggestedColors && b.suggestedColors !== undefined){
 		        	code += '<img id="suggestBtn" src="'+chrome.extension.getURL('/images/suggest.png')+'" title="suggest colors">';
 		        	code += '</div>';
 	        		code += '<div id="suggestions" style="display:none;">';
 	        		code += '<Span>Suggestions:</Span><br/>';
-	        		for (k in b.suggestedColors) {
+	        		for (var k in b.suggestedColors) {
 	        			var bg = b.suggestedColors[k].bg;
 	        			var fg = b.suggestedColors[k].fg;
 	        			code += '<div style="background-color:'+bg+'; color:'+fg+'; border:solid 1px '+fg+'; " class="forceColor">&nbsp;';
@@ -196,7 +196,7 @@ if(AccessAudit == undefined) {
 				var elements = [], previousPointerEvents = [], current, i, d;
 
 			    // get all elements via elementFromPoint, and remove them from hit-testing in order
-				while ((current = document.elementFromPoint(x,y)) && elements.indexOf(current)===-1 && current != null) {
+				while ((current = document.elementFromPoint(x,y)) && elements.indexOf(current)===-1 && current !== null) {
 			        
 			        // push the element and its current style
 					elements.push(current);
@@ -211,11 +211,12 @@ if(AccessAudit == undefined) {
 				}
 
 			    // restore the previous pointer-events values
-				for(i = previousPointerEvents.length; d=previousPointerEvents[--i]; ) {
-					elements[i].style.setProperty('pointer-events', d.value?d.value:'', d.priority); 
+				for(var ii = previousPointerEvents.length; ii>0; d=previousPointerEvents[--ii] ) {
+					if(elements[ii])
+						elements[ii].style.setProperty('pointer-events', d.value?d.value:'', d.priority); 
 				}
 			      
-			    if(selector && selector != undefined && selector !='') {
+			    if(selector && selector !== undefined && selector !=='') {
 			    	elements = $(elements).filter(selector).toArray();
 			    }
 			    return elements;
@@ -253,7 +254,7 @@ if(AccessAudit == undefined) {
 			                for (var n=0; n < allNodes.length; n++) { 
 			                    if (allNodes[n].hasAttribute('id') && allNodes[n].id == elm.id) uniqueIdCount++; 
 			                    if (uniqueIdCount > 1) break; 
-			                }; 
+			                } 
 			                if ( uniqueIdCount == 1) { 
 			                    segs.unshift('id("' + elm.getAttribute('id') + '")'); 
 			                    return segs.join('/'); 
@@ -265,10 +266,10 @@ if(AccessAudit == undefined) {
 			        } else { 
 			            for (i = 1, sib = elm.previousSibling; sib; sib = sib.previousSibling) { 
 			                if (sib.localName == elm.localName)  i++; 
-			            }; 
+			            } 
 			            segs.unshift(elm.localName.toLowerCase() + '[' + i + ']'); 
-			        }; 
-			    }; 
+			        } 
+			    } 
 			    return segs.length ? '/' + segs.join('/') : null; 
 			}, 
 
@@ -276,13 +277,13 @@ if(AccessAudit == undefined) {
 				return $(result.elements).map(function(i,e) { 
 					var d = {path:_private.createXPathFromElement(e)};
 					var comment = $(e).attr('data-comment');
-					if(comment && comment!=undefined) {
-						d['comment'] = comment;
+					if(comment && comment!==undefined) {
+						d.comment = comment;
 					}
 					return d;
 				});
 			}
-		}
+		};
 
 	    var _public = {
 	 		init: function() {
@@ -308,7 +309,7 @@ if(AccessAudit == undefined) {
 				    		$('#AccessAuditCss').remove();
 				    		//$('#AccessAuditPlusCss').remove();
 
-				    		if(_private.results != undefined && _private.results && _private.results.length>0)
+				    		if(_private.results !== undefined && _private.results && _private.results.length>0)
 				    			$.each(_private.results, function(i, result) {
 				    				result.data = _private.getResultData(result);
 				    			});
@@ -319,6 +320,7 @@ if(AccessAudit == undefined) {
 							$.each(req.banned, function(i, rule) {
 								configuration.ignoreSelectors(rule,'*');
 							});
+
 							configuration.showUnsupportedRulesWarning = false;
 
 							$('.AccessAuditMarker')
@@ -330,17 +332,16 @@ if(AccessAudit == undefined) {
 		        				.removeClass('.AccessAudit*');
 		        			$('#AccessAuditOvr').remove();
 							var audits = axs.Audit.run(configuration);
-							//console.log(audits);
-
 							var results = [];
 							var id = 0;
 							$.each(audits, function(index, audit){
 								var elementsCount = 0;
 								var title = audit.rule.heading;
-							    if(audit.elements && audit.elements != undefined && audit.elements.length>0) {
+							    if(audit.elements && audit.elements !== undefined && audit.elements.length>0) {
 							    	elementsCount = audit.elements.length;
 							    //     title+= ' ('+elementsCount+')';
-							    };
+							    }
+
 							    var result = {
 							    	id: 'AccessAudit'+id++,
 									status: audit.result, 
@@ -348,11 +349,13 @@ if(AccessAudit == undefined) {
 									title: title,
 									severity: audit.rule.severity,
 									url: audit.rule.url
-								}
+								};
+
 								if(elementsCount>0) {
 									result.elements = audit.elements;
 									result.data = _private.getResultData(result);
 								}
+
 								results.push(result);
 							});
 
@@ -369,8 +372,8 @@ if(AccessAudit == undefined) {
 				        				.removeClass('AccessAuditMarker')
 				        				.removeClass('AccessAuditHighlight')
 				        				.removeClass('forceVisible')
-				        				.removeClass(ndx)
-				        			if($('.AccessAuditMarker, .AccessAuditHighlight').length==0 && document.getElementById("AccessAuditOvr")) {
+				        				.removeClass(ndx);
+				        			if($('.AccessAuditMarker, .AccessAuditHighlight').length===0 && document.getElementById("AccessAuditOvr")) {
 				        				$("#AccessAuditOvr").unbind("click");
 				        				$("#AccessAuditOvr").remove();
 				        				$('#AccessAuditInfo').remove();
@@ -382,18 +385,18 @@ if(AccessAudit == undefined) {
 						        	sendResponse(0);
 				        			break;
 				        		case false :
-						        	var audits = _private.results.filter(function(a) { return a.id === ndx; });
-						        	if(audits && audits.length > 0) {
-							        	var $elements = $(audits[0].elements);	
-						        		var $els = $elements.filter(function(e) { return !$(e).hasClass(ndx)}) 
+						        	var auditss = _private.results.filter(function(a) { return a.id === ndx; });
+						        	if(auditss && auditss.length > 0) {
+							        	var $elements = $(auditss[0].elements);	
+						        		var $els = $elements.filter(function(e) { return !$(e).hasClass(ndx); }); 
 					        			$els.addClass(ndx)
 					        			    .addClass('AccessAuditMarker')
-					        			    .attr('data-AAtitle', audits[0].name)
-										    .attr('data-AAdescription', audits[0].title);
+					        			    .attr('data-AAtitle', auditss[0].name)
+										    .attr('data-AAdescription', auditss[0].title);
 
 										$.each($('.AccessAuditMarker'), function(i, hid) {
 											try {
-												console.log(hid);
+												//console.log(hid);
 												if(axs.utils.isElementOrAncestorHidden(hid)) {
 													$(hid).addClass('forceVisible');
 												}
@@ -415,10 +418,10 @@ if(AccessAudit == undefined) {
 				    }
 				});
 			}
-		}
+		};
 
 	    return _public;
-	}
+	};
 
 	AccessAudit().init();
 }

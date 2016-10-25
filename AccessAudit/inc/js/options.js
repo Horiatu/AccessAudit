@@ -5,19 +5,19 @@ $(document).ready(function() {
     
     $('input[id="testPageUrl"]').on('input', function() {
         testPageUrlChanged($(this).val());
-    })
+    });
     $('#testPageTry').click(function() {
         window.open($('#testPageUrl').val());
-    })
+    });
 
     $('#resetBtn').click(function() {
         if(confirm("Are you sure you want to reset all options?")) { 
             chrome.storage.sync.clear();
             window.location.reload(false); 
         }
-    })
+    });
 
-    restore_options()
+    restore_options();
 });
 
 function loadAPItext(url) {
@@ -29,17 +29,17 @@ function loadAPItext(url) {
 
 function addCssClass(className, classValue, styleId) {
     if(!styleId) styleId='css-modifier-container';
-    if ($('#'+styleId).length == 0) {
+    if ($('#'+styleId).length === 0) {
         $('head').prepend('<style id="'+styleId+'"></style>');
     }
 
     $('#'+styleId).append('\t'+className + "{\n\t\t" + classValue + "\n\t}\n");
-};
+}
 
 function getOptions(optionsDfr) {
     chrome.extension.connect().postMessage({type: 'get-defaults'});
     return optionsDfr.promise();
-};
+}
         
 var Options = null;
 // Restores select box state to saved value from localStorage.
@@ -56,19 +56,19 @@ function restore_options() {
         $('#bannedRules option').remove();
         $.each(options.banned, function(i, rule) {
             $('#bannedRules').append('<option value="'+rule+'">'+camel2Words(rule)+'</option>');
-        })
+        });
         $('#bannedRules').attr('size', Math.min(10, options.banned.length));
         $('#bannedRules').change(function() {
             var $selected = $('#bannedRules option:selected');
             var count = $selected.length;
-            $('#deleteBtn').prop("disabled", count == 0);
-        })
+            $('#deleteBtn').prop("disabled", count === 0);
+        });
         $('#deleteBtn').prop("disabled", true);
         $('#deleteBtn').click(function(e) {
             $('#bannedRules option:selected').remove();
 
             var banned = {};
-            banned['banned'] = $.map($('#bannedRules option'), function(opt) { return opt.value; });
+            banned.banned = $.map($('#bannedRules option'), function(opt) { return opt.value; });
             chrome.storage.sync.set(banned);
         });
 
@@ -129,10 +129,10 @@ function restore_options() {
             var n = Number($(this).prop('value'));
             if(n>=$(this).prop('min') && n<=$(this).prop('max')) {
                 chrome.storage.sync.set({minWHExpandHiddenElements:n});
-                $(this).css('color', 'black')
+                $(this).css('color', 'black');
             }
             else {
-                $(this).css('color', 'red')
+                $(this).css('color', 'red');
             }
         });
 
@@ -166,7 +166,7 @@ function showAPI(option) {
             file = Options.LatestAPI;
             break;
         case 'Custom' : 
-            file = Options.CustomAPI == '' ? Options.InternalAPI : Options.CustomAPI;
+            file = Options.CustomAPI === '' ? Options.InternalAPI : Options.CustomAPI;
             break;
     }
     loadAPItext(file)
@@ -194,6 +194,6 @@ function testPageUrlChanged(val) {
     chrome.storage.sync.set({
         'testPageUrl': val
     });
-    $('#testPageTry').css('display',(val == '')?'none':'inherit');
+    $('#testPageTry').css('display',(val === '')?'none':'inherit');
 }
 

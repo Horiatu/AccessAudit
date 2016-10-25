@@ -3894,10 +3894,10 @@ var fn = (function() {
                 if ("presentation" == a.getAttribute("role")) {
                     return 0 != a.querySelectorAll("th").length;
                 }
-                a = a.querySelectorAll("tr");
-                var b;
+                var a = a.querySelectorAll("tr");
+                var b = !1;
                 a: {
-                    b = a[0].children;
+                    b = a && a.length>0 ? a[0].children : {}; // fix Bug - @TH
                     for (var c = 0; c < b.length; c++) {
                         if ("TH" != b[c].tagName) {
                             b = !0;

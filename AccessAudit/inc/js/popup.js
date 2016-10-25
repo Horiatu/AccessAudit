@@ -40,11 +40,11 @@ $(document).ready(function() {
         );
     };
 
-    loadScripts = function(scripts, dfr) {
+    AA_loadScripts = function(scripts, dfr) {
         var options = scriptDesc(scripts.shift());
         chrome.tabs.executeScript(page.id, options, function() {
             if (scripts.length !== 0)
-                loadScripts(scripts, dfr);
+                AA_loadScripts(scripts, dfr);
             else
                 dfr.resolve();
         });
@@ -81,10 +81,10 @@ $(document).ready(function() {
 
                             var apiCode = '';
                             $.ajax({
-                                url : (options.API=="Internal") ? options.InternalAPI : (options.API=="Latest") ? options.LatestAPI : (options.CustomAPI == '' ? options.InternalAPI : options.CustomAPI),
+                                url : (options.API==="Internal") ? options.InternalAPI : (options.API==="Latest") ? options.LatestAPI : (options.CustomAPI === '' ? options.InternalAPI : options.CustomAPI),
                                 dataType: "text",
                                 success : function (apiCode) {
-                                    loadScripts([{
+                                    AA_loadScripts([{
                                         allFrames: true,
                                         file: true,
                                         content: "/inc/js/jquery-2.1.4.min.js"
@@ -129,10 +129,15 @@ $(document).ready(function() {
                                         chrome.tabs.sendMessage(page.id, {type:'Audit', banned:options.banned}, function(results) { 
                                             showResults(results); 
                                         });
-                                    } catch (e) {alert(e.message);}
+                                    } catch (e) {
+                                        alert(e.message);
+                                    }
                                 });
                                 },
-                                error : function(e) { console.log({ajax:e});}
+                                error : function(e) { 
+                                    alert(e);
+                                    console.log({ajax:e});
+                                }
                             });
                         }
                     }
