@@ -3185,25 +3185,33 @@ var fn = (function() {
         });
     };
     axs.AuditRule.prototype.run = function(a) {
-        a = a || {};
-        var b = "maxResults" in a ? a.maxResults : null,
-            c = [];
-        axs.AuditRule.collectMatchingElements("scope" in a ? a.scope : document, this.relevantElementMatcher_, c, a.ignoreSelectors);
-        var d = [];
-        if (!c.length) {
-            return {
-                result: axs.constants.AuditResult.NA
+            a = a || {};
+            var b = "maxResults" in a ? a.maxResults : null,
+                c = [];
+            axs.AuditRule.collectMatchingElements("scope" in a ? a.scope : document, this.relevantElementMatcher_, c, a.ignoreSelectors);
+            var d = [];
+            if (!c.length) {
+                return {
+                    result: axs.constants.AuditResult.NA
+                };
+            }
+            for (var e = 0; e < c.length && !(null != b && d.length >= b); e++) {
+                var f = c[e];
+                try {
+                    this.test_(f, a.config) && this.addElement(d, f);
+                } catch (ex) {
+                    console.error(ex);
+                    console.error(f);
+                    this.addElement(d, f);
+                    debugger;
+                    this.test_(f, a.config);
+                }
+            }
+            a = {
+                result: d.length ? axs.constants.AuditResult.FAIL : axs.constants.AuditResult.PASS,
+                elements: d
             };
-        }
-        for (var e = 0; e < c.length && !(null != b && d.length >= b); e++) {
-            var f = c[e];
-            this.test_(f, a.config) && this.addElement(d, f);
-        }
-        a = {
-            result: d.length ? axs.constants.AuditResult.FAIL : axs.constants.AuditResult.PASS,
-            elements: d
-        };
-        e < c.length && (a.resultsTruncated = !0);
+            e < c.length && (a.resultsTruncated = !0);
         return a;
     };
     axs.AuditRules = {};
@@ -3524,7 +3532,8 @@ var fn = (function() {
             return axs.browserUtils.matchSelector(a, "[role]");
         },
         test: function(a) {
-            return !axs.utils.getRoles(a).valid;
+            r = axs.utils.getRoles(a);
+            return !(r != null ? r.valid : true);
         },
         code: "AX_ARIA_01"
     });
@@ -3796,7 +3805,7 @@ var fn = (function() {
         },
         test: function(a) {
             var b = axs.utils.getRoles(a);
-            if (!b.valid) {
+            if (!(b && b.valid)) {
                 return !1;
             }
             for (var c = 0; c < b.roles.length; c++) {
