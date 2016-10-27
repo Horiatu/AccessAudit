@@ -304,10 +304,21 @@ if(AccessAudit === undefined) {
 	 			_private.addFilters();
 
 	 			chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
-// console.log(req.type);
-// console.log(req);
-// console.log(sender);
 				    switch (req.type) {
+				    	case 'dumpElements' :
+				    		var resultsByRule = _private.results.filter(function(r) { return r.name === req.rule; });
+				    		if(resultsByRule && resultsByRule.length>=1)
+				    		{
+					    		var elementsByRule = resultsByRule[0].elements;
+					    		$.each(elementsByRule, function(index, element) {
+	                                console.info(element);
+	                            });
+					    		sendResponse(elementsByRule);
+					    	}
+					    	else {
+				    			sendResponse(null);
+				    		}
+				    		break;
 				    	case 'RefreshAudit':
 		    				$('.AccessAuditMarker')
 			        			.removeAttr('data-AAtitle')

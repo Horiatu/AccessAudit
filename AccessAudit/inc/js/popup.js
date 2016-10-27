@@ -211,6 +211,17 @@ $(document).ready(function() {
                         case 'info' :
                             window.open($(element).closest('li').data('url'),'_blank');
                             break;
+                        case 'console' :
+//debugger;
+                            var name = $(element).closest('li').data('name');
+//console.info(name);
+                            chrome.tabs.sendMessage(page.id, {type:'dumpElements', rule: name}, function(results) { 
+                                // var resultByRule = results.filter(function(r) { return r.name === name; });
+                                // $.each(resultByRule, function(index, element) {
+                                //     console.info(element);
+                                // });
+                            });
+                            break;
                         case 'remove' :
                             console.log($(element));
                             options.banned.push($(element).closest('li').data('name'));
@@ -230,9 +241,11 @@ $(document).ready(function() {
 
                 menu: {
                     'info': {
-                        title: 'Show More Info',
-                        // Font awesome icons here
-                        //icon: 'archive',
+                        title: 'Details',
+                    },
+
+                    'console': {
+                        title: 'Show in Console',
                     },
 
                     'remove': {
