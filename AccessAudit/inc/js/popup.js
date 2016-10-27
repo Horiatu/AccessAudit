@@ -212,14 +212,10 @@ $(document).ready(function() {
                             window.open($(element).closest('li').data('url'),'_blank');
                             break;
                         case 'console' :
-//debugger;
                             var name = $(element).closest('li').data('name');
-//console.info(name);
                             chrome.tabs.sendMessage(page.id, {type:'dumpElements', rule: name}, function(results) { 
-                                // var resultByRule = results.filter(function(r) { return r.name === name; });
-                                // $.each(resultByRule, function(index, element) {
-                                //     console.info(element);
-                                // });
+                                alert('Open DevTools -> Console/Info on Web Page.');
+                                context.nuContextMenu('close');
                             });
                             break;
                         case 'remove' :
