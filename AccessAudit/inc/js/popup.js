@@ -85,19 +85,19 @@ $(document).ready(function() {
                                 dataType: "text",
                                 success : function (apiCode) {
                                     AA_loadScripts([{
-                                        allFrames: true,
+                                        allFrames: false,
                                         file: true,
                                         content: "/inc/js/jquery-2.1.4.min.js"
                                     }, {
-                                        allFrames: true,
+                                        allFrames: false,
                                         file: false,
                                         content: apiCode
                                     }, {
-                                        allFrames: true,
+                                        allFrames: false,
                                         file: true,
                                         content: "/inc/js/audit.js"
                                     }, {
-                                        allFrames: true,
+                                        allFrames: false,
                                         file: false,
                                         content: 
                                         options.expandHiddenElements || options.hightlightWithSemiTransparentCover ?

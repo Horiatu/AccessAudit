@@ -30,11 +30,11 @@ if(AccessAudit === undefined) {
 					(ev.altKey || controlKeys.indexOf("keyAlt")==-1) &&
 					(ev.shiftKey || controlKeys.indexOf("keyShift")==-1)
 				) {
-					$("#AccessAuditOvr").hide();
+					$('#AccessAuditOvr').hide();
 					$('#AccessAuditInfo').remove();
 					var el = document.elementFromPoint(x, y);
 					el.click();
-					$("#AccessAuditOvr").show();
+					$('#AccessAuditOvr').show();
 					return;
 				} 
 
@@ -202,6 +202,7 @@ if(AccessAudit === undefined) {
 					elements.push(current);
 					
 					previousPointerEvents.push({
+						element: current,
 		                value: current.style.getPropertyValue('pointer-events'),
 		                priority: current.style.getPropertyPriority('pointer-events')
 		            });
@@ -211,9 +212,19 @@ if(AccessAudit === undefined) {
 				}
 
 			    // restore the previous pointer-events values
-				for(var ii = previousPointerEvents.length; ii>0; d=previousPointerEvents[--ii] ) {
-					if(elements[ii])
-						elements[ii].style.setProperty('pointer-events', d.value?d.value:'', d.priority); 
+				for(var ii = previousPointerEvents.length; --ii>=0; ) {
+					var dd = previousPointerEvents[ii]; 
+					if(dd && dd.element)
+					{
+						if(dd.value && dd.value !== "") 
+						{
+							dd.element.style.setProperty('pointer-events', dd.value?dd.value:'', dd.priority); 
+						} 
+						else 
+						{
+			                dd.element.style.removeProperty ('pointer-events');
+						}
+					}
 				}
 			      
 			    if(selector && selector !== undefined && selector !=='') {
@@ -292,7 +303,9 @@ if(AccessAudit === undefined) {
 	 			_private.addFilters();
 
 	 			chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
-				    //console.log(req.type);
+// console.log(req.type);
+// console.log(req);
+// console.log(sender);
 				    switch (req.type) {
 				    	case 'RefreshAudit':
 		    				$('.AccessAuditMarker')
@@ -302,8 +315,8 @@ if(AccessAudit === undefined) {
 		        				.removeClass('AccessAuditHighlight')
 		        				.removeClass('forceVisible')
 				        		.removeClass('.AccessAudit*');
-
 				    		$('#AccessAuditOvr').remove();
+
 				    		$('#AccessAuditInfo').remove();
 				    		$('#svgFilters').remove();
 				    		$('#AccessAuditCss').remove();
@@ -316,6 +329,7 @@ if(AccessAudit === undefined) {
 				    			sendResponse(_private.results);
 				    		break;
 				        case 'Audit':
+//alert(req.type);
 							var configuration = new axs.AuditConfiguration();
 							$.each(req.banned, function(i, rule) {
 								configuration.ignoreSelectors(rule,'*');
@@ -331,6 +345,7 @@ if(AccessAudit === undefined) {
 		        				.removeClass('forceVisible')
 		        				.removeClass('.AccessAudit*');
 		        			$('#AccessAuditOvr').remove();
+
 							var audits = axs.Audit.run(configuration);
 							var results = [];
 							var id = 0;
@@ -374,8 +389,8 @@ if(AccessAudit === undefined) {
 				        				.removeClass('forceVisible')
 				        				.removeClass(ndx);
 				        			if($('.AccessAuditMarker, .AccessAuditHighlight').length===0 && document.getElementById("AccessAuditOvr")) {
-				        				$("#AccessAuditOvr").unbind("click");
-				        				$("#AccessAuditOvr").remove();
+				        				$('#AccessAuditOvr').unbind("click");
+				        				$('#AccessAuditOvr').remove();
 				        				$('#AccessAuditInfo').remove();
 				    					$('#svgFilters').remove();
 				    					$('#AccessAuditCss').remove();
@@ -403,9 +418,10 @@ if(AccessAudit === undefined) {
 											} catch (e) {}
 										});
 					        			
+					        			//debugger;
 										if(!document.getElementById("AccessAuditOvr")) {
 						                    $("body").append('<div id="AccessAuditOvr"></div>');
-											$("#AccessAuditOvr").bind("click", _private.getElementsAtPoint);
+											$('#AccessAuditOvr').bind("click", _private.getElementsAtPoint);
 											_private.injectCss();
 											_private.addFilters();
 						                }
