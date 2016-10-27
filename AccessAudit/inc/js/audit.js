@@ -45,7 +45,8 @@ if(AccessAudit === undefined) {
 			        	$('body').append('<div id="AccessAuditInfo"/>');
 			        }
 			        $('#AccessAuditInfo>*').remove();
-			    	$('#AccessAuditInfo').append("<div class='infoHeader'>"+ _private.els.length+" Broken Rule"+( _private.els.length>1?"s":"")+"</div>" );
+			        var plural = ( _private.els.length>1?"s":"");
+			    	$('#AccessAuditInfo').append("<div class='infoHeader' title='Look in Console.Info for element selector"+plural+".'>"+ _private.els.length+" Broken Rule"+plural+"</div>" );
 			    	$('.infoHeader').append('<img id="infoClose" src="'+chrome.extension.getURL('/images/x.png')+'" title="close">');
 			    	$('#infoClose').click(function() {
 			    		$('#AccessAuditInfo').remove();
