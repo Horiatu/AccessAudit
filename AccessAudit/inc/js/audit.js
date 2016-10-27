@@ -51,7 +51,7 @@ if(AccessAudit === undefined) {
 			    		$('#AccessAuditInfo').remove();
 			    	});
 			    	$.each(_private.els, function(index, element) {
-			    		//console.info(element);
+			    		console.info(element);
 			    		var code = '';
 			    		var aatitle = element.attributes['data-aatitle'].value;
 			    		code += '<div style="max-width:300px;">'+element.attributes['data-aadescription'].value+'</div>';
