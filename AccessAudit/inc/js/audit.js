@@ -341,7 +341,6 @@ if(AccessAudit === undefined) {
 				    			sendResponse(_private.results);
 				    		break;
 				        case 'Audit':
-//alert(req.type);
 							var configuration = new axs.AuditConfiguration();
 							$.each(req.banned, function(i, rule) {
 								configuration.ignoreSelectors(rule,'*');

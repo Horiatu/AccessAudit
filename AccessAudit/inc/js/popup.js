@@ -214,7 +214,7 @@ $(document).ready(function() {
                         case 'console' :
                             var name = $(element).closest('li').data('name');
                             chrome.tabs.sendMessage(page.id, {type:'dumpElements', rule: name}, function(results) { 
-                                alert('Open DevTools -> Console/Info on Web Page.');
+                                alert('Open DevTools -> Console/*--++Info on Web Page.');
                                 context.nuContextMenu('close');
                             });
                             break;
@@ -237,7 +237,7 @@ $(document).ready(function() {
 
                 menu: {
                     'info': {
-                        title: 'Details',
+                        title: 'Rule Details',
                     },
 
                     'console': {
@@ -265,6 +265,9 @@ $(document).ready(function() {
     };
 
     openReport = function(results) {
+        if(!results || results === undefined || results.length === 0)
+            return;
+        
         var addRule = function(rule) {
             //reportBody+='<h4>'+camel2Words(rule.name)+'</h4>';
             reportBody+='<h4 class="description '+rule.status.toLowerCase()+' '+rule.severity+'">'+rule.title+'</h4>';
@@ -283,8 +286,6 @@ $(document).ready(function() {
                 reportBody += '</ol>';
             }
         };
-        if(!results || results === undefined || results.length === 0)
-            return;
 
         var reportBody = "";
 

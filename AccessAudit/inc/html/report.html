@@ -1,9 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="shortcut icon" type="image/x-icon" href="/images/logos/favicon.ico">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="shortcut icon" type="image/x-icon" href="/images/logos/favicon.ico">
     <title>WCAG AccessAudit Report</title>
-    <link href="/inc/css/report.css" rel="stylesheet" type="text/css">
+    
+    <Style>
+#header {
+	border-bottom: 1px solid gray;
+}
+
+#report {
+	margin: 10px 0;
+}
+
+
+ol li {
+	margin-bottom: 2px;
+	padding-bottom: 2px;
+}
+
+.description {
+	padding:4px 1px;
+	margin-bottom: 0;
+}
+
+.description.Severe.fail{
+	background-color: pink;
+}
+
+.description.Warning.fail{
+	background-color: #ffcf7f;
+}
+
+.description.Severe.pass{
+	background-color: lightgreen;
+}
+
+.description.Warning.pass{
+	background-color: lightskyblue;
+}
+
+.description.Severe.na{
+	background-color: #cfffcf;
+}
+
+.description.Warning.na{
+	background-color: #cfffff;
+}
+
+li:nth-child(odd) { background: #c3c3c3; }
+
+h2{
+	margin-bottom:0;
+}
+
+p.note, a{
+	margin-left:40px;
+}
+p.note {
+	font-weight: bold;
+	margin-top:0;
+	max-width: 600px;
+}
+
+.suggest{
+	margin-left: 40px;
+    font-style: italic;
+    font-weight: bold;
+}
+    </Style>
 </head>
 <body>
 	<div id='header'>
@@ -11,7 +77,10 @@
 	</div>
 	<div id='report'>
 	</div>
-	<div id='footer'>
-		<div>footer</div>
-	</div>
+	
+	<table role="Presentation" style="border-top: 1px solid gray;
+	color: gray; font-size: 10px;"><tr>
+		<td style="white-space: nowrap;"><div id='footer'>footer</div></td>
+		<td style="width: 100%; text-align: right;"><A Href="https://chrome.google.com/webstore/detail/wcag-accessibility-audit/kpfleokokmllclahndmochhenmhncoej">WCAG Accessibility Audit Developer UI</A></td>
+	</tr></table>
 </body>
