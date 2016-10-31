@@ -34,45 +34,31 @@ Background.getDefaults = function() {
 };
 
 Background.openReport = function(page, report, header, footer) {
-    $.ajax({
-        url : '/inc/html/report.html',
-        dataType: "html"
-    })
-    .success(function(data) {
-        $('#work').append(data);
-        try {
-            var $header=$('#work').find('#header');
-            if(header && header !== undefined && header !== '')
-            {
-                $header.html(header);
-            }
-            $header.append('<b>'+page.title+'</b>');
-            if(page.favIconUrl && page.favIconUrl!==undefined && page.favIconUrl !== '') {
-                $header.append('<img src="'+page.favIconUrl+'" style="float:right; width:16px; height:16px;"/>');
-            }
-            $header.append('<br/>'+page.url);
+    var wnd = window.open('/inc/html/report.html','_blank');
+    setTimeout(function(){
+        Background.makeDocument(wnd.document, page, report, header, footer);
+    }, 500);
+};
 
-            if(report && report !== undefined && report !== '')
-            {
-                $('#work').find('#report').html(report);
-            }
+Background.makeDocument = function(doc, page, report, header, footer) {
+    var $doc = $(doc); 
+    var $header=$doc.find('#header');
+    if(header && header !== undefined && header !== '')
+    {
+        $header.html(header);
+    }
+    $header.append('<b>'+page.title+'</b>');
+    if(page.favIconUrl && page.favIconUrl!==undefined && page.favIconUrl !== '') {
+        $header.append('<img src="'+page.favIconUrl+'" style="float:right; width:16px; height:16px;" alt="Original Page FavIcon"/>');
+    }
+    $header.append('<br/>'+page.url);
 
-            if(footer && footer !== undefined && footer !== '')
-            {
-                $('#work').find('#footer').html(footer);
-            }
-
-            var wnd = window.open('','_blank');
-            wnd.document.write($('#work').html());
-            wnd.document.close();
-        } catch (ex) {
-            console.error(ex);
-        }
-        finally{
-            $('#work').empty();
-        }
-    })
-    .error(function(e) {
-        console.log(e);
-    });
+    if(report && report !== undefined && report !== '')
+    {
+         $doc.find('#report').html(report);
+    }
+    if(footer && footer !== undefined && footer !== '')
+    {
+        $doc.find('#footer').html(footer);
+    }
 };

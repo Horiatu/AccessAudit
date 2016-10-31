@@ -214,7 +214,7 @@ $(document).ready(function() {
                         case 'console' :
                             var name = $(element).closest('li').data('name');
                             chrome.tabs.sendMessage(page.id, {type:'dumpElements', rule: name}, function(results) { 
-                                alert('Open DevTools -> Console/*--++Info on Web Page.');
+                                alert('Open DevTools -> Console/Info on Web Page.');
                                 context.nuContextMenu('close');
                             });
                             break;
@@ -258,9 +258,7 @@ $(document).ready(function() {
         });
 
         $('#exportBtn').unbind('click').bind('click', function() {
-            //chrome.tabs.sendMessage(page.id, {type:'RefreshAudit'}, function(results) { 
-                openReport(results); 
-            //});
+            openReport(results); 
         });
     };
 
