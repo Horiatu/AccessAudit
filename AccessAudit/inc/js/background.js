@@ -13,7 +13,7 @@ Background.getDefaults = function() {
     function(data) {
         options = {
             type:'defaults',
-            defaultTestPage: 'http://apps.esri.ca/templates/WCAGViewer/index.html',
+            defaultTestPage: 'http://apps.esri.ca/templates/WCAGViewer/index.html?appid=dd45df04a5bd4cab86366bde86a1bbab',
             testPageUrl : Background.getOptionOrDefault(data, 'testPageUrl', ''),
             FAIL : true,
             PASS : Background.getOptionOrDefault(data, 'PASS', true),
@@ -36,13 +36,15 @@ Background.getDefaults = function() {
 Background.openReport = function(page, report, header, footer) {
     var wnd = window.open('/inc/html/report.html','_blank');
     setTimeout(function(){
-        Background.makeDocument(wnd.document, page, report, header, footer);
+        Background.makeDocument($(wnd.document), page, report, header, footer);
     }, 500);
 };
 
-Background.makeDocument = function(doc, page, report, header, footer) {
-    var $doc = $(doc); 
-    var $header=$doc.find('#header');
+Background.makeDocument = function($doc, page, report, header, footer) {
+    var $header = $doc.find('#header');
+    var $report = $doc.find('#report');
+    var $footer = $doc.find('#footer');
+
     if(header && header !== undefined && header !== '')
     {
         $header.html(header);
@@ -55,10 +57,11 @@ Background.makeDocument = function(doc, page, report, header, footer) {
 
     if(report && report !== undefined && report !== '')
     {
-         $doc.find('#report').html(report);
+         $report.html(report);
     }
+    
     if(footer && footer !== undefined && footer !== '')
     {
-        $doc.find('#footer').html(footer);
+        $footer.html(footer);
     }
 };
