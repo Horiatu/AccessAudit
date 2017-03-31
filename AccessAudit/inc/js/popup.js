@@ -63,6 +63,10 @@ $(document).ready(function() {
         window.open('https://docs.google.com/presentation/d/1ZAJ8dCCZ9mapb_cnZcRse5mJsihAnGhrQDLzso4su8Q/edit?usp=sharing','_blank');
     };
 
+    openSharePage = function(e) {
+        window.open('https://www.facebook.com/sharer?u=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Fwcag-accessibility-audit%2Fkpfleokokmllclahndmochhenmhncoej','_blank');
+    };
+
     page = {id:null, title:null, url:null, favIconUrl:null};
 
     runAudits = function(e) {
@@ -362,6 +366,7 @@ $(document).ready(function() {
     $('#closeBtn').click(function(e) { window.close(); });
     $('#optionsBtn').click(openOptionsPage);
     $('#homeBtn').click(openHomePage);
+    $('#Share').click(openSharePage);
     $('#sampleBtn').click(openTestPage);
     
     var options = null;

@@ -13,7 +13,7 @@ Background.getDefaults = function() {
     function(data) {
         options = {
             type:'defaults',
-            defaultTestPage: 'http://apps.esri.ca/templates/WCAGViewer/index.html?appid=dd45df04a5bd4cab86366bde86a1bbab',
+            defaultTestPage: 'http://apps.esri.ca/templates/WCAGViewer/index.html?appid=b54efa235b7f455f91b14396090ad3e3',
             testPageUrl : Background.getOptionOrDefault(data, 'testPageUrl', ''),
             FAIL : true,
             PASS : Background.getOptionOrDefault(data, 'PASS', true),
