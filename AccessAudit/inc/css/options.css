@@ -1,16 +1,16 @@
-/*@font-face {
-  font-family: "Poiret One";
-  font-weight: 400;
-  src: url('/fonts/Poiret One.woff2') format('woff2');
-}*/
+@import url('https://fonts.googleapis.com/css?family=Poiret+One|Roboto+Condensed');
+
 .jumbotron {
   margin-bottom:0;
+  padding: 30px 20px;
 }
 
 .jumbotron h1, .jumbotron .h1 {
   font-family: "Poiret One";
-  text-shadow: 2px 2px 2px gray;
-  font-size: 40px;
+    text-shadow: 2px 2px 2px grey;
+    font-size: 40px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .jumbotron h2, .jumbotron .h2, legend {

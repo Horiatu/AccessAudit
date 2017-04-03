@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
     <head>
         <title>WCAG Accessibility Audit - Options</title>
 
@@ -10,110 +9,120 @@
         <link type="text/css" rel="stylesheet" href="/inc/bootstrap/css/bootstrap.min.css"></link>
         <link rel="stylesheet" href="/inc/css/options.css" type="text/css"></link>
     </head>
-
     <body>
-        <div class="jumbotron">
-            <h1>WCAG Accessibility Audit</h1>
-            <h2>Options page<button id="resetBtn" title="Reset options to their defaults">Reset</button></h2>
-        </div>
-
-        <div class="col-sm-6 col-md-6">
-            <legend>Google API</legend>
-            <fieldset>
-                <div class="controls">
-                    <label>Get API code and documentation </label><a href="https://github.com/GoogleChrome/accessibility-developer-tools" target="_blank">here (Accessibility Developer Tools)</a>
-                    <br/>
-                    <input type="radio" name="api" id="APIcbInternal" value="Internal"/><label for="APIInternal">Internal</label><br/>
-                    <input type="radio" name="api" id="APIcbLatest" value="Latest"/><label for="APILatest">Latest stable</label><br/>
-                    <input type="radio" name="api" id="APIcbCustom" value="Custom"/><label for="APICustom">Your file</label>
-                    
-                    <br/>
-                    <div style="padding:5px 3px 0px 3px; background-color: #eeeeee;">
-                        <textarea id="APItext" rows="3" readonly="true">
-                        </textarea>
-                    </div>
-                    <div id="CustomAPIdiv" style="margin-top:5px; display: none;">
-                        <label for="CustomAPI">Since Google API evolves, create your own library of APIs saved at various dates. <br/>Enter here the path to your preffered API:</label>
-                        <input type="text" id="CustomAPI" style="width:100%;" placeholder="(Defaults to Internal)"/>
-                    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="coll-xs-12">
+                <div class="jumbotron">
+                    <h1>WCAG Accessibility Audit</h1>
+                    <h2>Options page<button id="resetBtn" title="Reset options to their defaults">Reset</button></h2>
                 </div>
-            </fieldset>
+            </div>
         </div>
 
-        <div class="col-sm-6 col-md-6">
-            <legend>Miscellaneous</legend>
-            <fieldset>
-                <div class="controls">
-                    <input type="checkbox" name="highlight" id="highlight" /><label for="highlight">Semi-transparent cover highlight marker.</label><br/><br/>
-
-                    <label>Use this key(s) to send mouse events to the web page:</label><br/>
-                    <input type="checkbox" name="controlKeys" id="keyCtrl" value="keyCtrl"/><label for="keyCtrl">Ctrl</label><span>+</span>
-                    <input type="checkbox" name="controlKeys" id="keyAlt" value="keyAlt"/><label for="keyAlt">Alt</label><span>+</span>
-                    <input type="checkbox" name="controlKeys" id="keyShift" value="keyShift"/><label for="keyShift">Shift</label><br/><br/>
-
-                    <input type="checkbox" name="expand" id="expand" /><label for="expand">Try to expand hidden breaking-rule elements.</label><br/>
-                    <div id="expandDiv" style="display:none;margin-left:40px;">
-                        <p>Sometimes, some rules fire for hidden elements. <br/>Force them visible to get the idea where the issue comes from.</p>
-                        <label for="minWH">Min width/height:</label>
-                        <input type="number" id="minWH" min="0" max="400" step="5" value="10"/>
-                        <p>Sometimes hidden elements have no size.</p>
+        <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <legend>Google API</legend>
+                <fieldset>
+                    <div class="controls">
+                        <label>Get API code and documentation </label><a href="https://github.com/GoogleChrome/accessibility-developer-tools" target="_blank">here (Accessibility Developer Tools)</a>
+                        <br/>
+                        <input type="radio" name="api" id="APIcbInternal" value="Internal"/><label for="APIInternal">Internal</label><br/>
+                        <input type="radio" name="api" id="APIcbLatest" value="Latest"/><label for="APILatest">Latest stable</label><br/>
+                        <input type="radio" name="api" id="APIcbCustom" value="Custom"/><label for="APICustom">Your file</label>
+                        
+                        <br/>
+                        <div style="padding:5px 3px 0px 3px; background-color: #eeeeee;">
+                            <textarea id="APItext" rows="3" readonly="true">
+                            </textarea>
+                        </div>
+                        <div id="CustomAPIdiv" style="margin-top:5px; display: none;">
+                            <label for="CustomAPI">Since Google API evolves, create your own library of APIs saved at various dates. <br/>Enter here the path to your preffered API:</label>
+                            <input type="text" id="CustomAPI" style="width:100%;" placeholder="(Defaults to Internal)"/>
+                        </div>
                     </div>
-                    <div id="collapseDiv" style="margin-left:40px;">
-                        <p>Alternatively, go in the debugger’s log to see the code of the element and  <kbd>right-click</kbd> to locate it in the HTML code.</p>
+                </fieldset>
+            </div>
+
+            <div class="col-sm-6 col-md-6">
+                <legend>Banned Rules</legend>
+                <fieldset>
+                    <div class="controls">
+                        <p>These rules have been banned from Audits with the option <kbd>Remove&nbsp;From&nbsp;Tests</kbd> of the popup menu of each rule. You may restore them by selecting one or more from the following list and activating with the <kbd>Restore</kbd> button.</p>
+                        <p>Select multiple options using the <kbd>Ctrl</kbd> key and click, or click and select all with <kbd>Ctrl</kbd>+<kbd>a</kbd>.</p>
+                        <select id="bannedRules" multiple style="width:100%">
+                        </select>
+                        <br/><br/>
+                        <button id="deleteBtn" title="Restore Selected Rules">
+                            <!-- <img src="/images/audit.png" alt="audit"></img> -->
+                            <span>Restore</span>
+                        </button>
                     </div>
+                </fieldset>
+            </div>
 
-                </div>
-            </fieldset>
         </div>
 
-        <div class="col-sm-6 col-md-6">
-            <legend>Banned Rules</legend>
-            <fieldset>
-                <div class="controls">
-                    <p>These rules have been banned from Audits with the option <kbd>Remove From Tests</kbd> of the popup menu of each rule. You may restore them by selecting one or more from the following list and activating with the <kbd>Restore</kbd> button.</p>
-                    <p>Select multiple options using the <kbd>Ctrl</kbd> key and click, or click and select all with <kbd>Ctrl</kbd>+<kbd>a</kbd>.</p>
-                    <select id="bannedRules" multiple style="width:100%">
-                    </select>
-                    <br/><br/>
-                    <button id="deleteBtn" title="Restore Selected Rules">
-                        <!-- <img src="/images/audit.png" alt="audit"></img> -->
-                        <span>Restore</span>
-                    </button>
-                </div>
-            </fieldset>
+        <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <legend>Miscellaneous</legend>
+                <fieldset>
+                    <div class="controls">
+                        <input type="checkbox" name="highlight" id="highlight" /><label for="highlight">Semi-transparent cover highlight marker.</label><br/><br/>
+
+                        <label>Use this key(s) to send mouse events to the web page:</label><br/>
+                        <input type="checkbox" name="controlKeys" id="keyCtrl" value="keyCtrl"/><label for="keyCtrl">Ctrl</label><span>+</span>
+                        <input type="checkbox" name="controlKeys" id="keyAlt" value="keyAlt"/><label for="keyAlt">Alt</label><span>+</span>
+                        <input type="checkbox" name="controlKeys" id="keyShift" value="keyShift"/><label for="keyShift">Shift</label><br/><br/>
+
+                        <input type="checkbox" name="expand" id="expand" /><label for="expand">Try to expand hidden breaking-rule elements.</label><br/>
+                        <div id="expandDiv" style="display:none;margin-left:40px;">
+                            <p>Sometimes, some rules fire for hidden elements. <br/>Force them visible to get the idea where the issue comes from.</p>
+                            <label for="minWH">Min width/height:</label>
+                            <input type="number" id="minWH" min="0" max="400" step="5" value="10"/>
+                            <p>Sometimes hidden elements have no size.</p>
+                        </div>
+                        <div id="collapseDiv" style="margin-left:40px;">
+                            <p>Alternatively, go in the debugger’s log to see the code of the element and  <kbd>right-click</kbd> to locate it in the HTML code.</p>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="col-sm-6 col-md-6">
+                <legend>Test Page</legend>
+                <fieldset>
+                    <div class="controls">
+                        <table>
+                            <tr>
+                                <td nowrap="nowrap">
+                                    <label for="testPageUrl">Custom Url:</label>
+                                </td>
+                                <td width="100%">
+                                    <input id="testPageUrl" type="text" style="width:100%"/>
+                                </td>
+                                <td>
+                                    <button id="testPageTry" style="display:none;">Try it</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="col-sm-6 col-md-6">
+                <legend>Thank you</legend>
+                <fieldset>
+                    <span>If you like it, or just if you use it, please rate (and review) it on </span>
+                    <a href="https://chrome.google.com/webstore/detail/wcag-accessibility-audit/kpfleokokmllclahndmochhenmhncoej/reviews" target="blank">Chrome Web Store</a>
+                    <span>.</span>
+                </fieldset>
+            </div>
         </div>
 
-        <div class="col-sm-6 col-md-6">
-            <legend>Test Page</legend>
-            <fieldset>
-                <div class="controls">
-                    <table>
-                        <tr>
-                            <td nowrap="nowrap">
-                                <label for="testPageUrl">Custom Url:</label>
-                            </td>
-                            <td width="100%">
-                                <input id="testPageUrl" type="text" style="width:100%"/>
-                            </td>
-                            <td>
-                                <button id="testPageTry" style="display:none;">Try it</button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </fieldset>
-        </div>
-
-        <div class="col-sm-6 col-md-6">
-            <legend>Thank you</legend>
-            <fieldset>
-                <span>If you like it, or just if you use it, please rate (and review) it on </span>
-                <a href="https://chrome.google.com/webstore/detail/wcag-accessibility-audit/kpfleokokmllclahndmochhenmhncoej/reviews" target="blank">Chrome Web Store</a>
-                <span>.</span>
-            </fieldset>
-        </div>
         <script type="text/javascript" src="/inc/js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="/inc/js/options.js"></script>
     </body>
-
+    </div>
 </html>
