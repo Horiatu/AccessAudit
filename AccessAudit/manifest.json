@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "WCAG Accessibility Audit Developer UI",
   "short_name": "WCAG Access Audit",
-  "version": "1.0.1.26",
+  "version": "1.0.1.28",
 
   "description": "Better UI for Accessibility Developer Tools API",
   "icons": { 
@@ -45,6 +45,7 @@
     "/inc/boostrap/css/*.*",
     "/inc/boostrap/fonts/*.*",
     "/inc/boostrap/js/*.*"
-  ]
+  ],
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 
 }
