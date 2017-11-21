@@ -11,15 +11,22 @@ _gaq.push(['_trackPageview']);
     s.parentNode.insertBefore(ga, s);
 })();
 
-function trackButtonClick(e) {
-    _gaq.push(['_trackEvent', e.target.id, 'clicked']);
-}
-
 $(document).ready(function() {
 
-    var buttons = document.querySelectorAll('button');
+    var buttons = $("button");
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener('click', trackButtonClick);
+    }
+
+    var toolBtns = $(".toolbarBtn");
+    for (var ii = 0; ii < toolBtns.length; ii++) {
+        toolBtns[ii].addEventListener('click', trackButtonClick);
+    }
+
+    function trackButtonClick(e) {
+        var id = e.currentTarget.innerText;
+        if(!id || id === "") id = e.currentTarget.title;
+        _gaq.push(['_trackEvent', id, 'clicked']);
     }
 
     getSelectedTab = function() {
@@ -233,20 +240,23 @@ $(document).ready(function() {
                 items: '.ruleName',
 
                 callback: function(key, element) {
+                    var name = $(element).closest('li').data('name');
                     switch (key) {
                         case 'info' :
+                            _gaq.push(['_trackEvent', "Rule Details: '"+name+"'", 'clicked']);
                             window.open($(element).closest('li').data('url'),'_blank');
                             break;
                         case 'console' :
-                            var name = $(element).closest('li').data('name');
+                            _gaq.push(['_trackEvent', "Show In Console: '"+name+"'", 'clicked']);
                             chrome.tabs.sendMessage(page.id, {type:'dumpElements', rule: name}, function(results) { 
                                 alert('Open DevTools -> Console/Info on Web Page.');
                                 context.nuContextMenu('close');
                             });
                             break;
                         case 'remove' :
+                            _gaq.push(['_trackEvent', "Remove From Tests: '"+name+"'", 'clicked']);
                             console.log($(element));
-                            options.banned.push($(element).closest('li').data('name'));
+                            options.banned.push(name);
                             saveOption('banned', options.banned);
 
                             alert('Rule "'+element.innerHTML+'" '+
@@ -264,14 +274,17 @@ $(document).ready(function() {
                 menu: {
                     'info': {
                         title: 'Rule Details',
+                        class: 'menuEntry'
                     },
 
                     'console': {
                         title: 'Show in Console',
+                        class: 'menuEntry'
                     },
 
                     'remove': {
                         title: 'Remove from Tests',
+                        class: 'menuEntry'
                     },
 
                     'void': 'separator',
