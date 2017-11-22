@@ -64,6 +64,9 @@ if(AccessAudit === undefined) {
 			    			case 'lowContrastElements':
 			    				code += _private.forceLowContrast(element, index);
 			    				break;
+			    			case 'tableHasNoAppropriateHeaders':
+			    				code += _private.forceNoHeaders(element, index);
+			    				break;
 			    		}
 
 			    		$('#AccessAuditInfo').append("<div class='infoElement' data-AAtitle='"+aatitle+"'>"+code+"</div>");
@@ -151,6 +154,19 @@ if(AccessAudit === undefined) {
 		    			}
 		    		});
 		    	});
+
+		    	$.each($('.forceNoHeaders img'), function(i, element){
+		    		$(this).click(function() {
+		    			var index = Number($(this).attr('data-index'));
+		    			var el = _private.els[index];
+		    			if(el!==null)
+		    			{
+		    				var $table = $(this).closest('table');
+		    				$(el).attr('role', 'presentation');
+		    				$(el).attr('data-comment', 'set role to "presentation"');
+		    			}
+		    		});
+		    	});
 		    },
 
 	        forceAltText : function(index) {
@@ -190,6 +206,14 @@ if(AccessAudit === undefined) {
 	        		code += '</div>';	
 	        	//code += '</div>';
 
+	        	return code;
+	        },
+
+	        forceNoHeaders : function(element, index) {
+	        	var code = '<br/><div class="forceNoHeaders">';
+	        	code += 'Add "Presentation" role to table';
+      			code += '<img src="'+chrome.extension.getURL("/images/force.png")+'" class="forceButton" title="add Presentation role" data-index="'+index+'"/>';
+	        	code += '</div>';
 	        	return code;
 	        },
 

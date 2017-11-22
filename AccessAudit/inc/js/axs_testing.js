@@ -3657,7 +3657,7 @@ var fn = (function() {
                     return !0;
                 }
             }
-            c = c.stopwords || "click tap go here learn more this page link about".split(" ");
+            c = c.stopwords || "";//"click tap go here learn more this page link about".split(" ");
             d = axs.properties.findTextAlternatives(a, {});
             if (null === d || "" === d.trim()) {
                 return !0;
