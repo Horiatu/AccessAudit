@@ -1,5 +1,5 @@
 .AccessAuditMarker {
-/*	
+/*
 	background:pink;
 	-webkit-filter: url('#pinkish') drop-shadow(0px 0px 2px red) drop-shadow(0px 0px 4px red);
 */
@@ -22,14 +22,28 @@
 }
 
 #AccessAuditOvr {
-	opacity: 1; 
-	background: transparent; 
-	border: 0 none transparent; 
+	opacity: 1;
+	background: transparent;
+	border: 0 none transparent;
 	margin:0; padding:0;
 	top:0; left:0;
 	height:100%; width:100%;
 	position: fixed;
 	z-index: 2147483647;
+}
+
+#AccessAuditOvr img {
+	top: 6px;
+	position: absolute;
+}
+
+
+#AccessAuditOvr img.left {
+	left: 6px;
+}
+
+#AccessAuditOvr img.right {
+	right: 6px;
 }
 
 #AccessAuditInfo {
@@ -52,6 +66,12 @@
 }
 #infoClose:hover, #suggestBtn:hover {
 	opacity:1;
+}
+
+#suggestBtn, .forceButton
+{
+	/* margin-top: 4px; */
+    margin-right: 4px;
 }
 
 .infoHeader {
@@ -96,6 +116,8 @@
 .forceColor img {
 	float: right;
 	opacity:0.5;
+	/* margin-top: 4px; */
+    margin-right: 4px;
 }
 
 .forceColor img:hover{

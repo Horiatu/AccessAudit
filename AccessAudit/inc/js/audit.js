@@ -36,7 +36,7 @@ if(AccessAudit === undefined) {
 					el.click();
 					$('#AccessAuditOvr').show();
 					return;
-				} 
+				}
 
 			    _private.els = _private.elementsFromPoint(x, y, ".AccessAuditMarker");
 			    if (_private.els.length > 0) {
@@ -56,7 +56,7 @@ if(AccessAudit === undefined) {
 			    		var code = '';
 			    		var aatitle = element.attributes['data-aatitle'].value;
 			    		code += '<div style="max-width:300px;">'+element.attributes['data-aadescription'].value+'</div>';
-			    		
+
 			    		switch(aatitle) {
 			    			case 'imagesWithoutAltText':
 			    			 	code += _private.forceAltText(index);
@@ -80,16 +80,16 @@ if(AccessAudit === undefined) {
 			    			function() {
 			    				$(_private.els).removeClass("AccessAuditMarker");
 						    	$(this).addClass("highlightInfo");
-						    	$el.addClass("AccessAuditHighlight");	
-							}, 
+						    	$el.addClass("AccessAuditHighlight");
+							},
 							function() {
 								$(_private.els).addClass("AccessAuditMarker");
 								$(this).removeClass("highlightInfo");
-						    	$el.removeClass("AccessAuditHighlight");	
+						    	$el.removeClass("AccessAuditHighlight");
 							}
 						);
 			    	});
-			        
+
 			        var d = 4;
 			        var W = window.innerWidth;
 			        var H = window.innerHeight;
@@ -202,8 +202,8 @@ if(AccessAudit === undefined) {
 	        		}
 	        		code += '</div>';
 	        	}
-	        	else 
-	        		code += '</div>';	
+	        	else
+	        		code += '</div>';
 	        	//code += '</div>';
 
 	        	return code;
@@ -222,36 +222,36 @@ if(AccessAudit === undefined) {
 
 			    // get all elements via elementFromPoint, and remove them from hit-testing in order
 				while ((current = document.elementFromPoint(x,y)) && elements.indexOf(current)===-1 && current !== null) {
-			        
+
 			        // push the element and its current style
 					elements.push(current);
-					
+
 					previousPointerEvents.push({
 						element: current,
 		                value: current.style.getPropertyValue('pointer-events'),
 		                priority: current.style.getPropertyPriority('pointer-events')
 		            });
-			          
+
 			        // add "pointer-events: none", to get to the underlying element
 					current.style.setProperty('pointer-events', 'none', 'important');
 				}
 
 			    // restore the previous pointer-events values
 				for(var ii = previousPointerEvents.length; --ii>=0; ) {
-					var dd = previousPointerEvents[ii]; 
+					var dd = previousPointerEvents[ii];
 					if(dd && dd.element)
 					{
-						if(dd.value && dd.value !== "") 
+						if(dd.value && dd.value !== "")
 						{
-							dd.element.style.setProperty('pointer-events', dd.value?dd.value:'', dd.priority); 
-						} 
-						else 
+							dd.element.style.setProperty('pointer-events', dd.value?dd.value:'', dd.priority);
+						}
+						else
 						{
 			                dd.element.style.removeProperty ('pointer-events');
 						}
 					}
 				}
-			      
+
 			    if(selector && selector !== undefined && selector !=='') {
 			    	elements = $(elements).filter(selector).toArray();
 			    }
@@ -260,7 +260,7 @@ if(AccessAudit === undefined) {
 
 	        addFilters: function() {
 	            if(!document.getElementById("svgFilters")) {
-	                var s = 
+	                var s =
 	                    "<svg id='svgFilters' xmlns='http://www.w3.org/2000/svg' style='display:none'>\n"+
 						// "	<filter id='fancy-goo'>\n"+
 						// "	  <feGaussianBlur in='SourceGraphic' stdDeviation='10' result='blur' />\n"+
@@ -279,38 +279,38 @@ if(AccessAudit === undefined) {
 	            }
 	        },
 
-	        createXPathFromElement: function(elm) { 
-			    var allNodes = document.getElementsByTagName('*'); 
-			    for (var segs = []; elm && elm.nodeType == 1; elm = elm.parentNode) 
-			    { 
-			    	if(elm.tagName.toLowerCase()=='html') 
+	        createXPathFromElement: function(elm) {
+			    var allNodes = document.getElementsByTagName('*');
+			    for (var segs = []; elm && elm.nodeType == 1; elm = elm.parentNode)
+			    {
+			    	if(elm.tagName.toLowerCase()=='html')
 			    		continue; // !!! make it an option
-			        if (elm.hasAttribute('id')) { 
-			                var uniqueIdCount = 0; 
-			                for (var n=0; n < allNodes.length; n++) { 
-			                    if (allNodes[n].hasAttribute('id') && allNodes[n].id == elm.id) uniqueIdCount++; 
-			                    if (uniqueIdCount > 1) break; 
-			                } 
-			                if ( uniqueIdCount == 1) { 
-			                    segs.unshift('id("' + elm.getAttribute('id') + '")'); 
-			                    return segs.join('/'); 
-			                } else { 
-			                    segs.unshift(elm.localName.toLowerCase() + '[@id="' + elm.getAttribute('id') + '"]'); 
-			                } 
-			        } else if (elm.hasAttribute('class')) { 
-			            segs.unshift(elm.localName.toLowerCase() + '[@class="' + elm.getAttribute('class') + '"]'); 
-			        } else { 
-			            for (i = 1, sib = elm.previousSibling; sib; sib = sib.previousSibling) { 
-			                if (sib.localName == elm.localName)  i++; 
-			            } 
-			            segs.unshift(elm.localName.toLowerCase() + '[' + i + ']'); 
-			        } 
-			    } 
-			    return segs.length ? '/' + segs.join('/') : null; 
-			}, 
+			        if (elm.hasAttribute('id')) {
+			                var uniqueIdCount = 0;
+			                for (var n=0; n < allNodes.length; n++) {
+			                    if (allNodes[n].hasAttribute('id') && allNodes[n].id == elm.id) uniqueIdCount++;
+			                    if (uniqueIdCount > 1) break;
+			                }
+			                if ( uniqueIdCount == 1) {
+			                    segs.unshift('id("' + elm.getAttribute('id') + '")');
+			                    return segs.join('/');
+			                } else {
+			                    segs.unshift(elm.localName.toLowerCase() + '[@id="' + elm.getAttribute('id') + '"]');
+			                }
+			        } else if (elm.hasAttribute('class')) {
+			            segs.unshift(elm.localName.toLowerCase() + '[@class="' + elm.getAttribute('class') + '"]');
+			        } else {
+			            for (i = 1, sib = elm.previousSibling; sib; sib = sib.previousSibling) {
+			                if (sib.localName == elm.localName)  i++;
+			            }
+			            segs.unshift(elm.localName.toLowerCase() + '[' + i + ']');
+			        }
+			    }
+			    return segs.length ? '/' + segs.join('/') : null;
+			},
 
 			getResultData: function(result) {
-				return $(result.elements).map(function(i,e) { 
+				return $(result.elements).map(function(i,e) {
 					var d = {path:_private.createXPathFromElement(e)};
 					var comment = $(e).attr('data-comment');
 					if(comment && comment!==undefined) {
@@ -394,7 +394,7 @@ if(AccessAudit === undefined) {
 
 							    var result = {
 							    	id: 'AccessAudit'+id++,
-									status: audit.result, 
+									status: audit.result,
 									name: audit.rule.name,
 									title: title,
 									severity: audit.rule.severity,
@@ -409,7 +409,7 @@ if(AccessAudit === undefined) {
 								results.push(result);
 							});
 
-							//console.log(results);        	
+							//console.log(results);
 							sendResponse(_private.results = results);
 				            break;
 				        case 'Lookup' :
@@ -437,8 +437,8 @@ if(AccessAudit === undefined) {
 				        		case false :
 						        	var auditss = _private.results.filter(function(a) { return a.id === ndx; });
 						        	if(auditss && auditss.length > 0) {
-							        	var $elements = $(auditss[0].elements);	
-						        		var $els = $elements.filter(function(e) { return !$(e).hasClass(ndx); }); 
+							        	var $elements = $(auditss[0].elements);
+						        		var $els = $elements.filter(function(e) { return !$(e).hasClass(ndx); });
 					        			$els.addClass(ndx)
 					        			    .addClass('AccessAuditMarker')
 					        			    .attr('data-AAtitle', auditss[0].name)
@@ -452,11 +452,20 @@ if(AccessAudit === undefined) {
 												}
 											} catch (e) {}
 										});
-					        			
+
 					        			//debugger;
 										if(!document.getElementById("AccessAuditOvr")) {
-						                    $("body").append('<div id="AccessAuditOvr"></div>');
+						                    $("body").append('<div id="AccessAuditOvr"><img src="'+
+						                    	chrome.extension.getURL('images/logos/32.png')+
+						                    	// chrome.extension.getURL('images/eyeOfRa.png')+
+						                    	'" class="left" alt="Access Audit"></div>');
 											$('#AccessAuditOvr').bind("click", _private.getElementsAtPoint);
+											var $logo=$("#AccessAuditOvr img");
+											$logo.mouseover(function(event) {
+												// console.log("mouseOver", event);
+												$(event.target).toggleClass('left');
+												$(event.target).toggleClass('right');
+											});
 											_private.injectCss();
 											_private.addFilters();
 						                }
