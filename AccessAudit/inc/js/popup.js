@@ -108,7 +108,7 @@ $(document).ready(function() {
                             $error.css('display', 'block');
                             $error.html(err);
                             //alert(err);
-                        } else 
+                        } else
                         {
                             page.id = tab.id;
 
@@ -132,7 +132,7 @@ $(document).ready(function() {
                                     }, {
                                         allFrames: false,
                                         file: false,
-                                        content: 
+                                        content:
                                         options.expandHiddenElements || options.hightlightWithSemiTransparentCover ?
                                             ('$(\'<style id="AccessAuditPlusCss">'+
                                             (options.expandHiddenElements ?
@@ -159,15 +159,15 @@ $(document).ready(function() {
                                     ], $.Deferred()).done(
                                 function() {
                                     try {
-                                        chrome.tabs.sendMessage(page.id, {type:'Audit', banned:options.banned}, function(results) { 
-                                            showResults(results); 
+                                        chrome.tabs.sendMessage(page.id, {type:'Audit', banned:options.banned}, function(results) {
+                                            showResults(results);
                                         });
                                     } catch (e) {
                                         alert(e.message);
                                     }
                                 });
                                 },
-                                error : function(e) { 
+                                error : function(e) {
                                     alert(e);
                                     console.log({ajax:e});
                                 }
@@ -186,7 +186,7 @@ $(document).ready(function() {
             if (arr[i].match(/[A-Z]/)) {
                 arr.splice(i, 0, " ");            }
         }
-        arr[0] = arr[0].toUpperCase();    
+        arr[0] = arr[0].toUpperCase();
         return arr.join("");
     };
 
@@ -208,7 +208,7 @@ $(document).ready(function() {
             var title = rule.status=='FAIL' ? '' : 'Would be ';
             var img ='';
             switch (rule.severity) {
-                case 'Severe' : 
+                case 'Severe' :
                     title +='Severe';
                     img = 'severe';
                     break;
@@ -248,7 +248,7 @@ $(document).ready(function() {
                             break;
                         case 'console' :
                             _gaq.push(['_trackEvent', "Show In Console: '"+name+"'", 'clicked']);
-                            chrome.tabs.sendMessage(page.id, {type:'dumpElements', rule: name}, function(results) { 
+                            chrome.tabs.sendMessage(page.id, {type:'dumpElements', rule: name}, function(results) {
                                 alert('Open DevTools -> Console/Info on Web Page.');
                                 context.nuContextMenu('close');
                             });
@@ -292,19 +292,27 @@ $(document).ready(function() {
                     'cancel': {
                         title: 'Cancel',
                     },
+                },
+
+                onOpenCallback: function(position) {
+                    $('body').css({"padding-bottom" : "70px"});
+                },
+
+                onCloseCallback: function() {
+                    $('body').css({"padding-bottom" : "0px"});
                 }
             });
         });
 
         $('#exportBtn').unbind('click').bind('click', function() {
-            openReport(results); 
+            openReport(results);
         });
     };
 
     openReport = function(results) {
         if(!results || results === undefined || results.length === 0)
             return;
-        
+
         var addRule = function(rule) {
             //reportBody+='<h4>'+camel2Words(rule.name)+'</h4>';
             reportBody+='<h4 class="description '+rule.status.toLowerCase()+' '+rule.severity+'">'+rule.title+'</h4>';
@@ -330,7 +338,7 @@ $(document).ready(function() {
         if(options.PASS) statLbls.push('PASS');
         if(options.NA) statLbls.push('NA');
 
-        var comments = 
+        var comments =
         {
             FAIL:'This implies that there were elements on the page that did not pass this audit rule. This is the only result you will probably be interested in.',
             PASS:'This implies that there were elements on the page that may potentially have failed this audit rule, but they passed. Congratulations!',
@@ -364,11 +372,11 @@ $(document).ready(function() {
         var hide = $e.hasClass('hideElements');
         var index = $e.data('index');
         chrome.tabs.sendMessage(page.id, {
-                type:'Lookup', 
-                index:index, 
+                type:'Lookup',
+                index:index,
                 hide: hide,
                 controlKeys : options.controlKeys,
-            }, function(results) { 
+            }, function(results) {
                 $e.toggleClass('hideElements');
             }
         );
@@ -403,7 +411,7 @@ $(document).ready(function() {
     $('#homeBtn').click(openHomePage);
     $('#Share').click(openSharePage);
     $('#sampleBtn').click(openTestPage);
-    
+
     var options = null;
     var Background = null;
 
@@ -413,7 +421,7 @@ $(document).ready(function() {
                 function(err) {
                     // if (err) {
                     //     alert(err);
-                    // } else 
+                    // } else
                     {
 
                         page.id = tab.id;
@@ -424,8 +432,8 @@ $(document).ready(function() {
                         Background = chrome.extension.getBackgroundPage().Background;
                         Background.getDefaults().done(function(response) {
                         //chrome.runtime.sendMessage({type:'get-defaults'}, function(response) {
-                            options = response; 
-                            //console.log(options); 
+                            options = response;
+                            //console.log(options);
 
                             if(options.PASS) $('#cbPass').attr('checked','');
                             else $('#cbPass').removeAttr('checked');
@@ -439,8 +447,8 @@ $(document).ready(function() {
 
                             $('#runBtn').click(runAudits);
 
-                            chrome.tabs.sendMessage(page.id, {type:'RefreshAudit'}, function(results) { 
-                                showResults(results); 
+                            chrome.tabs.sendMessage(page.id, {type:'RefreshAudit'}, function(results) {
+                                showResults(results);
                             });
                         });
                     }

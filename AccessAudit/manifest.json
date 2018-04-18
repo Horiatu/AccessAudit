@@ -2,16 +2,16 @@
   "manifest_version": 2,
   "name": "WCAG Accessibility Audit Developer UI",
   "short_name": "WCAG Access Audit",
-  "version": "1.0.1.30",
+  "version": "1.0.1.31",
 
   "description": "Better UI for Accessibility Developer Tools API",
-  "icons": { 
-    "16": "/images/logos/16.png", 
-    "24": "/images/logos/24.png", 
-    "32": "/images/logos/32.png", 
-    "48":  "/images/logos/48.png", 
-    "64":  "/images/logos/64.png", 
-    "128": "/images/logos/128.png" 
+  "icons": {
+    "16": "/images/logos/16.png",
+    "24": "/images/logos/24.png",
+    "32": "/images/logos/32.png",
+    "48":  "/images/logos/48.png",
+    "64":  "/images/logos/64.png",
+    "128": "/images/logos/128.png"
   },
 
   "browser_action": {

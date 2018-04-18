@@ -3,7 +3,7 @@
  * Copyright (c) 2015, Alex Suyun
  * Copyrights licensed under The MIT License (MIT)
  */
-;
+
 (function($, window, document, undefined) {
 
     'use strict';
@@ -13,6 +13,8 @@
     var defaults = {
         contextMenuClass: 'nu-context-menu',
         activeClass: 'active',
+        onOpenCallback: function(ev) { console.log('menuOpen',ev); },
+        onCloseCallback: function() { console.log('menuClose'); },
     };
 
     var nuContextMenu = function(container, options) {
@@ -54,7 +56,7 @@
             var menuObject = this.options.menu,
                 menuList = this._menu.children('ul');
 
-            // Create menu items 
+            // Create menu items
             $.each(menuObject, function(key, value) {
 
                 var item;
@@ -109,11 +111,11 @@
             }
 
             // Callback function that will be attached
-            // to the list items 
+            // to the list items
             var callback = this._getCallback();
 
             var listItems = this._menu.children('ul').children('li');
-            // Prevent memory leak 
+            // Prevent memory leak
             listItems.off();
 
             listItems.on('click', function() {
@@ -129,14 +131,15 @@
                 'left': event.pageX + 'px'
             });
 
+            this.options.onOpenCallback({top:event.pageY, left:event.pageX});
+
             return true;
         },
 
         _onMouseDown: function(event) {
             // Remove menu if clicked outside
             if (!$(event.target).parents('.' + this.options.contextMenuClass).length) {
-                this._menu.removeClass(this.options.activeClass);
-                this._menuVisible = false;
+                this.close();
             }
         },
 
@@ -149,7 +152,7 @@
                 this.container.on('contextmenu', $.proxy(this._contextMenu, this));
             }
 
-            // Remove menu on click 
+            // Remove menu on click
             $(document).on('mousedown', $.proxy(this._onMouseDown, this));
             // $(document).on('click', $.proxy(this._contextMenu, this));
 
@@ -162,7 +165,8 @@
 
         close: function() {
             this._menu.removeClass(this.options.activeClass);
-            //this._menuVisible = false;
+            this._menuVisible = false;
+            this.options.onCloseCallback();
             return true;
         },
 

@@ -44,8 +44,8 @@
 
 .nu-context-menu ul hr {
     background: #e8e8e8;
-    --border: 0;
+   /*  --border: 0;
     --color: #e8e8e8;
-    --height: 1px;
+    --height: 1px; */
     margin: 4px 0;
 }
