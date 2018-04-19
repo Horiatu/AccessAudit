@@ -47,7 +47,7 @@ myKey {
 
 #AccessAuditOvr {
 	opacity: 1;
-	background: transparent;
+	background: #ffffff01;
 	border: 0 none transparent;
 	margin:0; padding:0;
 	top:0; left:0;
@@ -127,7 +127,7 @@ myKey {
 
 .infoHeader {
 	background:lightblue;
-	--display:table-header-group;
+	/* display:table-header-group; */
 	padding: 4px;
 }
 .infoElement {
@@ -140,7 +140,7 @@ myKey {
 
 .forceButton {
 	float: right;
-    /*margin-top: -19px;*/
+    /* margin-top: -19px; */
     opacity:0.5;
 }
 

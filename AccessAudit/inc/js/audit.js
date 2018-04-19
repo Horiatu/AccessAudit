@@ -108,10 +108,14 @@ if(AccessAudit === undefined) {
 	        	console.log(ev);
 	        	switch (ev.keyCode) {
 	        		case 13 :
-	        			$('.ovrInstructions h1').toggle('hide');
-	        			$('.ovrInstructions div').toggle('hide');
+	        			$('.ovrInstructions h1, .ovrInstructions div').toggle('hide');
+			        	ev.stopPropagation();
+			        	ev.preventDefault();
 	        			break;
 	        		case 27 :
+	        			_private.clearOvr();
+			        	ev.stopPropagation();
+			        	ev.preventDefault();
 	        			break;
 	        	}
 	        },
@@ -121,16 +125,36 @@ if(AccessAudit === undefined) {
 		    	$.each($('.forceAltText'), function(i, element){
 		    		var $btnShow = $(this);
 		    		$btnShow.click(function() {
-			    		$btnShow.hide();
-			    		var $forceAltTextDiv = $btnShow.parent("div").find(".forceAltTextDiv");
+			    		// $btnShow.parent("label").hide();
+			    		var $radios = $btnShow.closest("div").find("label, br, img:not(.forceAltTextExecute)").hide();
+			    		var $forceAltTextDiv = $radios.closest("div").find(".forceAltTextDiv");
 			    		$forceAltTextDiv.show();
 			    		$forceAltTextDiv.find('input').focus().keyup(function(e) {
-			    			if(e.keyCode==13) {
+			    			if(e.keyCode===13) {
+			    				e.stopPropagation();
+			        			e.preventDefault();
 			    				$forceAltTextDiv.find('.forceAltTextExecute').trigger('click');
 			    			}
 			    		});
 		    		});
 		    	});
+		    	$.each($('.addRolePresentation'), function(i, element){
+		    		var $btnShow = $(this);
+		    		$btnShow.click(function() {
+			    		// $btnShow.parent("label").hide();
+			    		var $radios = $btnShow.closest("div").find("label, br, img:not(.forceAltTextExecute)").hide();
+			    		// var $forceAltTextDiv = $radios.closest("div").find(".forceAltTextDiv");
+			    		// $forceAltTextDiv.show();
+			    		// $forceAltTextDiv.find('input').focus().keyup(function(e) {
+			    		// 	if(e.keyCode===13) {
+			    		// 		e.stopPropagation();
+			      //   			e.preventDefault();
+			    		// 		$forceAltTextDiv.find('.forceAltTextExecute').trigger('click');
+			    		// 	}
+			    		// });
+		    		});
+		    	});
+
 		    	$.each($('.forceAltTextExecute'), function(i, element){
 		    		$(this).click(function() {
 		    			var index = Number($(this).attr('data-index'));
@@ -181,11 +205,18 @@ if(AccessAudit === undefined) {
 		    },
 
 	        forceAltText : function(index) {
-	        	var addInCode = '<img src="'+chrome.extension.getURL("/images/force.png")+'" class="forceButton forceAltText" title="force Alt text"/>';
-	        	addInCode += '<div class="forceAltTextDiv">';
-	        	addInCode += '<input type="text" placeholder="enter Alt text here"></input>';
-				addInCode += '<img src="'+chrome.extension.getURL("/images/force.png")+'" class="forceButton forceAltTextExecute" title="force Alt text" data-index="'+index+'"/>';
-				addInCode += '</div>';
+	        	var addInCode =
+	        	'<img src="'+chrome.extension.getURL("/images/suggest.png")+'" class="forceButton" title="Choose an option"/>'+
+	        	'<label>'+
+	        	'<input type="radio" name="imgWithoutAlt" value="altText" class="forceAltText">Force Alt Text'+
+	        	'</label><br/>'+
+	        	'<label>'+
+	        	'<input type="radio" name="imgWithoutAlt" value="rolePresentation" class="addRolePresentation">Add Presentational Role'+
+	        	'</label>'+
+	        	'<div class="forceAltTextDiv">'+
+	        	'<input type="text" placeholder="enter Alt text here"></input>'+
+				'<img src="'+chrome.extension.getURL("/images/force.png")+'" class="forceButton forceAltTextExecute" title="force Alt text" data-index="'+index+'"/>'+
+				'</div>';
 	        	return addInCode;
 	        },
 
@@ -329,6 +360,22 @@ if(AccessAudit === undefined) {
 					}
 					return d;
 				});
+			},
+
+			clearOvr: function() {
+				$('.AccessAuditMarker')
+        			.removeAttr('data-AAtitle')
+					.removeAttr('data-AAdescription')
+    				.removeClass('AccessAuditMarker')
+    				.removeClass('AccessAuditHighlight')
+    				.removeClass('forceVisible')
+	        		.removeClass('.AccessAudit*');
+	    		$('#AccessAuditOvr').remove();
+
+	    		$('#AccessAuditInfo').remove();
+	    		$('#svgFilters').remove();
+	    		$('#AccessAuditCss').remove();
+	    		//$('#AccessAuditPlusCss').remove();
 			}
 		};
 
@@ -355,19 +402,7 @@ if(AccessAudit === undefined) {
 				    		}
 				    		break;
 				    	case 'RefreshAudit':
-		    				$('.AccessAuditMarker')
-			        			.removeAttr('data-AAtitle')
-								.removeAttr('data-AAdescription')
-		        				.removeClass('AccessAuditMarker')
-		        				.removeClass('AccessAuditHighlight')
-		        				.removeClass('forceVisible')
-				        		.removeClass('.AccessAudit*');
-				    		$('#AccessAuditOvr').remove();
-
-				    		$('#AccessAuditInfo').remove();
-				    		$('#svgFilters').remove();
-				    		$('#AccessAuditCss').remove();
-				    		//$('#AccessAuditPlusCss').remove();
+				    		_private.clearOvr();
 
 				    		if(_private.results !== undefined && _private.results && _private.results.length>0)
 				    			$.each(_private.results, function(i, result) {
@@ -466,7 +501,7 @@ if(AccessAudit === undefined) {
 
 					        			//debugger;
 										if(!document.getElementById("AccessAuditOvr")) {
-						                    $("body").append('<div id="AccessAuditOvr">'+
+						                    $("body").append('<div id="AccessAuditOvr" tabindex="0">'+
 						                    	'<div class="ovrInstructions left">'+
 						                    	'<img src="'+chrome.extension.getURL('images/logos/32.png')+
 						                    	'" alt="Access Audit">'+
@@ -487,7 +522,7 @@ if(AccessAudit === undefined) {
 												// console.log("mouseOver", event);
 												$('.ovrInstructions').toggleClass('left').toggleClass('right');
 											});
-												$('body').keyup(_private.processOvrKeys);
+											$('#AccessAuditOvr').keyup(_private.processOvrKeys);
 											_private.injectCss();
 											_private.addFilters();
 						                }
