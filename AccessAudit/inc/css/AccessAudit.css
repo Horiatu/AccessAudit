@@ -1,20 +1,44 @@
+.clear {
+    clear: both;
+    margin-top: -4px;
+}
+
+.ovrInstructions > .hide {
+	display: none;
+}
+
+myKey {
+    display: inline;
+    text-transform: uppercase;
+    border: #a1a1a1 1px solid;
+    border-radius: 3px;
+    padding: 0 4px;
+    background: #dbdbdb;
+    color: black;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: arial;
+    /* margin: 0 1px; */
+    filter: drop-shadow(1px 1px 2px rgba(127,127,127,0.9));
+}
+
 .AccessAuditMarker {
 /*
 	background:pink;
-	-webkit-filter: url('#pinkish') drop-shadow(0px 0px 2px red) drop-shadow(0px 0px 4px red);
+	webkit-filter: url('#pinkish') drop-shadow(0px 0px 2px red) drop-shadow(0px 0px 4px red);
 */
-	--background:lightblue;
-	---webkit-filter: url('#blueish') drop-shadow(0px 0px 2px blue) drop-shadow(0px 0px 4px blue);
-	box-shadow: blue 0px 0px 10px 0px;
+	/* background:lightblue;
+	webkit-filter: url('#blueish') drop-shadow(0px 0px 2px blue) drop-shadow(0px 0px 4px blue); */
+	box-shadow: blue 0 0 10px 0;
 }
 
 .AccessAuditHighlight {
-	---webkit-filter: drop-shadow(0px 0px 2px red) drop-shadow(0px 0px 4px red);
-	box-shadow: red 0px 0px 10px 0px;
+	/* --webkit-filter: drop-shadow(0px 0px 2px red) drop-shadow(0px 0px 4px red); */
+	box-shadow: red 0 0 10px 0;
 }
 
 .forceVisible {
-	--display: inherit !important;
+	/* display: inherit !important; */
 }
 
 .AccessAuditHighlight:not[background-image] {
@@ -32,23 +56,7 @@
 	z-index: 2147483647;
 }
 
-#AccessAuditOvr img {
-	top: 6px;
-	position: absolute;
-}
-
-
-#AccessAuditOvr img.left {
-	left: 6px;
-}
-
-#AccessAuditOvr img.right {
-	right: 6px;
-}
-
 #AccessAuditInfo {
-	--min-width: 100px;
-	--min-height: 100px;
 	background: white;
 	border: 1px solid black;
 	border-radius: 3px;
@@ -56,6 +64,49 @@
 	position:absolute;
 	z-index: 2147483647;
 	color:black;
+}
+
+.ovrInstructions {
+	background-color: red;
+	border-radius: 6px;
+	position: absolute;
+	top: 6px;
+}
+
+.ovrInstructions img {
+	padding: 3px;
+	padding-bottom: 0;
+}
+
+.ovrInstructions h1 {
+	color: white;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.ovrInstructions.left {
+	left: 6px;
+}
+
+.ovrInstructions.right {
+	right: 6px;
+}
+
+.ovrInstructionsText {
+	background-color: white;
+	padding: 4px;
+	min-height: 50px;
+	min-width: 200px;
+	max-width: 350px;
+	margin: 3px;
+	border-radius: 0 0 3px 3px;
+	font-family: helvetica, Verdana, Arial, "sans-serif";
+    font-size: 14px;
+}
+
+.ovrInstructionsText ul {
+	-webkit-padding-start: 15px;
+	-moz-padding-start: 15px;
 }
 
 #infoClose, #suggestBtn, .forceButton {

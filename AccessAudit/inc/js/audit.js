@@ -104,6 +104,17 @@ if(AccessAudit === undefined) {
 			    }
 	        },
 
+	        processOvrKeys: function(ev) {
+	        	console.log(ev);
+	        	switch (ev.keyCode) {
+	        		case 13 :
+	        			$('.ovrInstructions h1').toggle('hide');
+	        			$('.ovrInstructions div').toggle('hide');
+	        			break;
+	        		case 27 :
+	        			break;
+	        	}
+	        },
 	        //hoverInfoElement : null,
 
 	        addForceButtonsEvents : function() {
@@ -455,17 +466,28 @@ if(AccessAudit === undefined) {
 
 					        			//debugger;
 										if(!document.getElementById("AccessAuditOvr")) {
-						                    $("body").append('<div id="AccessAuditOvr"><img src="'+
-						                    	chrome.extension.getURL('images/logos/32.png')+
-						                    	// chrome.extension.getURL('images/eyeOfRa.png')+
-						                    	'" class="left" alt="Access Audit"></div>');
+						                    $("body").append('<div id="AccessAuditOvr">'+
+						                    	'<div class="ovrInstructions left">'+
+						                    	'<img src="'+chrome.extension.getURL('images/logos/32.png')+
+						                    	'" alt="Access Audit">'+
+						                    	'<h1>Access Audit Inspect Mode</h1>'+
+						                    	'<div class="clear"/>'+
+						                    	'<div class="ovrInstructionsText">'+
+						                    	'<ul>'+
+						                    	'<li>Type <myKey>Return</myKey> to toggle these instructions.</li>'+
+						                    	'<li>Type <myKey>Esc</myKey> to end Access Audit Inspect Mode.</li>'+
+						                    	'<li>Use configured <myKey>Pass Through</myKey> key(s) to send mouse events to the web page.'+
+						                    	'<li>Click&nbsp;<span class="AccessAuditMarker">&nbsp;Highlighted&nbsp;</span>&nbsp;elements to popup a menu of options.'+
+						                    	'</ul>'+
+						                    	'</div>'+
+						                    	'</div></div>');
 											$('#AccessAuditOvr').bind("click", _private.getElementsAtPoint);
-											var $logo=$("#AccessAuditOvr img");
+											var $logo=$("#AccessAuditOvr .ovrInstructions div, #AccessAuditOvr .ovrInstructions img");
 											$logo.mouseover(function(event) {
 												// console.log("mouseOver", event);
-												$(event.target).toggleClass('left');
-												$(event.target).toggleClass('right');
+												$('.ovrInstructions').toggleClass('left').toggleClass('right');
 											});
+												$('body').keyup(_private.processOvrKeys);
 											_private.injectCss();
 											_private.addFilters();
 						                }
