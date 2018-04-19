@@ -125,7 +125,6 @@ if(AccessAudit === undefined) {
 		    	$.each($('.forceAltText'), function(i, element){
 		    		var $btnShow = $(this);
 		    		$btnShow.click(function() {
-			    		// $btnShow.parent("label").hide();
 			    		var $radios = $btnShow.closest("div").find("label, br, img:not(.forceAltTextExecute)").hide();
 			    		var $forceAltTextDiv = $radios.closest("div").find(".forceAltTextDiv");
 			    		$forceAltTextDiv.show();
@@ -141,17 +140,16 @@ if(AccessAudit === undefined) {
 		    	$.each($('.addRolePresentation'), function(i, element){
 		    		var $btnShow = $(this);
 		    		$btnShow.click(function() {
-			    		// $btnShow.parent("label").hide();
 			    		var $radios = $btnShow.closest("div").find("label, br, img:not(.forceAltTextExecute)").hide();
-			    		// var $forceAltTextDiv = $radios.closest("div").find(".forceAltTextDiv");
-			    		// $forceAltTextDiv.show();
-			    		// $forceAltTextDiv.find('input').focus().keyup(function(e) {
-			    		// 	if(e.keyCode===13) {
-			    		// 		e.stopPropagation();
-			      //   			e.preventDefault();
-			    		// 		$forceAltTextDiv.find('.forceAltTextExecute').trigger('click');
-			    		// 	}
-			    		// });
+
+		    			var index = Number($(this).attr('data-index'));
+		    			var el = _private.els[index];
+		    			if(el!==null)
+		    			{
+		    				var $img = $(this).closest('img');
+		    				$(el).attr('role', 'presentation');
+		    				$(el).attr('data-comment', 'set role to "presentation"');
+		    			}
 		    		});
 		    	});
 
@@ -211,7 +209,7 @@ if(AccessAudit === undefined) {
 	        	'<input type="radio" name="imgWithoutAlt" value="altText" class="forceAltText">Force Alt Text'+
 	        	'</label><br/>'+
 	        	'<label>'+
-	        	'<input type="radio" name="imgWithoutAlt" value="rolePresentation" class="addRolePresentation">Add Presentational Role'+
+	        	'<input type="radio" name="imgWithoutAlt" value="rolePresentation" class="addRolePresentation" data-index="'+index+'">Add Presentational Role'+
 	        	'</label>'+
 	        	'<div class="forceAltTextDiv">'+
 	        	'<input type="text" placeholder="enter Alt text here"></input>'+
