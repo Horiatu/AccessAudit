@@ -510,7 +510,7 @@ if(AccessAudit === undefined) {
 						                    	'<li>Type <myKey>Return</myKey> to toggle these instructions.</li>'+
 						                    	'<li>Type <myKey>Esc</myKey> to end Access Audit Inspect Mode.</li>'+
 						                    	'<li>Use configured <myKey>Pass Through</myKey> key(s) to send mouse events to the web page.'+
-						                    	'<li>Click&nbsp;<span class="AccessAuditMarker">&nbsp;Highlighted&nbsp;</span>&nbsp;elements to popup a menu of options.'+
+						                    	'<li>Click&nbsp;<span class="AccessAuditMarker">&nbsp;Highlighted&nbsp;</span>&nbsp;elements for details and fixes.'+
 						                    	'</ul>'+
 						                    	'</div>'+
 						                    	'</div></div>');

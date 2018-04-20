@@ -67,10 +67,12 @@ myKey {
 }
 
 .ovrInstructions {
-	background-color: red;
+	background-color: dodgerblue;
 	border-radius: 6px;
 	position: absolute;
 	top: 6px;
+	box-shadow: black 4px 4px 12px 0;
+	margin: 8px 0;
 }
 
 .ovrInstructions img {
@@ -82,6 +84,15 @@ myKey {
 	color: white;
 	display: inline-block;
 	vertical-align: bottom;
+	font-size: 18px;
+	font-weight: 700;
+	font-family: helvetica, Verdana, Arial, 'sans-serif';
+	-webkit-margin-before: 2px;
+    -webkit-margin-after: 8px;
+    -webkit-margin-start: 6px;
+    -webkit-margin-end: 0;
+    -moz-margin-start: 6px;
+    -moz-margin-end: 0;
 }
 
 .ovrInstructions.left {
@@ -105,8 +116,13 @@ myKey {
 }
 
 .ovrInstructionsText ul {
-	-webkit-padding-start: 15px;
-	-moz-padding-start: 15px;
+	-webkit-padding-start: 25px;
+	-moz-padding-start: 25px;
+}
+
+.ovrInstructionsText ul li {
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 #infoClose, #suggestBtn, .forceButton {
