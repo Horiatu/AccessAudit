@@ -132,8 +132,14 @@ $(document).ready(function() {
                                     }, {
                                         allFrames: false,
                                         file: false,
+                                        content: //"<script id='AA-options' type='text/javascript'>"+
+                                        'var AA_options = {expandInstructions: '+options.expandInstructions+', version:"'+options.version+'"};'
+                                        //+'</script>'
+                                    }, {
+                                        allFrames: false,
+                                        file: false,
                                         content:
-                                        options.expandHiddenElements || options.hightlightWithSemiTransparentCover ?
+                                        (options.expandHiddenElements || options.hightlightWithSemiTransparentCover ?
                                             ('$(\'<style id="AccessAuditPlusCss">'+
                                             (options.expandHiddenElements ?
                                             '.forceVisible {'+
@@ -155,6 +161,7 @@ $(document).ready(function() {
                                             '</style>\').appendTo("head");'
                                             )
                                             :''
+                                        )
                                     }
                                     ], $.Deferred()).done(
                                 function() {

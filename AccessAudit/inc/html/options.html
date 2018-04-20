@@ -16,6 +16,8 @@
                 <div class="jumbotron">
                     <h1>WCAG Accessibility Audit</h1>
                     <h2>Options page<button id="resetBtn" title="Reset options to their defaults">Reset</button></h2>
+                    <!-- <h3>Installed or Updated Version <span id="version"></span></h3> -->
+                    <h3 id="versionMessage"></h3>
                 </div>
             </div>
         </div>
@@ -65,21 +67,40 @@
 
         <div class="row">
             <div class="col-sm-6 col-md-6">
-                <legend>Miscellaneous</legend>
+                <legend>Access Audit Inspect Mode</legend>
                 <fieldset>
                     <div class="controls">
                         <input type="checkbox" name="highlight" id="highlight" /><label for="highlight">Semi-transparent cover highlight marker.</label><br/><br/>
 
-                        <label>Use this <kbd>Pass-Through</kbd> key(s) to send mouse events to the web page:</label><br/>
-                        <input type="checkbox" name="controlKeys" id="keyCtrl" value="keyCtrl"/><label for="keyCtrl">Ctrl</label><span>+</span>
-                        <input type="checkbox" name="controlKeys" id="keyAlt" value="keyAlt"/><label for="keyAlt">Alt</label><span>+</span>
-                        <input type="checkbox" name="controlKeys" id="keyShift" value="keyShift"/><label for="keyShift">Shift</label><br/><br/>
+                        <label>
+                            <input type="checkbox" name="instructions" id="instructions" />
+                            Expanded instructions on openning Access Audit Inspect Mode.
+                        </label>
+                        <div style="margin-left:40px;">
+                            <p>When entering this mode an instruction box appears on the top left or right corner of the web page.<br/>
+                            The box may collapse showing only the badge of Access Audit.<br/>
+                            (You should observe this badge to know that you may not operate the audited web page.)<br/>
+                            Type <kbd>Rerurn</kbd> to toggle instructions,
+                            type <kbd>Esc</kbd> to end Inspect Mode.
+                        </p>
+                        </div>
+                        <br/>
 
-                        <input type="checkbox" name="expand" id="expand" /><label for="expand">Try to expand hidden breaking-rule elements.</label><br/>
+                        <label>Use this <kbd>Pass-Through</kbd> key(s) to send mouse events to the web page:</label><br/>
+                        <div style="margin-left:40px;">
+                            <input type="checkbox" name="controlKeys" id="keyCtrl" value="keyCtrl"/><label for="keyCtrl">Ctrl</label><span>+</span>
+                            <input type="checkbox" name="controlKeys" id="keyAlt" value="keyAlt"/><label for="keyAlt">Alt</label><span>+</span>
+                            <input type="checkbox" name="controlKeys" id="keyShift" value="keyShift"/><label for="keyShift">Shift</label>
+                        </div>
+                        <br/>
+
+                        <label>
+                            <input type="checkbox" name="expand" id="expand" checked="checked" />Try to expand hidden breaking-rule elements.</label>
+                        <br/>
                         <div id="expandDiv" style="display:none;margin-left:40px;">
                             <p>Sometimes, some rules fire for hidden elements. <br/>Force them visible to get the idea where the issue comes from.</p>
-                            <label for="minWH">Min width/height:</label>
-                            <input type="number" id="minWH" min="0" max="400" step="5" value="10"/>
+                            <label>Min width/height:
+                            <input type="number" id="minWH" min="0" max="400" step="5" value="10"/></label>
                             <p>Sometimes hidden elements have no size.</p>
                         </div>
                         <div id="collapseDiv" style="margin-left:40px;">
@@ -96,11 +117,11 @@
                     <div class="controls">
                         <table>
                             <tr>
-                                <td nowrap="nowrap">
+                                <th nowrap="nowrap">
                                     <label for="testPageUrl">Custom Url:</label>
-                                </td>
+                                </th>
                                 <td width="100%">
-                                    <input id="testPageUrl" type="text" style="width:100%"/>
+                                    <input id="testPageUrl" type="text" style="width:100%" placeholder="https://horiatu.github.io/ColorContrast/"/>
                                 </td>
                                 <td>
                                     <button id="testPageTry" style="display:none;">Try it</button>

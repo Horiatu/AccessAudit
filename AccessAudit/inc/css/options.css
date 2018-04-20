@@ -1,25 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Poiret+One|Roboto+Condensed');
 
 .jumbotron {
+  font-family: "Poiret One";
+  color: white;
   margin-bottom:0;
   padding: 30px 20px;
+  background-color: darkgreen;
 }
 
-.jumbotron h1, .jumbotron .h1 {
-    font-family: "Poiret One";
-    /* text-shadow: 2px 2px 2px grey; */
+.jumbotron h1 {
+    text-shadow: 2px 2px 2px aquamarine;
     font-size: 40px;
     margin-top: 0px;
     margin-bottom: 0px;
     background-color: darkgreen;
-    color: white;
 }
 
-.jumbotron h2, .jumbotron .h2, legend {
-  font-family: "Poiret One";
-  color: white;
-  /* font-weight: 600; */
-  /* border-bottom: 1px solid gray; */
+.jumbotron h3 {
+  color: aquamarine;
 }
 
 .col-md-6 {
@@ -27,6 +25,7 @@
 }
 
 legend {
+  font-family: "Poiret One";
   border-bottom: 1px solid darkgreen;
   margin-top: 30px;
   color: darkgreen;
@@ -66,7 +65,7 @@ td {
 }
 
 #resetBtn {
-  display: none;
+  display: none !important;
   float: right;
   font-size: 18px;
   display: inline;

@@ -26,7 +26,7 @@ Background.getDefaults = function() {
     function(data) {
         options = {
             type:'defaults',
-            defaultTestPage: 'http://apps.esri.ca/templates/WCAGViewer/index.html?appid=b54efa235b7f455f91b14396090ad3e3',
+            defaultTestPage: 'https://horiatu.github.io/ColorContrast/',
             testPageUrl : Background.getOptionOrDefault(data, 'testPageUrl', ''),
             FAIL : true,
             PASS : Background.getOptionOrDefault(data, 'PASS', true),
@@ -39,7 +39,10 @@ Background.getDefaults = function() {
             controlKeys : Background.getOptionOrDefault(data, 'controlKeys', ['keyCtrl']),
             expandHiddenElements : Background.getOptionOrDefault(data, 'expandHiddenElements', true),
             minWHExpandHiddenElements : Background.getOptionOrDefault(data, 'minWHExpandHiddenElements', 10),
-            hightlightWithSemiTransparentCover : Background.getOptionOrDefault(data, 'hightlightWithSemiTransparentCover', false)
+            hightlightWithSemiTransparentCover : Background.getOptionOrDefault(data, 'hightlightWithSemiTransparentCover', false),
+            expandInstructions : Background.getOptionOrDefault(data, 'expandInstructions', true),
+            version: chrome.runtime.getManifest().version,
+            versionMessage: Background.VersionMessage
         };
         dfr.resolve(options);
     });
@@ -72,9 +75,25 @@ Background.makeDocument = function($doc, page, report, header, footer) {
     {
          $report.html(report);
     }
-    
+
     if(footer && footer !== undefined && footer !== '')
     {
         $footer.html(footer);
     }
 };
+
+Background.VersionMessage = 'Current Version '+chrome.runtime.getManifest().version;
+
+chrome.runtime.onInstalled.addListener(function(details) {
+    chrome.runtime.openOptionsPage(function() {
+        var thisVersion = chrome.runtime.getManifest().version;
+        if(details.reason === "install")
+        {
+            Background.VersionMessage = "Installed version " + thisVersion;
+        }
+        else if(details.reason === "update" &&  thisVersion !== details.previousVersion)
+        {
+            Background.VersionMessage = "Version updated from " + details.previousVersion + " to " + thisVersion;
+        }
+    });
+});

@@ -121,6 +121,10 @@ if(AccessAudit === undefined) {
 	        },
 	        //hoverInfoElement : null,
 
+	        toggleInstructions: function() {
+	        	$('.ovrInstructions h1, .ovrInstructions div').toggle('hide');
+	        },
+
 	        addForceButtonsEvents : function() {
 		    	$.each($('.forceAltText'), function(i, element){
 		    		var $btnShow = $(this);
@@ -132,7 +136,7 @@ if(AccessAudit === undefined) {
 			    			if(e.keyCode===13) {
 			    				e.stopPropagation();
 			        			e.preventDefault();
-			    				$forceAltTextDiv.find('.forceAltTextExecute').trigger('click');
+			        			_private.toggleInstructions();
 			    			}
 			    		});
 		    		});
@@ -475,7 +479,7 @@ if(AccessAudit === undefined) {
 				    					$('#AccessAuditCss').remove();
 				    					//$('#AccessAuditPlusCss').remove();
 				        			}
-						                jQuery(document).unbind('keydown').unbind('keyup');
+						            jQuery(document).unbind('keydown').unbind('keyup');
 						        	sendResponse(0);
 				        			break;
 				        		case false :
@@ -510,10 +514,11 @@ if(AccessAudit === undefined) {
 						                    	'<li>Type <myKey>Return</myKey> to toggle these instructions.</li>'+
 						                    	'<li>Type <myKey>Esc</myKey> to end Access Audit Inspect Mode.</li>'+
 						                    	'<li>Use configured <myKey>Pass Through</myKey> key(s) to send mouse events to the web page.'+
-						                    	'<li>Click&nbsp;<span class="AccessAuditMarker">&nbsp;Highlighted&nbsp;</span>&nbsp;elements for details and fixes.'+
+						                    	'<li>Click&nbsp;<span class="AccessAuditMarker">&nbsp;Highlighted&nbsp;</span>&nbsp;elements for details and hints.'+
 						                    	'</ul>'+
 						                    	'</div>'+
 						                    	'</div></div>');
+							                if(!AA_options.expandInstructions) _private.toggleInstructions();
 											$('#AccessAuditOvr').bind("click", _private.getElementsAtPoint);
 											var $logo=$("#AccessAuditOvr .ovrInstructions div, #AccessAuditOvr .ovrInstructions img");
 											$logo.mouseover(function(event) {

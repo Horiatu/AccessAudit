@@ -15,7 +15,7 @@ _gaq.push(['_trackPageview']);
 $(document).ready(function() {
     // show tabs
     addCssClass('@font-face', 'font-family: "Poiret One";\n\t\tfont-weight: 400;\n\t\tsrc: url("'+chrome.extension.getURL("/fonts/Poiret One.woff2")+'") format("woff2");', 'fonts');
-    
+
     $('input[id="testPageUrl"]').on('input', function() {
         testPageUrlChanged($(this).val());
     });
@@ -24,9 +24,9 @@ $(document).ready(function() {
     });
 
     $('#resetBtn').click(function() {
-        if(confirm("Are you sure you want to reset all options?")) { 
+        if(confirm("Are you sure you want to reset all options?")) {
             chrome.storage.sync.clear();
-            window.location.reload(false); 
+            window.location.reload(false);
         }
     });
 
@@ -53,7 +53,7 @@ function getOptions(optionsDfr) {
     chrome.extension.connect().postMessage({type: 'get-defaults'});
     return optionsDfr.promise();
 }
-        
+
 var Options = null;
 // Restores select box state to saved value from localStorage.
 function restore_options() {
@@ -65,7 +65,7 @@ function restore_options() {
             .attr('placeholder', options.defaultTestPage)
             .val(options.testPageUrl);
         testPageUrlChanged(options.testPageUrl);
-        
+
         $('#bannedRules option').remove();
         $.each(options.banned, function(i, rule) {
             $('#bannedRules').append('<option value="'+rule+'">'+camel2Words(rule)+'</option>');
@@ -149,12 +149,22 @@ function restore_options() {
             }
         });
 
+        $('#instructions').prop('checked', options.expandInstructions);
+        $('#instructions').change(function() {
+            var isChk = $(this).is(':checked');
+            chrome.storage.sync.set({expandInstructions:isChk});
+            }
+        );
+
         $('#highlight').prop('checked', options.hightlightWithSemiTransparentCover);
         $('#highlight').change(function() {
             var isChk = $(this).is(':checked');
             chrome.storage.sync.set({hightlightWithSemiTransparentCover:isChk});
             }
         );
+        // $('#version').html(options.version);
+        $('#versionMessage').html(options.versionMessage);
+
     });
 }
 
@@ -172,13 +182,13 @@ function showExpandWH(isChk) {
 function showAPI(option) {
     var file = '';
     switch (option) {
-        case 'Internal' : 
+        case 'Internal' :
             file = Options.InternalAPI;
             break;
-        case 'Latest' : 
+        case 'Latest' :
             file = Options.LatestAPI;
             break;
-        case 'Custom' : 
+        case 'Custom' :
             file = Options.CustomAPI === '' ? Options.InternalAPI : Options.CustomAPI;
             break;
     }
@@ -199,7 +209,7 @@ function camel2Words(str) {
             arr.splice(i, 0, " ");
         }
     }
-    arr[0] = arr[0].toUpperCase();    
+    arr[0] = arr[0].toUpperCase();
     return arr.join("");
 }
 
