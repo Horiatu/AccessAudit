@@ -6,18 +6,20 @@
 }
 
 .jumbotron h1, .jumbotron .h1 {
-  font-family: "Poiret One";
-    text-shadow: 2px 2px 2px grey;
+    font-family: "Poiret One";
+    /* text-shadow: 2px 2px 2px grey; */
     font-size: 40px;
     margin-top: 0px;
     margin-bottom: 0px;
+    background-color: darkgreen;
+    color: white;
 }
 
 .jumbotron h2, .jumbotron .h2, legend {
   font-family: "Poiret One";
-  --color: gray;
-  font-weight: 600;
-  --border-bottom: 1px solid gray;
+  color: white;
+  /* font-weight: 600; */
+  /* border-bottom: 1px solid gray; */
 }
 
 .col-md-6 {
@@ -25,14 +27,16 @@
 }
 
 legend {
-  border-bottom: 1px solid gray; 
-  margin-top: 30px; 
+  border-bottom: 1px solid darkgreen;
+  margin-top: 30px;
+  color: darkgreen;
+  font-weight: bold;
 }
 
 input[type=radio], input[type=checkbox] {
   width: 18px;
   height: 18px;
-  margin: 2px; 
+  margin: 2px;
   vertical-align: top;
 }
 
@@ -41,10 +45,10 @@ kbd{
 }
 
 #testPageTry {
-  white-space: nowrap; 
-  margin: 4px; 
-  height: 20px; 
-  font-size: 10px; 
+  white-space: nowrap;
+  margin: 4px;
+  height: 20px;
+  font-size: 10px;
   margin-left: -40px;
 }
 
@@ -62,6 +66,7 @@ td {
 }
 
 #resetBtn {
+  display: none;
   float: right;
   font-size: 18px;
   display: inline;
@@ -79,18 +84,18 @@ td {
 ::-webkit-scrollbar-track {
     width: 10px;
     background-color: rgba(255,255,255,0.5);
-    --webkit-box-shadow: inset 0 0 8px rgba(255,255,255,0.1); 
+    --webkit-box-shadow: inset 0 0 8px rgba(255,255,255,0.1);
     border-radius: 0px;
 }
- 
+
 ::-webkit-scrollbar-thumb {
     width: 10px;
     border-radius: 5px;
-    -webkit-box-shadow: inset 0 0 8px rgba(0,0,0,0.2); 
+    -webkit-box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    -webkit-box-shadow: inset 0 0 8px rgba(82, 134, 250, 1); 
+    -webkit-box-shadow: inset 0 0 8px rgba(82, 134, 250, 1);
 }
 
 ::-webkit-scrollbar-track:hover {
@@ -100,6 +105,6 @@ td {
 #APItext {
     border: none !important;
     background: transparent;
-    min-width:100%; max-width:100%; 
+    min-width:100%; max-width:100%;
     outline: none !important;
 }

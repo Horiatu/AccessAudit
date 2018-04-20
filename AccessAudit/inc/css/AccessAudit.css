@@ -67,7 +67,8 @@ myKey {
 }
 
 .ovrInstructions {
-	background-color: dodgerblue;
+	border: 1.5px solid #ffffff60;
+	background-color: darkgreen;
 	border-radius: 6px;
 	position: absolute;
 	top: 6px;
