@@ -6,13 +6,13 @@
         <meta charset="utf-8"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
-        <link type="text/css" rel="stylesheet" href="/inc/bootstrap/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="/inc/css/options.css" type="text/css"></link>
     </head>
     <body>
-    <div class="container-fluid">
+    <div class="container-fixed">
         <div class="row">
-            <div class="coll-xs-12">
+            <div class="col-md-12">
                 <div class="jumbotron">
                     <h1>WCAG Accessibility Audit</h1>
                     <h2>Options page<button id="resetBtn" title="Reset options to their defaults">Reset</button></h2>
@@ -23,7 +23,18 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-6 col-md-6">
+            <div class="col-sm-12 col-md-12">
+                <legend>What is new:</legend>
+                <ul>
+                    <li><p>Removed ugly Instructions button, replaced with Access Audit Shield,</p>
+                    </li>
+                    <li><p>Exit Shield with <kbd>Esc</kbd>,</p></li>
+                    <li><p>Under Shield block all other keys toward the application,</p></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
                 <legend>Google API</legend>
                 <fieldset>
                     <div class="controls">
@@ -46,7 +57,7 @@
                 </fieldset>
             </div>
 
-            <div class="col-sm-6 col-md-6">
+            <div class="col-lg-6 col-md-6 col-sm-12">
                 <legend>Banned Rules</legend>
                 <fieldset>
                     <div class="controls">
@@ -63,16 +74,13 @@
                 </fieldset>
             </div>
 
-        </div>
-
-        <div class="row">
-            <div class="col-sm-6 col-md-6">
+            <div class="col-lg-6 col-md-6 col-sm-12">
                 <legend>Access Audit Inspect Mode</legend>
                 <fieldset>
                     <div class="controls">
                         <input type="checkbox" name="highlight" id="highlight" /><label for="highlight">Semi-transparent cover highlight marker.</label><br/><br/>
 
-                        <label>
+                        <!-- <label>
                             <input type="checkbox" name="instructions" id="instructions" />
                             Expanded instructions on openning Access Audit Inspect Mode.
                         </label>
@@ -84,7 +92,7 @@
                             type <kbd>Esc</kbd> to end Inspect Mode.
                         </p>
                         </div>
-                        <br/>
+                        <br/> -->
 
                         <label>Use this <kbd>Pass-Through</kbd> key(s) to send mouse events to the web page:</label><br/>
                         <div style="margin-left:40px;">
@@ -111,7 +119,7 @@
                 </fieldset>
             </div>
 
-            <div class="col-sm-6 col-md-6">
+            <div class="col-lg-6 col-md-6 col-sm-12">
                 <legend>Test Page</legend>
                 <fieldset>
                     <div class="controls">
@@ -132,7 +140,7 @@
                 </fieldset>
             </div>
 
-            <div class="col-sm-6 col-md-6">
+            <div class="col-lg-6 col-md-6 col-sm-12">
                 <legend>Thank you</legend>
                 <fieldset>
                     <span>If you like it, or just if you use it, please rate (and review) it on </span>
