@@ -20,10 +20,6 @@
   color: aquamarine;
 }
 
-.col-md-6 {
-  padding-left: 30px;
-}
-
 legend {
   font-family: "Poiret One";
   border-bottom: 1px solid darkgreen;
@@ -106,4 +102,9 @@ td {
     background: transparent;
     min-width:100%; max-width:100%;
     outline: none !important;
+    resize: vertical;
+}
+
+#bannedRules {
+    resize: vertical;
 }
