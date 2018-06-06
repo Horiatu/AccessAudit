@@ -149,13 +149,6 @@ function restore_options() {
             }
         });
 
-        $('#instructions').prop('checked', options.expandInstructions);
-        $('#instructions').change(function() {
-            var isChk = $(this).is(':checked');
-            chrome.storage.sync.set({expandInstructions:isChk});
-            }
-        );
-
         $('#highlight').prop('checked', options.hightlightWithSemiTransparentCover);
         $('#highlight').change(function() {
             var isChk = $(this).is(':checked');
