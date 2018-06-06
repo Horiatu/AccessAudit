@@ -256,7 +256,7 @@ $(document).ready(function() {
                         case 'console' :
                             _gaq.push(['_trackEvent', "Show In Console: '"+name+"'", 'clicked']);
                             chrome.tabs.sendMessage(page.id, {type:'dumpElements', rule: name}, function(results) {
-                                alert('Open DevTools -> Console/Info on Web Page.');
+                                alert('Open DevTools -> Console/Info on Web Page.\nOr press Ctrl+Shift+I');
                                 context.nuContextMenu('close');
                             });
                             break;
