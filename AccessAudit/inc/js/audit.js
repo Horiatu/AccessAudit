@@ -496,19 +496,16 @@ if(AccessAudit === undefined) {
 
 					        			//debugger;
 										if(!document.getElementById("AccessAuditOvr")) {
-						                    $("body").append('<div id="AccessAuditOvr" tabindex="0">'+
-						                    	'<span>Access Audit Shield</span>'+
+						                    $("body").append('<div id="AccessAuditOvr" class="onBottom" tabindex="0">'+
+						                    	'<span>Access Audit Shield. (Type <myKey>ESC</myKey> to remove)</span>'+
 						                    	'</div>');
-						                    $('#AccessAuditOvr span').mouseenter(function() {$(this).css('display','none')});
-						                    // $('#AccessAuditOvr span').mouseleave(function() {$(this).css('display','')});
-
+						                    $('#AccessAuditOvr span').mouseenter(function() {
+						                    	const $ovr = $('#AccessAuditOvr');
+						                    	$ovr.toggleClass('onTop onBottom')
+						                    });
+						                    
 							                if(!AA_options.expandInstructions) _private.toggleInstructions();
 											$('#AccessAuditOvr').bind("click", _private.getElementsAtPoint);
-											const $logo=$("#AccessAuditOvr .ovrInstructions div, #AccessAuditOvr .ovrInstructions img");
-											$logo.mouseover(function(event) {
-												// console.log("mouseOver", event);
-												$('.ovrInstructions').toggleClass('left').toggleClass('right');
-											});
 											$('#AccessAuditOvr')
 												.keyup(_private.processOvrKeys)
 												.keydown(_private.processOvrKeys);
