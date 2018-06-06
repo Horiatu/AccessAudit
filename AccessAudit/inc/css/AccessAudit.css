@@ -44,22 +44,23 @@ myKey {
 #AccessAuditOvr {
 	opacity: 1;
 	background: #ffffff01;
-	border: 2px solid violet;
+	border: 2px solid crimson;
     margin: 0;
     padding: 0;
     top: 0;
     left: 0;
-    height: calc(100% - 4px);
-    width: calc(100% - 4px);
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
 	position: fixed;
 	z-index: 2147483647;
 	text-align: center;
 }
 
 #AccessAuditOvr span {
-    background: violet;
+    background: crimson;
     color: white;
-    padding: 1px 8px;
+    padding: 3px 8px;
 }
 
 #AccessAuditInfo {
