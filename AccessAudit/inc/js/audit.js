@@ -104,21 +104,21 @@ if(AccessAudit === undefined) {
 			    }
 	        },
 
-	        processOvrKeys: function(ev) {
-	        	console.log(ev);
-	        	switch (ev.keyCode) {
-	        		case 13 :
-	        			$('.ovrInstructions h1, .ovrInstructions div').toggle('hide');
-			        	ev.stopPropagation();
-			        	ev.preventDefault();
-	        			break;
-	        		case 27 :
-	        			_private.clearOvr();
-			        	ev.stopPropagation();
-			        	ev.preventDefault();
-	        			break;
-	        	}
-	        },
+	        // processOvrKeys: function(ev) {
+	        // 	console.log(ev);
+	        // 	switch (ev.keyCode) {
+	        // 		case 13 :
+	        // 			$('.ovrInstructions h1, .ovrInstructions div').toggle('hide');
+			      //   	ev.stopPropagation();
+			      //   	ev.preventDefault();
+	        // 			break;
+	        // 		case 27 :
+	        // 			_private.clearOvr();
+			      //   	ev.stopPropagation();
+			      //   	ev.preventDefault();
+	        // 			break;
+	        // 	}
+	        // },
 	        //hoverInfoElement : null,
 
 	        toggleInstructions: function() {
@@ -504,20 +504,25 @@ if(AccessAudit === undefined) {
 					        			//debugger;
 										if(!document.getElementById("AccessAuditOvr")) {
 						                    $("body").append('<div id="AccessAuditOvr" tabindex="0">'+
-						                    	'<div class="ovrInstructions left">'+
-						                    	'<img src="'+chrome.extension.getURL('images/logos/32.png')+
-						                    	'" alt="Access Audit">'+
-						                    	'<h1>Access Audit Inspect Mode</h1>'+
-						                    	'<div class="clear"/>'+
-						                    	'<div class="ovrInstructionsText">'+
-						                    	'<ul>'+
-						                    	'<li>Type <myKey>Return</myKey> to toggle these instructions.</li>'+
-						                    	'<li>Type <myKey>Esc</myKey> to end Access Audit Inspect Mode.</li>'+
-						                    	'<li>Use configured <myKey>Pass Through</myKey> key(s) to send mouse events to the web page.'+
-						                    	'<li>Click&nbsp;<span class="AccessAuditMarker">&nbsp;Highlighted&nbsp;</span>&nbsp;elements for details and hints.'+
-						                    	'</ul>'+
-						                    	'</div>'+
-						                    	'</div></div>');
+						                    	'<span>Access Audit Shield</span>'+
+						                    	// '<div class="ovrInstructions left">'+
+						                    	// '<img src="'+chrome.extension.getURL('images/logos/32.png')+
+						                    	// '" alt="Access Audit">'+
+						                    	// '<h1>Access Audit Inspect Mode</h1>'+
+						                    	// '<div class="clear"/>'+
+						                    	// '<div class="ovrInstructionsText">'+
+						                    	// '<ul>'+
+						                    	// '<li>Type <myKey>Return</myKey> to toggle these instructions.</li>'+
+						                    	// '<li>Type <myKey>Esc</myKey> to end Access Audit Inspect Mode.</li>'+
+						                    	// '<li>Use configured <myKey>Pass Through</myKey> key(s) to send mouse events to the web page.'+
+						                    	// '<li>Click&nbsp;<span class="AccessAuditMarker">&nbsp;Highlighted&nbsp;</span>&nbsp;elements for details and hints.'+
+						                    	// '</ul>'+
+						                    	// '</div>'+
+						                    	// '</div>'+
+						                    	'</div>');
+						                    $('#AccessAuditOvr span').mouseenter(function() {$(this).css('display','none')});
+						                    // $('#AccessAuditOvr span').mouseleave(function() {$(this).css('display','')});
+
 							                if(!AA_options.expandInstructions) _private.toggleInstructions();
 											$('#AccessAuditOvr').bind("click", _private.getElementsAtPoint);
 											var $logo=$("#AccessAuditOvr .ovrInstructions div, #AccessAuditOvr .ovrInstructions img");
@@ -525,7 +530,7 @@ if(AccessAudit === undefined) {
 												// console.log("mouseOver", event);
 												$('.ovrInstructions').toggleClass('left').toggleClass('right');
 											});
-											$('#AccessAuditOvr').keyup(_private.processOvrKeys);
+											// $('#AccessAuditOvr').keyup(_private.processOvrKeys);
 											_private.injectCss();
 											_private.addFilters();
 						                }

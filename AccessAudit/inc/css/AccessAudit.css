@@ -3,10 +3,6 @@
     margin-top: -4px;
 }
 
-.ovrInstructions > .hide {
-	display: none;
-}
-
 myKey {
     display: inline;
     text-transform: uppercase;
@@ -48,12 +44,22 @@ myKey {
 #AccessAuditOvr {
 	opacity: 1;
 	background: #ffffff01;
-	border: 0 none transparent;
-	margin:0; padding:0;
-	top:0; left:0;
-	height:100%; width:100%;
+	border: 2px solid violet;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    height: calc(100% - 4px);
+    width: calc(100% - 4px);
 	position: fixed;
 	z-index: 2147483647;
+	text-align: center;
+}
+
+#AccessAuditOvr span {
+    background: violet;
+    color: white;
+    padding: 1px 8px;
 }
 
 #AccessAuditInfo {
@@ -66,7 +72,7 @@ myKey {
 	color:black;
 }
 
-.ovrInstructions {
+/*.ovrInstructions {
 	border: 1.5px solid #ffffff60;
 	background-color: red;
 	border-radius: 6px;
@@ -102,9 +108,9 @@ myKey {
 
 .ovrInstructions.right {
 	right: 6px;
-}
+}*/
 
-.ovrInstructionsText {
+/*.ovrInstructionsText {
 	background-color: white;
 	padding: 4px;
 	min-height: 50px;
@@ -119,13 +125,13 @@ myKey {
 .ovrInstructionsText ul {
 	-webkit-padding-start: 25px;
 	-moz-padding-start: 25px;
-}
+}*/
 
-.ovrInstructionsText ul li {
+/*.ovrInstructionsText ul li {
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
-
+*/
 #infoClose, #suggestBtn, .forceButton {
 	float:right;
 	opacity:0.5;
