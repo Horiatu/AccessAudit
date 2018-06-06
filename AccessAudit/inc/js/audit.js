@@ -1,11 +1,11 @@
 if(AccessAudit === undefined) {
 	var AccessAudit = function() {
-	    var _private = {
+	    const _private = {
 
 			results: [],
 
 			injectCss: function() {
-		        var _injectCss = function(css) {
+		        const _injectCss = function(css) {
 		            if ($("head").length === 0) {
 	                    $("body").before(css);
 	                } else {
@@ -21,8 +21,8 @@ if(AccessAudit === undefined) {
 			els : [],
 
 	        getElementsAtPoint : function(ev) {
-		        var x = ev.clientX;
-		        var y = ev.clientY;
+		        const x = ev.clientX;
+		        const y = ev.clientY;
 	        	ev.stopPropagation();
 	        	ev.preventDefault();
 	        	if (
@@ -32,7 +32,7 @@ if(AccessAudit === undefined) {
 				) {
 					$('#AccessAuditOvr').hide();
 					$('#AccessAuditInfo').remove();
-					var el = document.elementFromPoint(x, y);
+					const el = document.elementFromPoint(x, y);
 					el.click();
 					$('#AccessAuditOvr').show();
 					return;
@@ -45,7 +45,7 @@ if(AccessAudit === undefined) {
 			        	$('body').append('<div id="AccessAuditInfo"/>');
 			        }
 			        $('#AccessAuditInfo>*').remove();
-			        var plural = ( _private.els.length>1?"s":"");
+			        const plural = ( _private.els.length>1?"s":"");
 			    	$('#AccessAuditInfo').append("<div class='infoHeader' title='Look in Console.Info for element selector"+plural+".'>"+ _private.els.length+" Broken Rule"+plural+"</div>" );
 			    	$('.infoHeader').append('<img id="infoClose" src="'+chrome.extension.getURL('/images/x.png')+'" title="close">');
 			    	$('#infoClose').click(function() {
@@ -53,8 +53,8 @@ if(AccessAudit === undefined) {
 			    	});
 			    	$.each(_private.els, function(index, element) {
 			    		console.info(element);
-			    		var code = '';
-			    		var aatitle = element.attributes['data-aatitle'].value;
+			    		let code = '';
+			    		const aatitle = element.attributes['data-aatitle'].value;
 			    		code += '<div style="max-width:300px;">'+element.attributes['data-aadescription'].value+'</div>';
 
 			    		switch(aatitle) {
@@ -75,7 +75,7 @@ if(AccessAudit === undefined) {
 			    	_private.addForceButtonsEvents();
 
 			    	$.each($('.infoElement'), function(i, element){
-			    		var $el = $(_private.els[i]);
+			    		const $el = $(_private.els[i]);
 			    		$(element).hover(
 			    			function() {
 			    				$(_private.els).removeClass("AccessAuditMarker");
@@ -90,11 +90,11 @@ if(AccessAudit === undefined) {
 						);
 			    	});
 
-			        var d = 4;
-			        var W = window.innerWidth;
-			        var H = window.innerHeight;
-			        var w = $('#AccessAuditInfo').width() + d;
-			        var h = $('#AccessAuditInfo').height() + d;
+			        const d = 4;
+			        const W = window.innerWidth;
+			        const H = window.innerHeight;
+			        const w = $('#AccessAuditInfo').width() + d;
+			        const h = $('#AccessAuditInfo').height() + d;
 
 			        $('#AccessAuditInfo')
 			        	.css('left',(ev.pageX + (x+w<W ? d : -w))+'px')
@@ -105,21 +105,12 @@ if(AccessAudit === undefined) {
 	        },
 
 	        processOvrKeys: function(ev) {
-	        	console.log(ev);
-	        	switch (ev.keyCode) {
-	        		case 13 :
-	        			$('.ovrInstructions h1, .ovrInstructions div').toggle('hide');
-			        	ev.stopPropagation();
-			        	ev.preventDefault();
-	        			break;
-	        		case 27 :
-	        			_private.clearOvr();
-			        	ev.stopPropagation();
-			        	ev.preventDefault();
-	        			break;
+	        	if (ev.type==='keyup' && ev.keyCode === 27) {
+        			_private.clearOvr();
 	        	}
+	        	ev.stopPropagation();
+	        	ev.preventDefault();
 	        },
-	        //hoverInfoElement : null,
 
 	        toggleInstructions: function() {
 	        	$('.ovrInstructions h1, .ovrInstructions div').toggle('hide');
@@ -127,10 +118,10 @@ if(AccessAudit === undefined) {
 
 	        addForceButtonsEvents : function() {
 		    	$.each($('.forceAltText'), function(i, element){
-		    		var $btnShow = $(this);
+		    		const $btnShow = $(this);
 		    		$btnShow.click(function() {
-			    		var $radios = $btnShow.closest("div").find("label, br, img:not(.forceAltTextExecute)").hide();
-			    		var $forceAltTextDiv = $radios.closest("div").find(".forceAltTextDiv");
+			    		const $radios = $btnShow.closest("div").find("label, br, img:not(.forceAltTextExecute)").hide();
+			    		const $forceAltTextDiv = $radios.closest("div").find(".forceAltTextDiv");
 			    		$forceAltTextDiv.show();
 			    		$forceAltTextDiv.find('input').focus().keyup(function(e) {
 			    			if(e.keyCode===13) {
@@ -142,15 +133,15 @@ if(AccessAudit === undefined) {
 		    		});
 		    	});
 		    	$.each($('.addRolePresentation'), function(i, element){
-		    		var $btnShow = $(this);
+		    		const $btnShow = $(this);
 		    		$btnShow.click(function() {
-			    		var $radios = $btnShow.closest("div").find("label, br, img:not(.forceAltTextExecute)").hide();
+			    		const $radios = $btnShow.closest("div").find("label, br, img:not(.forceAltTextExecute)").hide();
 
-		    			var index = Number($(this).attr('data-index'));
-		    			var el = _private.els[index];
+		    			const index = Number($(this).attr('data-index'));
+		    			const el = _private.els[index];
 		    			if(el!==null)
 		    			{
-		    				var $img = $(this).closest('img');
+		    				const $img = $(this).closest('img');
 		    				$(el).attr('role', 'presentation');
 		    				$(el).attr('data-comment', 'set role to "presentation"');
 		    			}
@@ -159,11 +150,11 @@ if(AccessAudit === undefined) {
 
 		    	$.each($('.forceAltTextExecute'), function(i, element){
 		    		$(this).click(function() {
-		    			var index = Number($(this).attr('data-index'));
-		    			var el = _private.els[index];
+		    			const index = Number($(this).attr('data-index'));
+		    			const el = _private.els[index];
 		    			if(el!==null)
 		    			{
-		    				var altText = $(this).parent('.forceAltTextDiv').find('input[type=text]').val();
+		    				const altText = $(this).parent('.forceAltTextDiv').find('input[type=text]').val();
 		    				if(altText==='') {
 		    					$(el).removeAttr('alt');
 		    				} else {
@@ -180,11 +171,11 @@ if(AccessAudit === undefined) {
 	        	});
 				$.each($('.forceColor img'), function(i, element){
 		    		$(this).click(function() {
-		    			var index = Number($(this).attr('data-index'));
-		    			var el = _private.els[index];
+		    			const index = Number($(this).attr('data-index'));
+		    			const el = _private.els[index];
 		    			if(el!==null)
 		    			{
-		    				var $div = $(this).closest('div');
+		    				const $div = $(this).closest('div');
 		    				$(el).css('color', $div.css('color'));
 		    				$(el).css('background-color', $div.css('background-color'));
 		    				$(el).attr('data-comment', 'set colors to'+$div.text()+'.');
@@ -194,11 +185,11 @@ if(AccessAudit === undefined) {
 
 		    	$.each($('.forceNoHeaders img'), function(i, element){
 		    		$(this).click(function() {
-		    			var index = Number($(this).attr('data-index'));
-		    			var el = _private.els[index];
+		    			const index = Number($(this).attr('data-index'));
+		    			const el = _private.els[index];
 		    			if(el!==null)
 		    			{
-		    				var $table = $(this).closest('table');
+		    				const $table = $(this).closest('table');
 		    				$(el).attr('role', 'presentation');
 		    				$(el).attr('data-comment', 'set role to "presentation"');
 		    			}
@@ -207,7 +198,7 @@ if(AccessAudit === undefined) {
 		    },
 
 	        forceAltText : function(index) {
-	        	var addInCode =
+	        	const addInCode =
 	        	'<img src="'+chrome.extension.getURL("/images/suggest.png")+'" class="forceButton" title="Choose an option"/>'+
 	        	'<label>'+
 	        	'<input type="radio" name="imgWithoutAlt" value="altText" class="forceAltText">Force Alt Text'+
@@ -223,8 +214,8 @@ if(AccessAudit === undefined) {
 	        },
 
 	        forceLowContrast : function(element, index) {
-	        	var b = axs.properties.getContrastRatioProperties(element);
-	        	var code = '<div class="contrast">';
+	        	const b = axs.properties.getContrastRatioProperties(element);
+	        	let code = '<div class="contrast">';
 	        	code += '<div>This';
 	        	code += '&nbsp;<span ';
 	        	code += 'style="background-color:'+b.backgroundColor+'; color:'+b.foregroundColor+'; border:solid 1px '+b.foregroundColor+';" ';
@@ -236,9 +227,9 @@ if(AccessAudit === undefined) {
 		        	code += '</div>';
 	        		code += '<div id="suggestions" style="display:none;">';
 	        		code += '<Span>Suggestions:</Span><br/>';
-	        		for (var k in b.suggestedColors) {
-	        			var bg = b.suggestedColors[k].bg;
-	        			var fg = b.suggestedColors[k].fg;
+	        		for (let k in b.suggestedColors) {
+	        			const bg = b.suggestedColors[k].bg;
+	        			const fg = b.suggestedColors[k].fg;
 	        			code += '<div style="background-color:'+bg+'; color:'+fg+'; border:solid 1px '+fg+'; " class="forceColor">&nbsp;';
 	        			code += fg+' on '+bg+' - '+b.suggestedColors[k].contrast+':1 (for '+k+')&nbsp;';
 	        			code += '<img src="'+chrome.extension.getURL("/images/force.png")+'" class="forceButton" title="force color" data-index="'+index+'"/>';
@@ -254,7 +245,7 @@ if(AccessAudit === undefined) {
 	        },
 
 	        forceNoHeaders : function(element, index) {
-	        	var code = '<br/><div class="forceNoHeaders">';
+	        	let code = '<br/><div class="forceNoHeaders">';
 	        	code += 'Add "Presentation" role to table';
       			code += '<img src="'+chrome.extension.getURL("/images/force.png")+'" class="forceButton" title="add Presentation role" data-index="'+index+'"/>';
 	        	code += '</div>';
@@ -262,7 +253,8 @@ if(AccessAudit === undefined) {
 	        },
 
 	        elementsFromPoint : function (x, y, selector) {
-				var elements = [], previousPointerEvents = [], current, i, d;
+				let elements = [], previousPointerEvents = [];
+				let current, i, d;
 
 			    // get all elements via elementFromPoint, and remove them from hit-testing in order
 				while ((current = document.elementFromPoint(x,y)) && elements.indexOf(current)===-1 && current !== null) {
@@ -281,8 +273,8 @@ if(AccessAudit === undefined) {
 				}
 
 			    // restore the previous pointer-events values
-				for(var ii = previousPointerEvents.length; --ii>=0; ) {
-					var dd = previousPointerEvents[ii];
+				for(let ii = previousPointerEvents.length; --ii>=0; ) {
+					const dd = previousPointerEvents[ii];
 					if(dd && dd.element)
 					{
 						if(dd.value && dd.value !== "")
@@ -304,7 +296,7 @@ if(AccessAudit === undefined) {
 
 	        addFilters: function() {
 	            if(!document.getElementById("svgFilters")) {
-	                var s =
+	                const s =
 	                    "<svg id='svgFilters' xmlns='http://www.w3.org/2000/svg' style='display:none'>\n"+
 						// "	<filter id='fancy-goo'>\n"+
 						// "	  <feGaussianBlur in='SourceGraphic' stdDeviation='10' result='blur' />\n"+
@@ -324,14 +316,15 @@ if(AccessAudit === undefined) {
 	        },
 
 	        createXPathFromElement: function(elm) {
-			    var allNodes = document.getElementsByTagName('*');
-			    for (var segs = []; elm && elm.nodeType == 1; elm = elm.parentNode)
+			    const allNodes = document.getElementsByTagName('*');
+			    let segs = []
+			    for (; elm && elm.nodeType == 1; elm = elm.parentNode)
 			    {
 			    	if(elm.tagName.toLowerCase()=='html')
 			    		continue; // !!! make it an option
 			        if (elm.hasAttribute('id')) {
-			                var uniqueIdCount = 0;
-			                for (var n=0; n < allNodes.length; n++) {
+			                let uniqueIdCount = 0;
+			                for (let n=0; n < allNodes.length; n++) {
 			                    if (allNodes[n].hasAttribute('id') && allNodes[n].id == elm.id) uniqueIdCount++;
 			                    if (uniqueIdCount > 1) break;
 			                }
@@ -355,8 +348,8 @@ if(AccessAudit === undefined) {
 
 			getResultData: function(result) {
 				return $(result.elements).map(function(i,e) {
-					var d = {path:_private.createXPathFromElement(e)};
-					var comment = $(e).attr('data-comment');
+					const d = {path:_private.createXPathFromElement(e)};
+					const comment = $(e).attr('data-comment');
 					if(comment && comment!==undefined) {
 						d.comment = comment;
 					}
@@ -381,7 +374,7 @@ if(AccessAudit === undefined) {
 			}
 		};
 
-	    var _public = {
+	    const _public = {
 	 		init: function() {
 	 			_private.injectCss();
 
@@ -390,10 +383,10 @@ if(AccessAudit === undefined) {
 	 			chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
 				    switch (req.type) {
 				    	case 'dumpElements' :
-				    		var resultsByRule = _private.results.filter(function(r) { return r.name === req.rule; });
+				    		const resultsByRule = _private.results.filter(function(r) { return r.name === req.rule; });
 				    		if(resultsByRule && resultsByRule.length>=1)
 				    		{
-					    		var elementsByRule = resultsByRule[0].elements;
+					    		const elementsByRule = resultsByRule[0].elements;
 					    		$.each(elementsByRule, function(index, element) {
 	                                console.info(element);
 	                            });
@@ -413,7 +406,7 @@ if(AccessAudit === undefined) {
 				    			sendResponse(_private.results);
 				    		break;
 				        case 'Audit':
-							var configuration = new axs.AuditConfiguration();
+							const configuration = new axs.AuditConfiguration();
 							$.each(req.banned, function(i, rule) {
 								configuration.ignoreSelectors(rule,'*');
 							});
@@ -429,18 +422,18 @@ if(AccessAudit === undefined) {
 		        				.removeClass('.AccessAudit*');
 		        			$('#AccessAuditOvr').remove();
 
-							var audits = axs.Audit.run(configuration);
-							var results = [];
-							var id = 0;
+							const audits = axs.Audit.run(configuration);
+							const results = [];
+							let id = 0;
 							$.each(audits, function(index, audit){
-								var elementsCount = 0;
-								var title = audit.rule.heading;
+								let elementsCount = 0;
+								const title = audit.rule.heading;
 							    if(audit.elements && audit.elements !== undefined && audit.elements.length>0) {
 							    	elementsCount = audit.elements.length;
 							    //     title+= ' ('+elementsCount+')';
 							    }
 
-							    var result = {
+							    const result = {
 							    	id: 'AccessAudit'+id++,
 									status: audit.result,
 									name: audit.rule.name,
@@ -461,7 +454,7 @@ if(AccessAudit === undefined) {
 							sendResponse(_private.results = results);
 				            break;
 				        case 'Lookup' :
-				        	var ndx = req.index;
+				        	const ndx = req.index;
 				        	switch (req.hide) {
 				        		case true :
 				        			$('.'+ndx)
@@ -483,10 +476,10 @@ if(AccessAudit === undefined) {
 						        	sendResponse(0);
 				        			break;
 				        		case false :
-						        	var auditss = _private.results.filter(function(a) { return a.id === ndx; });
+						        	const auditss = _private.results.filter(function(a) { return a.id === ndx; });
 						        	if(auditss && auditss.length > 0) {
-							        	var $elements = $(auditss[0].elements);
-						        		var $els = $elements.filter(function(e) { return !$(e).hasClass(ndx); });
+							        	const $elements = $(auditss[0].elements);
+						        		const $els = $elements.filter(function(e) { return !$(e).hasClass(ndx); });
 					        			$els.addClass(ndx)
 					        			    .addClass('AccessAuditMarker')
 					        			    .attr('data-AAtitle', auditss[0].name)
@@ -503,29 +496,19 @@ if(AccessAudit === undefined) {
 
 					        			//debugger;
 										if(!document.getElementById("AccessAuditOvr")) {
-						                    $("body").append('<div id="AccessAuditOvr" tabindex="0">'+
-						                    	'<div class="ovrInstructions left">'+
-						                    	'<img src="'+chrome.extension.getURL('images/logos/32.png')+
-						                    	'" alt="Access Audit">'+
-						                    	'<h1>Access Audit Inspect Mode</h1>'+
-						                    	'<div class="clear"/>'+
-						                    	'<div class="ovrInstructionsText">'+
-						                    	'<ul>'+
-						                    	'<li>Type <myKey>Return</myKey> to toggle these instructions.</li>'+
-						                    	'<li>Type <myKey>Esc</myKey> to end Access Audit Inspect Mode.</li>'+
-						                    	'<li>Use configured <myKey>Pass Through</myKey> key(s) to send mouse events to the web page.'+
-						                    	'<li>Click&nbsp;<span class="AccessAuditMarker">&nbsp;Highlighted&nbsp;</span>&nbsp;elements for details and hints.'+
-						                    	'</ul>'+
-						                    	'</div>'+
-						                    	'</div></div>');
+						                    $("body").append('<div id="AccessAuditOvr" class="onBottom" tabindex="0">'+
+						                    	'<span>Access Audit Shield. (Click and type <myKey>ESC</myKey> to remove)</span>'+
+						                    	'</div>');
+						                    $('#AccessAuditOvr span').mouseenter(function() {
+						                    	const $ovr = $('#AccessAuditOvr');
+						                    	$ovr.toggleClass('onTop onBottom')
+						                    });
+						                    
 							                if(!AA_options.expandInstructions) _private.toggleInstructions();
 											$('#AccessAuditOvr').bind("click", _private.getElementsAtPoint);
-											var $logo=$("#AccessAuditOvr .ovrInstructions div, #AccessAuditOvr .ovrInstructions img");
-											$logo.mouseover(function(event) {
-												// console.log("mouseOver", event);
-												$('.ovrInstructions').toggleClass('left').toggleClass('right');
-											});
-											$('#AccessAuditOvr').keyup(_private.processOvrKeys);
+											$('#AccessAuditOvr')
+												.keyup(_private.processOvrKeys)
+												.keydown(_private.processOvrKeys);
 											_private.injectCss();
 											_private.addFilters();
 						                }

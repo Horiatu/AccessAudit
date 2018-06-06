@@ -6,6 +6,7 @@
   margin-bottom:0;
   padding: 30px 20px;
   background-color: darkgreen;
+  border-radius: 0;
 }
 
 .jumbotron h1 {
@@ -20,9 +21,10 @@
   color: aquamarine;
 }
 
-.col-md-6 {
-  padding-left: 30px;
-}
+.col-lg-6, .col-md-6, .col-sm-12 { 
+  padding-left: 30px; 
+  padding-right: 30px; 
+} 
 
 legend {
   font-family: "Poiret One";
@@ -45,10 +47,6 @@ kbd{
 
 #testPageTry {
   white-space: nowrap;
-  margin: 4px;
-  height: 20px;
-  font-size: 10px;
-  margin-left: -40px;
 }
 
 label {
@@ -106,4 +104,9 @@ td {
     background: transparent;
     min-width:100%; max-width:100%;
     outline: none !important;
+    resize: vertical;
+}
+
+#bannedRules {
+    resize: vertical;
 }

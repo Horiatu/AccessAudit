@@ -3,10 +3,6 @@
     margin-top: -4px;
 }
 
-.ovrInstructions > .hide {
-	display: none;
-}
-
 myKey {
     display: inline;
     text-transform: uppercase;
@@ -48,12 +44,50 @@ myKey {
 #AccessAuditOvr {
 	opacity: 1;
 	background: #ffffff01;
-	border: 0 none transparent;
-	margin:0; padding:0;
-	top:0; left:0;
-	height:100%; width:100%;
+	border: 2px solid yellow;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
 	position: fixed;
 	z-index: 2147483647;
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#AccessAuditOvr.onTop {
+    align-items: flex-start;
+}
+
+#AccessAuditOvr.onBottom {
+    align-items: flex-end;
+}
+
+#AccessAuditOvr span {
+    background: black;
+    color: yellow;
+    padding: 3px 20px;
+    border: 2px solid yellow;
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+#AccessAuditOvr.onTop span {
+    border-radius: 0 0 8px 8px;
+    border-top: 0;
+    margin-top: -2px;
+}
+
+#AccessAuditOvr.onBottom span {
+    border-radius: 8px 8px 0 0;
+    border-bottom: 0;
+    margin-bottom: -2px;
 }
 
 #AccessAuditInfo {
@@ -64,66 +98,6 @@ myKey {
 	position:absolute;
 	z-index: 2147483647;
 	color:black;
-}
-
-.ovrInstructions {
-	border: 1.5px solid #ffffff60;
-	background-color: red;
-	border-radius: 6px;
-	position: absolute;
-	top: 6px;
-	box-shadow: black 4px 4px 12px 0;
-	margin: 8px 0;
-}
-
-.ovrInstructions img {
-	padding: 3px;
-	padding-bottom: 0;
-}
-
-.ovrInstructions h1 {
-	color: white;
-	display: inline-block;
-	vertical-align: bottom;
-	font-size: 18px;
-	font-weight: 700;
-	font-family: helvetica, Verdana, Arial, 'sans-serif';
-	-webkit-margin-before: 2px;
-    -webkit-margin-after: 8px;
-    -webkit-margin-start: 6px;
-    -webkit-margin-end: 0;
-    -moz-margin-start: 6px;
-    -moz-margin-end: 0;
-}
-
-.ovrInstructions.left {
-	left: 6px;
-}
-
-.ovrInstructions.right {
-	right: 6px;
-}
-
-.ovrInstructionsText {
-	background-color: white;
-	padding: 4px;
-	min-height: 50px;
-	min-width: 200px;
-	max-width: 350px;
-	margin: 3px;
-	border-radius: 0 0 3px 3px;
-	font-family: helvetica, Verdana, Arial, "sans-serif";
-    font-size: 14px;
-}
-
-.ovrInstructionsText ul {
-	-webkit-padding-start: 25px;
-	-moz-padding-start: 25px;
-}
-
-.ovrInstructionsText ul li {
-	margin-top: 5px;
-	margin-bottom: 5px;
 }
 
 #infoClose, #suggestBtn, .forceButton {
