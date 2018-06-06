@@ -497,7 +497,7 @@ if(AccessAudit === undefined) {
 					        			//debugger;
 										if(!document.getElementById("AccessAuditOvr")) {
 						                    $("body").append('<div id="AccessAuditOvr" class="onBottom" tabindex="0">'+
-						                    	'<span>Access Audit Shield. (Type <myKey>ESC</myKey> to remove)</span>'+
+						                    	'<span>Access Audit Shield. (Click and type <myKey>ESC</myKey> to remove)</span>'+
 						                    	'</div>');
 						                    $('#AccessAuditOvr span').mouseenter(function() {
 						                    	const $ovr = $('#AccessAuditOvr');
