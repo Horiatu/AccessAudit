@@ -4,11 +4,11 @@ _gaq.push(['_setAccount', 'UA-109917224-1']);
 _gaq.push(['_trackPageview']);
 
 (function() {
-    var ga = document.createElement('script');
+    const ga = document.createElement('script');
     ga.type = 'text/javascript';
     ga.async = true;
     ga.src = 'https://ssl.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0];
+    const s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(ga, s);
 })();
 
@@ -60,7 +60,7 @@ function restore_options() {
     var Background = chrome.extension.getBackgroundPage().Background;
     Background.getDefaults().done(function(options) {
         Options = options;
-        console.log(options);
+        // console.log(options);
         $('#testPageUrl')
             .attr('placeholder', options.defaultTestPage)
             .val(options.testPageUrl);
@@ -195,9 +195,9 @@ function showAPI(option) {
 }
 
 function camel2Words(str) {
-    var arr = str.split("");
+    let arr = str.split("");
 
-    for (var i = arr.length - 1; i >= 0; i--) {
+    for (let i = arr.length - 1; i >= 0; i--) {
         if (arr[i].match(/[A-Z]/)) {
             arr.splice(i, 0, " ");
         }
