@@ -110,3 +110,29 @@ td {
 #bannedRules {
     resize: vertical;
 }
+
+.triangle {
+  width: 12px;
+  height: 12px;
+}
+
+.card-header {
+    padding: 0.25rem 1rem;
+    margin-bottom: 0;
+    background-color: transparent; 
+    border-bottom: 1px solid rgba(0,0,0,.25); 
+}
+
+.card-header a:hover {
+  text-decoration: none;
+}
+
+.card-header h5 {
+/*  font-family: "Poiret One";*/
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.card-body {
+    padding: .1rem;
+}
