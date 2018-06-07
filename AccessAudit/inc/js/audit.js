@@ -38,7 +38,7 @@ if(AccessAudit === undefined) {
 							// $el.click();
 							setTimeout(function() {
 								$('#AccessAuditOvr').show();
-								$('#AccessAuditOvr').focus();
+								// $('#AccessAuditOvr').focus();
 							},500);
 						}, 50);
 					}
