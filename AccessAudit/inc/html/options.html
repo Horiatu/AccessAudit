@@ -23,18 +23,49 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-12 col-md-12">
+            <div class=col-lg-6 col-md-6 col-sm-12">
                 <legend>What is new:</legend>
                 <ul>
-                    <li><p>Removed ugly Instructions button, replaced with Access Audit Shield,</p>
+                    <li>Removed ugly Instructions button, replaced with Access Audit Shield,
                     </li>
-                    <li><p>Exit Shield with <kbd>Esc</kbd>,</p></li>
-                    <li><p>Under Shield, block all other keys toward the application,</p></li>
-                    <li><p>Option page responsive layout.</p></li>
+                    <li>Exits Shield with <kbd>Esc</kbd> key,</li>
+                    <li>Under Shield, blocks all other keys toward the application,</li>
+                    <li>Option page responsive layout,</li>
+                    <li>Tunnels <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd> through Shield (opens Developer's Tools.)</li>
                 </ul>
             </div>
-        </div>
-        <div class="row">
+        
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <legend>Access Audit Inspect Mode</legend>
+                <fieldset>
+                    <div class="controls">
+                        <input type="checkbox" name="highlight" id="highlight" /><label for="highlight">Semi-transparent cover highlight marker.</label><br/><br/>
+
+                        <label>Use this <kbd>Pass-Through</kbd> key(s) to send mouse events to the web page:</label><br/>
+                        <div style="margin-left:40px;">
+                            <input type="checkbox" name="controlKeys" id="keyCtrl" value="keyCtrl"/><label for="keyCtrl">Ctrl</label><span>+</span>
+                            <input type="checkbox" name="controlKeys" id="keyAlt" value="keyAlt"/><label for="keyAlt">Alt</label><span>+</span>
+                            <input type="checkbox" name="controlKeys" id="keyShift" value="keyShift"/><label for="keyShift">Shift</label>
+                        </div>
+                        <br/>
+
+                        <label>
+                            <input type="checkbox" name="expand" id="expand" checked="checked" />Try to expand hidden breaking-rule elements.</label>
+                        <br/>
+                        <div id="expandDiv" style="display:none;margin-left:40px;">
+                            <p>Sometimes, some rules fire for hidden elements. <br/>Force them visible to get the idea where the issue comes from.</p>
+                            <label>Min width/height:
+                            <input type="number" id="minWH" min="0" max="400" step="5" value="10"/></label>
+                            <p>Sometimes hidden elements have no size.</p>
+                        </div>
+                        <div id="collapseDiv" style="margin-left:40px;">
+                            <p>Alternatively, go in the debugger’s log to see the code of the element and  <kbd>right-click</kbd> to locate it in the HTML code.</p>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <legend>Google API</legend>
                 <fieldset>
@@ -71,51 +102,6 @@
                             <!-- <img src="/images/audit.png" alt="audit"></img> -->
                             <span>Restore</span>
                         </button>
-                    </div>
-                </fieldset>
-            </div>
-
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <legend>Access Audit Inspect Mode</legend>
-                <fieldset>
-                    <div class="controls">
-                        <input type="checkbox" name="highlight" id="highlight" /><label for="highlight">Semi-transparent cover highlight marker.</label><br/><br/>
-
-                        <!-- <label>
-                            <input type="checkbox" name="instructions" id="instructions" />
-                            Expanded instructions on openning Access Audit Inspect Mode.
-                        </label>
-                        <div style="margin-left:40px;">
-                            <p>When entering this mode an instruction box appears on the top left or right corner of the web page.<br/>
-                            The box may collapse showing only the badge of Access Audit.<br/>
-                            (You should observe this badge to know that you may not operate the audited web page.)<br/>
-                            Type <kbd>Rerurn</kbd> to toggle instructions,
-                            type <kbd>Esc</kbd> to end Inspect Mode.
-                        </p>
-                        </div>
-                        <br/> -->
-
-                        <label>Use this <kbd>Pass-Through</kbd> key(s) to send mouse events to the web page:</label><br/>
-                        <div style="margin-left:40px;">
-                            <input type="checkbox" name="controlKeys" id="keyCtrl" value="keyCtrl"/><label for="keyCtrl">Ctrl</label><span>+</span>
-                            <input type="checkbox" name="controlKeys" id="keyAlt" value="keyAlt"/><label for="keyAlt">Alt</label><span>+</span>
-                            <input type="checkbox" name="controlKeys" id="keyShift" value="keyShift"/><label for="keyShift">Shift</label>
-                        </div>
-                        <br/>
-
-                        <label>
-                            <input type="checkbox" name="expand" id="expand" checked="checked" />Try to expand hidden breaking-rule elements.</label>
-                        <br/>
-                        <div id="expandDiv" style="display:none;margin-left:40px;">
-                            <p>Sometimes, some rules fire for hidden elements. <br/>Force them visible to get the idea where the issue comes from.</p>
-                            <label>Min width/height:
-                            <input type="number" id="minWH" min="0" max="400" step="5" value="10"/></label>
-                            <p>Sometimes hidden elements have no size.</p>
-                        </div>
-                        <div id="collapseDiv" style="margin-left:40px;">
-                            <p>Alternatively, go in the debugger’s log to see the code of the element and  <kbd>right-click</kbd> to locate it in the HTML code.</p>
-                        </div>
-
                     </div>
                 </fieldset>
             </div>

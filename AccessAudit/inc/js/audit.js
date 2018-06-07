@@ -108,8 +108,12 @@ if(AccessAudit === undefined) {
 	        	if (ev.type==='keyup' && ev.keyCode === 27) {
         			_private.clearOvr();
 	        	}
-	        	ev.stopPropagation();
-	        	ev.preventDefault();
+	        	if (!(ev.ctrlKey && ev.shiftKey &&
+					(ev.key === 'i' || ev.key === 'I'))
+				) {
+		        	ev.stopPropagation();
+		        	ev.preventDefault();
+		        }
 	        },
 
 	        toggleInstructions: function() {
