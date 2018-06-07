@@ -88,8 +88,8 @@
             <div class="card-body">
                 <ul>
                     <li>Collapsible History,</li>
-                    <li>Remove <kbd>Pass-Through</kbd> keys,</li>
-                    <li>Add <kbd>Ctrl</kbd>+<strong>Click</strong> for Click event, <kbd>Alt</kbd>+<strong>Click</strong> for MouseDown event pass-through.</li>
+                    <li>Removed <kbd>Pass-Through</kbd> keys,</li>
+                    <li>Instead use <kbd>Ctrl</kbd>+<strong>Click</strong> for <i>Click</i> event, <kbd>Alt</kbd>+<strong>Double-Click</strong> for <i>MouseDown</i> event for passing-through shield.</li>
                 </ul>
             </div>
         </div>
@@ -110,15 +110,15 @@
                 <legend>Access Audit Inspect Mode</legend>
                 <fieldset>
                     <div class="controls">
-                        <input type="checkbox" name="highlight" id="highlight" /><label for="highlight">Semi-transparent cover highlight marker.</label><br/><br/>
+                        <input type="checkbox" name="highlight" id="highlight" /><label for="highlight">Semi-transparent cover highlight marker.</label><br/>
 
-                        <label>Use this <kbd>Pass-Through</kbd> key(s) to send mouse events to the web page:</label><br/>
+                        <!-- <br/><label>Use this <kbd>Pass-Through</kbd> key(s) to send mouse events to the web page:</label><br/>
                         <div style="margin-left:40px;">
                             <input type="checkbox" name="controlKeys" id="keyCtrl" value="keyCtrl"/><label for="keyCtrl">Ctrl</label><span>+</span>
                             <input type="checkbox" name="controlKeys" id="keyAlt" value="keyAlt"/><label for="keyAlt">Alt</label><span>+</span>
                             <input type="checkbox" name="controlKeys" id="keyShift" value="keyShift"/><label for="keyShift">Shift</label>
                         </div>
-                        <br/>
+                        <br/> -->
 
                         <label>
                             <input type="checkbox" name="expand" id="expand" checked="checked" />Try to expand hidden breaking-rule elements.</label>
@@ -130,7 +130,13 @@
                             <p>Sometimes hidden elements have no size.</p>
                         </div>
                         <div id="collapseDiv" style="margin-left:40px;">
-                            <p>Alternatively, go in the debugger’s log to see the code of the element and  <kbd>right-click</kbd> to locate it in the HTML code.</p>
+                            <p>Alternatively, go in the debugger’s log to see the code of the element and  <Strong>Right-Click</Strong> to locate it in the HTML code.</p>
+                        </div>
+                        
+                        <div>
+                            <p>Mouse passing-through shield: use <kbd>Ctrl</kbd>+<strong>Click</strong> for <i>Click</i> event, <kbd>Alt</kbd>+<strong>Double-Click</strong> for <i>MouseDown</i> event.<br/>
+                            (Some controls responds to <i>Click</i>, others (combobox) - to <i>MouseDown</i>)
+                            </p>
                         </div>
 
                     </div>

@@ -25,16 +25,23 @@ if(AccessAudit === undefined) {
 		        const y = ev.clientY;
 	        	ev.stopPropagation();
 	        	ev.preventDefault();
-	        	if (
-					(ev.ctrlKey || controlKeys.indexOf("keyCtrl")==-1) &&
-					(ev.altKey || controlKeys.indexOf("keyAlt")==-1) &&
-					(ev.shiftKey || controlKeys.indexOf("keyShift")==-1)
-				) {
+	        	if(ev.ctrlKey || ev.altKey) {
 					$('#AccessAuditOvr').hide();
 					$('#AccessAuditInfo').remove();
-					const el = document.elementFromPoint(x, y);
-					el.click();
-					$('#AccessAuditOvr').show();
+					const $el = $(document.elementFromPoint(x, y));
+					if(ev.ctrlKey) {
+						$el.click();
+						$('#AccessAuditOvr').show();
+					}
+					else if(ev.altKey) {
+						setTimeout(function() {
+							// $el.click();
+							setTimeout(function() {
+								$('#AccessAuditOvr').show();
+								$('#AccessAuditOvr').focus();
+							},500);
+						}, 50);
+					}
 					return true;
 				}
 				return false;
@@ -516,10 +523,9 @@ if(AccessAudit === undefined) {
 						                    
 							                if(!AA_options.expandInstructions) _private.toggleInstructions();
 											$('#AccessAuditOvr')
-												.click(_private.getElementsAtPoint);
-											$('#AccessAuditOvr')
-												.keyup(_private.processOvrKeys)
-												.keydown(_private.processOvrKeys);
+												.click(_private.getElementsAtPoint)
+												.keydown(_private.processOvrKeys)
+												.keyup(_private.processOvrKeys);
 											_private.injectCss();
 											_private.addFilters();
 						                }
