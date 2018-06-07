@@ -20,7 +20,7 @@ if(AccessAudit === undefined) {
 
 			els : [],
 
-	        getElementsAtPoint : function(ev) {
+			unshieldMouseEvent : function(ev) {
 		        const x = ev.clientX;
 		        const y = ev.clientY;
 	        	ev.stopPropagation();
@@ -35,9 +35,15 @@ if(AccessAudit === undefined) {
 					const el = document.elementFromPoint(x, y);
 					el.click();
 					$('#AccessAuditOvr').show();
-					return;
+					return true;
 				}
+				return false;
+			},
 
+	        getElementsAtPoint : function(ev) {
+		        if(_private.unshieldMouseEvent(ev)) return;
+		        const x = ev.clientX;
+		        const y = ev.clientY;
 			    _private.els = _private.elementsFromPoint(x, y, ".AccessAuditMarker");
 			    if (_private.els.length > 0) {
 			        //console.log(els);
@@ -509,7 +515,8 @@ if(AccessAudit === undefined) {
 						                    });
 						                    
 							                if(!AA_options.expandInstructions) _private.toggleInstructions();
-											$('#AccessAuditOvr').bind("click", _private.getElementsAtPoint);
+											$('#AccessAuditOvr')
+												.click(_private.getElementsAtPoint);
 											$('#AccessAuditOvr')
 												.keyup(_private.processOvrKeys)
 												.keydown(_private.processOvrKeys);
