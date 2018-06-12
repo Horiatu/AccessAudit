@@ -119,13 +119,13 @@ td {
 .card-header {
     padding: 0.25rem 1rem;
     margin-bottom: 0;
-    background-color: transparent; 
-    /*border-bottom: 1px solid rgba(0,0,0,.25); */
+    background-color: darkgreen; 
+    /*border-bottom: 1px solid rgba(0,0,0,.125); */
 }
 
 .collapse.in {
-  border-top: 1px solid rgba(0,0,0,.25);
-  padding-top: 10px;
+  /*border-top: 1px solid rgba(0,0,0,.25);*/
+  padding-top: 6px;
 }
 
 .card-header a:focus, .card-header a:hover {
@@ -136,6 +136,7 @@ td {
 /*  font-family: "Poiret One";*/
 /*  font-weight: bold;*/
   font-size: 2rem;
+  color: aquamarine;
 }
 
 .card {
