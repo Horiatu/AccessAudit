@@ -110,3 +110,40 @@ td {
 #bannedRules {
     resize: vertical;
 }
+
+.triangle {
+  width: 12px;
+  height: 12px;
+}
+
+.card-header {
+    padding: 0.25rem 1rem;
+    margin-bottom: 0;
+    background-color: darkgreen; 
+    /*border-bottom: 1px solid rgba(0,0,0,.125); */
+}
+
+.collapse.in {
+  /*border-top: 1px solid rgba(0,0,0,.25);*/
+  padding-top: 6px;
+}
+
+.card-header a:focus, .card-header a:hover {
+  text-decoration: none;
+}
+
+.card-header h5 {
+/*  font-family: "Poiret One";*/
+/*  font-weight: bold;*/
+  font-size: 2rem;
+  color: aquamarine;
+}
+
+.card {
+    border: 1px solid gray;
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+.card-body {
+    padding: .1rem;
+}

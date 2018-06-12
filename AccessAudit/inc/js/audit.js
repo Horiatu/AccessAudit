@@ -20,24 +20,37 @@ if(AccessAudit === undefined) {
 
 			els : [],
 
-	        getElementsAtPoint : function(ev) {
+			unshieldMouseEvent : function(ev) {
 		        const x = ev.clientX;
 		        const y = ev.clientY;
 	        	ev.stopPropagation();
 	        	ev.preventDefault();
-	        	if (
-					(ev.ctrlKey || controlKeys.indexOf("keyCtrl")==-1) &&
-					(ev.altKey || controlKeys.indexOf("keyAlt")==-1) &&
-					(ev.shiftKey || controlKeys.indexOf("keyShift")==-1)
-				) {
+	        	if(ev.ctrlKey || ev.altKey) {
 					$('#AccessAuditOvr').hide();
 					$('#AccessAuditInfo').remove();
-					const el = document.elementFromPoint(x, y);
-					el.click();
-					$('#AccessAuditOvr').show();
-					return;
+					const $el = $(document.elementFromPoint(x, y));
+					if(ev.ctrlKey) {
+						$el.click();
+						$('#AccessAuditOvr').show();
+					}
+					else if(ev.altKey) {
+						setTimeout(function() {
+							// $el.click();
+							setTimeout(function() {
+								$('#AccessAuditOvr').show();
+								// $('#AccessAuditOvr').focus();
+							},500);
+						}, 50);
+					}
+					return true;
 				}
+				return false;
+			},
 
+	        getElementsAtPoint : function(ev) {
+		        if(_private.unshieldMouseEvent(ev)) return;
+		        const x = ev.clientX;
+		        const y = ev.clientY;
 			    _private.els = _private.elementsFromPoint(x, y, ".AccessAuditMarker");
 			    if (_private.els.length > 0) {
 			        //console.log(els);
@@ -108,8 +121,12 @@ if(AccessAudit === undefined) {
 	        	if (ev.type==='keyup' && ev.keyCode === 27) {
         			_private.clearOvr();
 	        	}
-	        	ev.stopPropagation();
-	        	ev.preventDefault();
+	        	if (!(ev.ctrlKey && ev.shiftKey &&
+					(ev.key === 'i' || ev.key === 'I'))
+				) {
+		        	ev.stopPropagation();
+		        	ev.preventDefault();
+		        }
 	        },
 
 	        toggleInstructions: function() {
@@ -505,10 +522,10 @@ if(AccessAudit === undefined) {
 						                    });
 						                    
 							                if(!AA_options.expandInstructions) _private.toggleInstructions();
-											$('#AccessAuditOvr').bind("click", _private.getElementsAtPoint);
 											$('#AccessAuditOvr')
-												.keyup(_private.processOvrKeys)
-												.keydown(_private.processOvrKeys);
+												.click(_private.getElementsAtPoint)
+												.keydown(_private.processOvrKeys)
+												.keyup(_private.processOvrKeys);
 											_private.injectCss();
 											_private.addFilters();
 						                }

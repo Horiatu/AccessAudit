@@ -114,20 +114,20 @@ function restore_options() {
         });
         showAPI(options.API);
 
-        $.each(options.controlKeys, function(i, value) {
-            $('input[type=checkbox][id='+value+']').prop('checked', true);
-        });
-        $('input[type=checkbox][name=controlKeys]').change(function() {
-            var isChk = $(this).is(':checked');
-            var value = $(this).val();
-            var idx = $.inArray(value, options.controlKeys);
-            if (idx == -1) {
-              if(isChk) options.controlKeys.push(value);
-            } else {
-              if(!isChk) options.controlKeys.splice(idx, 1);
-            }
-            chrome.storage.sync.set({controlKeys:options.controlKeys});
-        });
+        // $.each(options.controlKeys, function(i, value) {
+        //     $('input[type=checkbox][id='+value+']').prop('checked', true);
+        // });
+        // $('input[type=checkbox][name=controlKeys]').change(function() {
+        //     var isChk = $(this).is(':checked');
+        //     var value = $(this).val();
+        //     var idx = $.inArray(value, options.controlKeys);
+        //     if (idx == -1) {
+        //       if(isChk) options.controlKeys.push(value);
+        //     } else {
+        //       if(!isChk) options.controlKeys.splice(idx, 1);
+        //     }
+        //     chrome.storage.sync.set({controlKeys:options.controlKeys});
+        // });
 
         $('#minWH').prop('value', options.minWHExpandHiddenElements);
         $('#expand').prop('checked', options.expandHiddenElements);
