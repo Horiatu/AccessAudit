@@ -120,19 +120,29 @@ td {
     padding: 0.25rem 1rem;
     margin-bottom: 0;
     background-color: transparent; 
-    border-bottom: 1px solid rgba(0,0,0,.25); 
+    /*border-bottom: 1px solid rgba(0,0,0,.25); */
 }
 
-.card-header a:hover {
+.collapse.in {
+  border-top: 1px solid rgba(0,0,0,.25);
+  padding-top: 10px;
+}
+
+.card-header a:focus, .card-header a:hover {
   text-decoration: none;
 }
 
 .card-header h5 {
 /*  font-family: "Poiret One";*/
-  font-weight: bold;
-  font-size: 1rem;
+/*  font-weight: bold;*/
+  font-size: 2rem;
 }
 
+.card {
+    border: 1px solid gray;
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
 .card-body {
     padding: .1rem;
 }
