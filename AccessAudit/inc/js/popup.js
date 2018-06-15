@@ -243,7 +243,7 @@ $(document).ready(function () {
             r[rule.status] += '</td>';
             r[rule.status] += '<td class="ruleName">' + camel2Words(rule.name) + '</td>';
             if(rule.count > 0) {
-                r[rule.status] += '<td><span class="ruleCount" title="Count of broken elements">&nbsp;('+rule.count+')</span></td>';
+                r[rule.status] += '<td class="ruleCount" title="Count of broken elements">&nbsp;('+rule.count+')</td>';
             }
             r[rule.status] += '</tr></table>';
             r[rule.status] += '</li>\n';
