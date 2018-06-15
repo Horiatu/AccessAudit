@@ -222,7 +222,7 @@ $(document).ready(function () {
             const className = (rule.status == 'PASS') ? 'pass' : (rule.status == 'FAIL') ? 'fail' : 'na';
 
             r[rule.status] += '<li data-name="' + rule.name + '" data-index="' + rule.id + '" data-url="' + rule.url + '" class="' + className + (!options[rule.status] ? ' hide' : '') + '" title="' + rule.title + '">';
-            r[rule.status] += '<table><tr>';
+            r[rule.status] += '<table role="presentation"><tr>';
             r[rule.status] += '<td class="ruleSeverity">';
             const brokeRules = rule.elements ? (': ' + rule.elements.length + ' element' + (rule.elements.length > 0 ? 's' : '') + ' broke this rule.') : '';
             let title = rule.status == 'FAIL' ? '' : 'Would be ';
@@ -241,7 +241,10 @@ $(document).ready(function () {
             
             r[rule.status] += '<img src="/images/' + img + '.png" title="' + title + brokeRules + '"></img>';
             r[rule.status] += '</td>';
-            r[rule.status] += '<td class="ruleName">' + camel2Words(rule.name) + count + '</td>';
+            r[rule.status] += '<td class="ruleName">' + camel2Words(rule.name) + '</td>';
+            if(rule.count > 0) {
+                r[rule.status] += '<td><span class="ruleCount" title="Count of broken elements">&nbsp;('+rule.count+')</span></td>';
+            }
             r[rule.status] += '</tr></table>';
             r[rule.status] += '</li>\n';
         });
