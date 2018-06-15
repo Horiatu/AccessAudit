@@ -237,7 +237,7 @@ $(document).ready(function () {
                     img = 'warning';
                     break;
             }
-            const count = (rule.count === 0 ? '' : ("<span class='ruleCount'>&nbsp;("+rule.count+")</span>"));
+            const count = (rule.count === 0 ? '' : ("<span class='ruleCount' title='Count of broken elements'>&nbsp;("+rule.count+")</span>"));
             
             r[rule.status] += '<img src="/images/' + img + '.png" title="' + title + brokeRules + '"></img>';
             r[rule.status] += '</td>';
