@@ -219,14 +219,14 @@ $(document).ready(function () {
         $.each(results, function (index, rule) {
             //console.log(rule);
 
-            var className = (rule.status == 'PASS') ? 'pass' : (rule.status == 'FAIL') ? 'fail' : 'na';
+            const className = (rule.status == 'PASS') ? 'pass' : (rule.status == 'FAIL') ? 'fail' : 'na';
 
             r[rule.status] += '<li data-name="' + rule.name + '" data-index="' + rule.id + '" data-url="' + rule.url + '" class="' + className + (!options[rule.status] ? ' hide' : '') + '" title="' + rule.title + '">';
             r[rule.status] += '<table><tr>';
             r[rule.status] += '<td class="ruleSeverity">';
-            var brokeRules = rule.elements ? (': ' + rule.elements.length + ' element' + (rule.elements.length > 0 ? 's' : '') + ' broke this rule.') : '';
-            var title = rule.status == 'FAIL' ? '' : 'Would be ';
-            var img = '';
+            const brokeRules = rule.elements ? (': ' + rule.elements.length + ' element' + (rule.elements.length > 0 ? 's' : '') + ' broke this rule.') : '';
+            let title = rule.status == 'FAIL' ? '' : 'Would be ';
+            let img = '';
             switch (rule.severity) {
                 case 'Severe':
                     title += 'Severe';
@@ -237,9 +237,11 @@ $(document).ready(function () {
                     img = 'warning';
                     break;
             }
+            const count = (rule.count === 0 ? '' : ("<span class='ruleCount'>&nbsp;("+rule.count+")</span>"));
+            
             r[rule.status] += '<img src="/images/' + img + '.png" title="' + title + brokeRules + '"></img>';
             r[rule.status] += '</td>';
-            r[rule.status] += '<td class="ruleName">' + camel2Words(rule.name) + (rule.count === 0 ? '' : (" ("+rule.count+")")) + '</td>';
+            r[rule.status] += '<td class="ruleName">' + camel2Words(rule.name) + count + '</td>';
             r[rule.status] += '</tr></table>';
             r[rule.status] += '</li>\n';
         });

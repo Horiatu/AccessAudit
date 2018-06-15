@@ -281,3 +281,8 @@ label.switch {
     margin-left: 4px;
     font-weight: bold;
 }
+
+.ruleCount {
+    position:absolute;
+    right:12px;
+}
