@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "WCAG Accessibility Audit Developer UI",
     "short_name": "WCAG Access Audit",
-    "version": "2.1.1.2",
+    "version": "2.1.2.1",
 
     "description": "Better UI for Accessibility Developer Tools API",
     "icons": {
