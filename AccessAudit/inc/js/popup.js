@@ -239,7 +239,7 @@ $(document).ready(function () {
             }
             r[rule.status] += '<img src="/images/' + img + '.png" title="' + title + brokeRules + '"></img>';
             r[rule.status] += '</td>';
-            r[rule.status] += '<td class="ruleName">' + camel2Words(rule.name) + '</td>';
+            r[rule.status] += '<td class="ruleName">' + camel2Words(rule.name) + (rule.count === 0 ? '' : (" ("+rule.count+")")) + '</td>';
             r[rule.status] += '</tr></table>';
             r[rule.status] += '</li>\n';
         });

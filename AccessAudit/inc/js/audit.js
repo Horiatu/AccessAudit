@@ -398,6 +398,7 @@ if(AccessAudit === undefined) {
 	 			_private.addFilters();
 
 	 			chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
+				    // debugger;
 				    switch (req.type) {
 				    	case 'dumpElements' :
 				    		const resultsByRule = _private.results.filter(function(r) { return r.name === req.rule; });
@@ -456,7 +457,8 @@ if(AccessAudit === undefined) {
 									name: audit.rule.name,
 									title: title,
 									severity: audit.rule.severity,
-									url: audit.rule.url
+									url: audit.rule.url,
+									count: elementsCount,
 								};
 
 								if(elementsCount>0) {
