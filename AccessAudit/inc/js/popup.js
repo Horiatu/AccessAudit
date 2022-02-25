@@ -2,7 +2,7 @@ var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-109917224-1']);
 _gaq.push(['_trackPageview']);
 
-(function () {
+(function() {
     var ga = document.createElement('script');
     ga.type = 'text/javascript';
     ga.async = true;
@@ -11,7 +11,7 @@ _gaq.push(['_trackPageview']);
     s.parentNode.insertBefore(ga, s);
 })();
 
-$(document).ready(function () {
+$(document).ready(function() {
 
     var buttons = $("button");
     for (var i = 0; i < buttons.length; i++) {
@@ -29,20 +29,20 @@ $(document).ready(function () {
         _gaq.push(['_trackEvent', id, 'clicked']);
     }
 
-    getSelectedTab = function () {
-        var dfd = $.Deferred();
+    getSelectedTab = function() {
+        const dfd = $.Deferred();
 
         chrome.tabs.query({
             "active": true,
             "currentWindow": true
-        }, function (tabs) {
+        }, (tabs) => {
             dfd.resolve(tabs[0]);
         });
 
         return dfd.promise();
     };
 
-    validateTab = function (tab) {
+    validateTab = function(tab) {
         var dfd = $.Deferred();
         var url = tab.url;
 
@@ -57,7 +57,7 @@ $(document).ready(function () {
         return dfd.promise();
     };
 
-    scriptDesc = function (script) {
+    scriptDesc = function(script) {
         return (
             script.file ? {
                 allFrames: script.allFrames,
@@ -69,9 +69,9 @@ $(document).ready(function () {
         );
     };
 
-    AA_loadScripts = function (scripts, dfr) {
+    AA_loadScripts = function(scripts, dfr) {
         var options = scriptDesc(scripts.shift());
-        chrome.tabs.executeScript(page.id, options, function () {
+        chrome.tabs.executeScript(page.id, options, function() {
             if (scripts.length !== 0)
                 AA_loadScripts(scripts, dfr);
             else
@@ -80,19 +80,19 @@ $(document).ready(function () {
         return dfr.promise();
     };
 
-    openTestPage = function (e) {
+    openTestPage = function(e) {
         window.open((options.testPageUrl === '') ? options.defaultTestPage : options.testPageUrl, '_blank');
     };
 
-    openOptionsPage = function (e) {
+    openOptionsPage = function(e) {
         window.open(chrome.extension.getURL('/inc/html/options.html'), '_blank');
     };
 
-    openHomePage = function (e) {
+    openHomePage = function(e) {
         window.open('https://docs.google.com/presentation/d/1ZAJ8dCCZ9mapb_cnZcRse5mJsihAnGhrQDLzso4su8Q/edit?usp=sharing', '_blank');
     };
 
-    openSharePage = function (e) {
+    openSharePage = function(e) {
         window.open('https://www.facebook.com/sharer?u=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Fwcag-accessibility-audit%2Fkpfleokokmllclahndmochhenmhncoej', '_blank');
     };
 
@@ -103,11 +103,11 @@ $(document).ready(function () {
         favIconUrl: null
     };
 
-    runAudits = function (e) {
+    runAudits = function(e) {
         getSelectedTab().done(
-            function (tab) {
+            function(tab) {
                 validateTab(tab).always(
-                    function (err) {
+                    function(err) {
                         if (err) {
                             $error = $('.error');
                             $error.css('display', 'block');
@@ -120,7 +120,7 @@ $(document).ready(function () {
                             $.ajax({
                                 url: (options.API === "Internal") ? options.InternalAPI : (options.API === "Latest") ? options.LatestAPI : (options.CustomAPI === '' ? options.InternalAPI : options.CustomAPI),
                                 dataType: "text",
-                                success: function (apiCode) {
+                                success: function(apiCode) {
                                     AA_loadScripts([{
                                         allFrames: false,
                                         file: true,
@@ -138,7 +138,7 @@ $(document).ready(function () {
                                         file: false,
                                         content: //"<script id='AA-options' type='text/javascript'>"+
                                             'var AA_options = {expandInstructions: ' + options.expandInstructions + ', version:"' + options.version + '"};'
-                                        //+'</script>'
+                                            //+'</script>'
                                     }, {
                                         allFrames: false,
                                         file: false,
@@ -167,12 +167,12 @@ $(document).ready(function () {
                                                 ''
                                             )
                                     }], $.Deferred()).done(
-                                        function () {
+                                        function() {
                                             try {
                                                 chrome.tabs.sendMessage(page.id, {
                                                     type: 'Audit',
                                                     banned: options.banned
-                                                }, function (results) {
+                                                }, function(results) {
                                                     showResults(results);
                                                 });
                                             } catch (e) {
@@ -180,7 +180,7 @@ $(document).ready(function () {
                                             }
                                         });
                                 },
-                                error: function (e) {
+                                error: function(e) {
                                     alert(e);
                                     console.log({
                                         ajax: e
@@ -194,7 +194,7 @@ $(document).ready(function () {
         );
     };
 
-    camel2Words = function (str) {
+    camel2Words = function(str) {
         var arr = str.split("");
 
         for (var i = arr.length - 1; i >= 0; i--) {
@@ -206,7 +206,7 @@ $(document).ready(function () {
         return arr.join("");
     };
 
-    showResults = function (results) {
+    showResults = function(results) {
         $('#resultsList').html('');
         $('#resultsWrapper').addClass('hide');
         if (!results || results === undefined || results.length === 0)
@@ -216,7 +216,7 @@ $(document).ready(function () {
             NA: '',
             FAIL: ''
         };
-        $.each(results, function (index, rule) {
+        $.each(results, function(index, rule) {
             //console.log(rule);
 
             const className = (rule.status == 'PASS') ? 'pass' : (rule.status == 'FAIL') ? 'fail' : 'na';
@@ -237,13 +237,13 @@ $(document).ready(function () {
                     img = 'warning';
                     break;
             }
-            const count = (rule.count === 0 ? '' : ("<span class='ruleCount' title='Count of broken elements'>&nbsp;("+rule.count+")</span>"));
-            
+            const count = (rule.count === 0 ? '' : ("<span class='ruleCount' title='Count of broken elements'>&nbsp;(" + rule.count + ")</span>"));
+
             r[rule.status] += '<img src="/images/' + img + '.png" title="' + title + brokeRules + '"></img>';
             r[rule.status] += '</td>';
             r[rule.status] += '<td class="ruleName">' + camel2Words(rule.name) + '</td>';
-            if(rule.count > 0) {
-                r[rule.status] += '<td class="ruleCount" title="Count of broken elements">&nbsp;('+rule.count+')</td>';
+            if (rule.count > 0) {
+                r[rule.status] += '<td class="ruleCount" title="Count of broken elements">&nbsp;(' + rule.count + ')</td>';
             }
             r[rule.status] += '</tr></table>';
             r[rule.status] += '</li>\n';
@@ -259,12 +259,12 @@ $(document).ready(function () {
         $('.pass .ruleSeverity img').css('opacity', 0.25);
         $('.na .ruleSeverity img').css('opacity', 0.25);
 
-        $(function () {
+        $(function() {
             var context = $('#resultsList').nuContextMenu({
 
                 items: '.ruleName',
 
-                callback: function (key, element) {
+                callback: function(key, element) {
                     var name = $(element).closest('li').data('name');
                     switch (key) {
                         case 'info':
@@ -276,7 +276,7 @@ $(document).ready(function () {
                             chrome.tabs.sendMessage(page.id, {
                                 type: 'dumpElements',
                                 rule: name
-                            }, function (results) {
+                            }, function(results) {
                                 alert('Open DevTools -> Console/Info on Web Page.\nOr press Ctrl+Shift+I');
                                 context.nuContextMenu('close');
                             });
@@ -322,13 +322,13 @@ $(document).ready(function () {
                     },
                 },
 
-                onOpenCallback: function (position) {
+                onOpenCallback: function(position) {
                     $('body').css({
                         "padding-bottom": "70px"
                     });
                 },
 
-                onCloseCallback: function () {
+                onCloseCallback: function() {
                     $('body').css({
                         "padding-bottom": "0px"
                     });
@@ -336,23 +336,23 @@ $(document).ready(function () {
             });
         });
 
-        $('#exportBtn').unbind('click').bind('click', function () {
+        $('#exportBtn').off('click').on('click', function() {
             openReport(results);
         });
     };
 
-    openReport = function (results) {
+    openReport = function(results) {
         if (!results || results === undefined || results.length === 0)
             return;
 
-        var addRule = function (rule) {
+        var addRule = function(rule) {
             //reportBody+='<h4>'+camel2Words(rule.name)+'</h4>';
             reportBody += '<h4 class="description ' + rule.status.toLowerCase() + ' ' + rule.severity + '">' + rule.title + '</h4>';
             reportBody += '<a class="ruleUrl" href="' + rule.url + '" target="_blank">' + rule.url + '</a>';
             if (rule.data) {
                 reportBody += '<p>' + rule.data.length + ' element' + (rule.data.length != 1 ? 's' : '') + ' break' + (rule.data.length == 1 ? 's' : '') + ' this rule:</p>';
                 reportBody += '<ol start="1">';
-                $.each(rule.data, function (i, p) {
+                $.each(rule.data, function(i, p) {
                     reportBody += '<li>';
                     reportBody += p.path;
                     if (p.comment && p.comment !== undefined && p.comment !== '') {
@@ -376,22 +376,22 @@ $(document).ready(function () {
             NA: 'This implies that there were no elements on the page that may potentially have failed this audit rule. For example, an audit rule that checks video elements for subtitles would return this result if there were no video elements on the page.'
         };
 
-        $.each(statLbls, function (l, stat) {
-            var fs = $(results).filter(function (i, r) {
+        $.each(statLbls, function(l, stat) {
+            var fs = $(results).filter(function(i, r) {
                 return r.status == stat;
             });
             if (fs.length > 0) {
                 reportBody += '<h2>There are ' + fs.length + ' ' + stat.toLowerCase() + '-rule' + (fs.length == 1 ? '' : 's') + ':</h2>';
                 reportBody += '<p class="note">' + comments[stat] + '</p>';
 
-                $.each(['Severe', 'Warning'], function (j, svr) {
-                    var svrRules = $(fs).filter(function (i, r) {
+                $.each(['Severe', 'Warning'], function(j, svr) {
+                    var svrRules = $(fs).filter(function(i, r) {
                         return r.severity == svr;
                     });
                     if (svrRules.length > 0) {
                         reportBody += '<h3>' + svrRules.length + (stat != 'FAIL' ? ' would be ' : ' ') + svr + ':</h2>';
 
-                        $.each(svrRules, function (k, rule) {
+                        $.each(svrRules, function(k, rule) {
                             addRule(rule);
                         });
                     }
@@ -402,8 +402,9 @@ $(document).ready(function () {
         Background.openReport(page, reportBody, '', new Date());
     };
 
-    showClick = function (e) {
-        var $e = $(e.toElement).closest('li');
+    showClick = function(e) {
+        // debugger;
+        var $e = $(e.currentTarget).closest('li');
         var hide = $e.hasClass('hideElements');
         var index = $e.data('index');
         chrome.tabs.sendMessage(page.id, {
@@ -411,12 +412,12 @@ $(document).ready(function () {
             index: index,
             hide: hide,
             controlKeys: options.controlKeys,
-        }, function (results) {
+        }, function(results) {
             $e.toggleClass('hideElements');
         });
     };
 
-    showStat = function ($cb) {
+    showStat = function($cb) {
         var cls = $cb.attr('id').substr(2).toLowerCase();
         var $rows = $('#resultsList .' + cls);
         var show = $cb.is(':checked');
@@ -427,7 +428,7 @@ $(document).ready(function () {
         saveOption(cls.toUpperCase(), show);
     };
 
-    saveOption = function (key, value) {
+    saveOption = function(key, value) {
         var obj = {};
         obj[key] = value;
         chrome.storage.sync.set(obj);
@@ -435,12 +436,12 @@ $(document).ready(function () {
         options[key] = value;
     };
 
-    $.each($('img'), function (index, value) {
+    $.each($('img'), function(index, value) {
         $value = $(value);
         $value.attr('src', chrome.extension.getURL($value.attr('src'))).attr('alt', '');
     });
 
-    $('#closeBtn').click(function (e) {
+    $('#closeBtn').click(function(e) {
         window.close();
     });
     $('#optionsBtn').click(openOptionsPage);
@@ -452,9 +453,9 @@ $(document).ready(function () {
     var Background = null;
 
     getSelectedTab().done(
-        function (tab) {
+        function(tab) {
             validateTab(tab).always(
-                function (err) {
+                function(err) {
                     // if (err) {
                     //     alert(err);
                     // } else
@@ -466,7 +467,7 @@ $(document).ready(function () {
                         page.favIconUrl = tab.favIconUrl;
 
                         Background = chrome.extension.getBackgroundPage().Background;
-                        Background.getDefaults().done(function (response) {
+                        Background.getDefaults().done(function(response) {
                             //chrome.runtime.sendMessage({type:'get-defaults'}, function(response) {
                             options = response;
                             //console.log(options);
@@ -477,7 +478,7 @@ $(document).ready(function () {
                             if (options.NA) $('#cbNA').attr('checked', '');
                             else $('#cbNA').removeAttr('checked');
 
-                            $('#filterResults input[type=checkbox]').change(function () {
+                            $('#filterResults input[type=checkbox]').change(function() {
                                 showStat($(this));
                             });
 
@@ -485,7 +486,7 @@ $(document).ready(function () {
 
                             chrome.tabs.sendMessage(page.id, {
                                 type: 'RefreshAudit'
-                            }, function (results) {
+                            }, function(results) {
                                 showResults(results);
                             });
                         });

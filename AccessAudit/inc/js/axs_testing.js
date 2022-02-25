@@ -297,7 +297,7 @@ var fn = (function() {
         return a;
     };
     goog.bindNative_ = function(a, b, c) {
-        return a.call.apply(a.bind, arguments);
+        return a.call.apply(a.on, arguments);
     };
     goog.bindJs_ = function(a, b, c) {
         if (!a) {
@@ -315,9 +315,9 @@ var fn = (function() {
             return a.apply(b, arguments);
         };
     };
-    goog.bind = function(a, b, c) {
-        Function.prototype.bind && -1 != Function.prototype.bind.toString().indexOf("native code") ? goog.bind = goog.bindNative_ : goog.bind = goog.bindJs_;
-        return goog.bind.apply(null, arguments);
+    goog.on = function(a, b, c) {
+        Function.prototype.on && -1 != Function.prototype.on.toString().indexOf("native code") ? goog.on = goog.bindNative_ : goog.on = goog.bindJs_;
+        return goog.on.apply(null, arguments);
     };
     goog.partial = function(a, b) {
         var c = Array.prototype.slice.call(arguments, 1);
@@ -3185,33 +3185,33 @@ var fn = (function() {
         });
     };
     axs.AuditRule.prototype.run = function(a) {
-            a = a || {};
-            var b = "maxResults" in a ? a.maxResults : null,
-                c = [];
-            axs.AuditRule.collectMatchingElements("scope" in a ? a.scope : document, this.relevantElementMatcher_, c, a.ignoreSelectors);
-            var d = [];
-            if (!c.length) {
-                return {
-                    result: axs.constants.AuditResult.NA
-                };
-            }
-            for (var e = 0; e < c.length && !(null != b && d.length >= b); e++) {
-                var f = c[e];
-                try {
-                    this.test_(f, a.config) && this.addElement(d, f);
-                } catch (ex) {
-                    console.error(ex);
-                    console.error(f);
-                    this.addElement(d, f);
-                    debugger;
-                    this.test_(f, a.config);
-                }
-            }
-            a = {
-                result: d.length ? axs.constants.AuditResult.FAIL : axs.constants.AuditResult.PASS,
-                elements: d
+        a = a || {};
+        var b = "maxResults" in a ? a.maxResults : null,
+            c = [];
+        axs.AuditRule.collectMatchingElements("scope" in a ? a.scope : document, this.relevantElementMatcher_, c, a.ignoreSelectors);
+        var d = [];
+        if (!c.length) {
+            return {
+                result: axs.constants.AuditResult.NA
             };
-            e < c.length && (a.resultsTruncated = !0);
+        }
+        for (var e = 0; e < c.length && !(null != b && d.length >= b); e++) {
+            var f = c[e];
+            try {
+                this.test_(f, a.config) && this.addElement(d, f);
+            } catch (ex) {
+                console.error(ex);
+                console.error(f);
+                this.addElement(d, f);
+                // debugger;
+                this.test_(f, a.config);
+            }
+        }
+        a = {
+            result: d.length ? axs.constants.AuditResult.FAIL : axs.constants.AuditResult.PASS,
+            elements: d
+        };
+        e < c.length && (a.resultsTruncated = !0);
         return a;
     };
     axs.AuditRules = {};
@@ -3657,7 +3657,7 @@ var fn = (function() {
                     return !0;
                 }
             }
-            c = c.stopwords || "";//"click tap go here learn more this page link about".split(" ");
+            c = c.stopwords || ""; //"click tap go here learn more this page link about".split(" ");
             d = axs.properties.findTextAlternatives(a, {});
             if (null === d || "" === d.trim()) {
                 return !0;
@@ -3906,7 +3906,7 @@ var fn = (function() {
                 var a = a.querySelectorAll("tr");
                 var b = !1;
                 a: {
-                    b = a && a.length>0 ? a[0].children : {}; // fix Bug - @TH
+                    b = a && a.length > 0 ? a[0].children : {}; // fix Bug - @TH
                     for (var c = 0; c < b.length; c++) {
                         if ("TH" != b[c].tagName) {
                             b = !0;

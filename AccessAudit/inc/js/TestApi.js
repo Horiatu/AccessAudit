@@ -1,6 +1,6 @@
 alert('Test API');
 var fn = (function() {
-alert(1);
+    alert(1);
     var COMPILED = !0,
         goog = goog || {};
     goog.global = this;
@@ -8,7 +8,7 @@ alert(1);
         return void 0 !== a;
     };
     goog.exportPath_ = function(a, b, c) {
-//alert(2);
+        //alert(2);
         a = a.split(".");
         c = c || goog.global;
         a[0] in c || !c.execScript || c.execScript("var " + a[0]);
@@ -17,7 +17,7 @@ alert(1);
         }
     };
     goog.define = function(a, b) {
-alert(3);
+        alert(3);
         var c = b;
         COMPILED || (goog.global.CLOSURE_UNCOMPILED_DEFINES && Object.prototype.hasOwnProperty.call(goog.global.CLOSURE_UNCOMPILED_DEFINES, a) ? c = goog.global.CLOSURE_UNCOMPILED_DEFINES[a] : goog.global.CLOSURE_DEFINES && Object.prototype.hasOwnProperty.call(goog.global.CLOSURE_DEFINES, a) && (c = goog.global.CLOSURE_DEFINES[a]));
         goog.exportPath_(a, c);
@@ -27,7 +27,7 @@ alert(3);
     goog.TRUSTED_SITE = !0;
     goog.STRICT_MODE_COMPATIBLE = !1;
     goog.provide = function(a) {
-alert(4);
+        alert(4);
         if (!COMPILED) {
             if (goog.isProvided_(a)) {
                 throw Error('Namespace "' + a + '" already declared.');
@@ -41,7 +41,7 @@ alert(4);
         goog.exportPath_(a);
     };
     goog.setTestOnly = function(a) {
-alert(5);
+        alert(5);
         if (COMPILED && !goog.DEBUG) {
             throw a = a || "", Error("Importing test-only code into non-debug environment" + a ? ": " + a : ".");
         }
@@ -51,7 +51,7 @@ alert(5);
         return !goog.implicitNamespaces_[a] && goog.isDefAndNotNull(goog.getObjectByName(a));
     }, goog.implicitNamespaces_ = {});
     goog.getObjectByName = function(a, b) {
-alert(6);
+        alert(6);
         for (var c = a.split("."), d = b || goog.global, e; e = c.shift();) {
             if (goog.isDefAndNotNull(d[e])) {
                 d = d[e];
@@ -69,7 +69,7 @@ alert(6);
         }
     };
     goog.addDependency = function(a, b, c) {
-alert(7);
+        alert(7);
         if (goog.DEPENDENCIES_ENABLED) {
             var d;
             a = a.replace(/\\/g, "/");
@@ -83,7 +83,7 @@ alert(7);
     };
     goog.ENABLE_DEBUG_LOADER = !0;
     goog.require = function(a) {
-alert(8);
+        alert(8);
         if (!COMPILED && !goog.isProvided_(a)) {
             if (goog.ENABLE_DEBUG_LOADER) {
                 var b = goog.getPathFromDeps_(a);
@@ -124,7 +124,7 @@ alert(8);
         visited: {},
         written: {}
     }, goog.inHtmlDocument_ = function() {
-alert('inHtmlDocument_');
+        alert('inHtmlDocument_');
         var a = goog.global.document;
         return "undefined" != typeof a && "write" in a;
     }, goog.findBasePath_ = function() {
@@ -287,7 +287,7 @@ alert('inHtmlDocument_');
         return a;
     };
     goog.bindNative_ = function(a, b, c) {
-        return a.call.apply(a.bind, arguments);
+        return a.call.apply(a.on, arguments);
     };
     goog.bindJs_ = function(a, b, c) {
         if (!a) {
@@ -305,9 +305,9 @@ alert('inHtmlDocument_');
             return a.apply(b, arguments);
         };
     };
-    goog.bind = function(a, b, c) {
-        Function.prototype.bind && -1 != Function.prototype.bind.toString().indexOf("native code") ? goog.bind = goog.bindNative_ : goog.bind = goog.bindJs_;
-        return goog.bind.apply(null, arguments);
+    goog.on = function(a, b, c) {
+        Function.prototype.on && -1 != Function.prototype.on.toString().indexOf("native code") ? goog.on = goog.bindNative_ : goog.on = goog.bindJs_;
+        return goog.on.apply(null, arguments);
     };
     goog.partial = function(a, b) {
         var c = Array.prototype.slice.call(arguments, 1);
@@ -2939,7 +2939,7 @@ alert('inHtmlDocument_');
         return c;
     };
     axs.properties.getLastWord = function(a) {
-alert('getLastWord');
+        alert('getLastWord');
         if (!a) {
             return null;
         }
@@ -2948,11 +2948,11 @@ alert('getLastWord');
         return a.substring(b > c ? b : c);
     };
     axs.properties.getTextProperties = function(a) {
-alert('getTextProperties');
+        alert('getTextProperties');
         var b = {},
             c = axs.properties.findTextAlternatives(a, b, !1, !0);
-alert('No alt value provided Test');
-       if (0 == Object.keys(b).length && ((a = axs.dom.asElement(a)) && axs.browserUtils.matchSelector(a, "img") && (b.alt = {
+        alert('No alt value provided Test');
+        if (0 == Object.keys(b).length && ((a = axs.dom.asElement(a)) && axs.browserUtils.matchSelector(a, "img") && (b.alt = {
                 valid: !1,
                 errorMessage: "No alt value provided"
             }, a = a.src, "string" == typeof a && (c = a.split("/").pop(), b.filename = {
@@ -3368,7 +3368,7 @@ alert('No alt value provided Test');
     };
     goog.exportSymbol("axs.Audit.createReport", axs.Audit.createReport);
     axs.Audit.accessibilityErrorMessage = function(a) {
-alert('accessibilityErrorMessage');
+        alert('accessibilityErrorMessage');
         for (var b = a.rule.severity == axs.constants.Severity.SEVERE ? "Error: " : "Warning: ", b = b + (a.rule.code + " (" + a.rule.heading + ") failed on the following " + (1 == a.elements.length ? "element" : "elements")), b = 1 == a.elements.length ? b + ":" : b + (" (1 - " + Math.min(5, a.elements.length) + " of " + a.elements.length + "):"), c = Math.min(a.elements.length, 5), d = 0; d < c; d++) {
             var e = a.elements[d],
                 b = b + "\n";
@@ -3657,7 +3657,7 @@ alert('accessibilityErrorMessage');
         },
         code: "AX_TEXT_04"
     });
-alert('lowContrastElements');
+    alert('lowContrastElements');
     axs.AuditRules.addRule({
         name: "lowContrastElements",
         heading: "Text elements should have a reasonable contrast ratio",
