@@ -389,7 +389,7 @@ if (AccessAudit === undefined) {
                 chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
                     // debugger;
                     // alert('addListener');
-                    console.log("addListener", req, sender, sendResponse);
+                    // console.log("addListener", req, sender, sendResponse);
                     switch (req.type) {
                         case 'dumpElements':
                             const resultsByRule = _private.results.filter(function(r) { return r.name === req.rule; });
