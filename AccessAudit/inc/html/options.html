@@ -1,25 +1,27 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>WCAG Accessibility Audit - Options</title>
 
-        <meta charset="utf-8"></meta>
-        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<head>
+    <title>WCAG Accessibility Audit - Options</title>
 
-<script type="text/javascript" src="/inc/js/jquery-2.1.4.min.js"></script>
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script type="text/javascript" src="/inc/js/jquery-2.1.4.min.js"></script>
 
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="/inc/css/options.css" type="text/css"></link>
-    </head>
-    <body>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/inc/css/options.css" type="text/css"></link>
+</head>
+
+<body>
     <div class="container-fixed">
         <div class="row">
             <div class="col-12">
@@ -28,6 +30,7 @@
                     <h2>Options page<button id="resetBtn" title="Reset options to their defaults">Reset</button></h2>
                     <!-- <h3>Installed or Updated Version <span id="version"></span></h3> -->
                     <h3 id="versionMessage"></h3>
+                    <!-- <h4><span style="color: red"><b>What's new:</b></span> Click broken rule to show element</h4> -->
                 </div>
             </div>
         </div>
@@ -37,88 +40,106 @@
                 <legend>What is new:</legend>
                 <!-- <img src="\images\triangle.16.png" class="triangle down"> -->
 
-<!--  https://mdbootstrap.com/javascript/bootstrap-accordion/  -->
-<div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+                <!--  https://mdbootstrap.com/javascript/bootstrap-accordion/  -->
+                <div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
 
-    <div class="card">
+                    <div class="card">
 
-        <div class="card-header" role="tab" id="headingOne">
-            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                <h5 class="mb-0">1.3.1.1</h5>
-            </a>
-        </div>
+                        <div class="card-header" role="tab" id="headingOne">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                <h5 class="mb-0">1.3.1.1</h5>
+                            </a>
+                        </div>
 
-        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordionEx">
-            <div class="card-body">
-                <ul>
-                    <li>Removed ugly Instructions button, replaced with Access Audit Shield,
-                    </li>
-                    <li>Exits Shield with <kbd>Esc</kbd> key,</li>
-                    <li>Under Shield, blocks all other keys toward the application,</li>
-                    <li>Option page responsive layout,</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+                        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordionEx">
+                            <div class="card-body">
+                                <ul>
+                                    <li>Removed ugly Instructions button, replaced with Access Audit Shield,
+                                    </li>
+                                    <li>Exits Shield with <kbd>Esc</kbd> key,</li>
+                                    <li>Under Shield, blocks all other keys toward the application,</li>
+                                    <li>Option page responsive layout,</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="card">
+                    <div class="card">
 
-        <div class="card-header" role="tab" id="headingTwo">
-            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                <h5 class="mb-0">1.3.1.2</h5>
-            </a>
-        </div>
+                        <div class="card-header" role="tab" id="headingTwo">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <h5 class="mb-0">1.3.1.2</h5>
+                            </a>
+                        </div>
 
-        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordionEx">
-            <div class="card-body">
-                <ul>
-                    <li>Tunnels <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd> through Shield (opens Developer's Tools.)</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+                        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordionEx">
+                            <div class="card-body">
+                                <ul>
+                                    <li>Tunnels <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd> through Shield (opens Developer's Tools.)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="card">
+                    <div class="card">
 
-        <!-- Card header -->
-        <div class="card-header" role="tab" id="headingThree">
-            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                <h5 class="mb-0">2.1.1.1</h5>
-            </a>
-        </div>
+                        <!-- Card header -->
+                        <div class="card-header" role="tab" id="headingThree">
+                            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <h5 class="mb-0">2.1.1.1</h5>
+                            </a>
+                        </div>
 
-        <!-- Card body -->
-        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordionEx">
-            <div class="card-body">
-                <ul>
-                    <li>Collapsible History,</li>
-                    <li>Removed <kbd>Pass-Through</kbd> keys,</li>
-                    <li>Instead use <kbd>Ctrl</kbd>+<strong>Click</strong> for <i>Click</i> event, <kbd>Alt</kbd>+<strong>Double-Click</strong> for <i>MouseDown</i> event for passing-through shield.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+                        <!-- Card body -->
+                        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordionEx">
+                            <div class="card-body">
+                                <ul>
+                                    <li>Collapsible History,</li>
+                                    <li>Removed <kbd>Pass-Through</kbd> keys,</li>
+                                    <li>Instead use <kbd>Ctrl</kbd>+<strong>Click</strong> for <i>Click</i> event, <kbd>Alt</kbd>+<strong>Double-Click</strong> for <i>MouseDown</i> event for passing-through shield.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="card">
+                    <div class="card">
 
-        <!-- Card header -->
-        <div class="card-header" role="tab" id="headingFour">
-            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                <h5 class="mb-0">2.1.2.1</h5>
-            </a>
-        </div>
+                        <!-- Card header -->
+                        <div class="card-header" role="tab" id="headingFour">
+                            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                <h5 class="mb-0">2.1.2.1</h5>
+                            </a>
+                        </div>
 
-        <!-- Card body -->
-        <div id="collapseFour" class="collapse in" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordionEx">
-            <div class="card-body">
-                <ul>
-                    <li>Displays counts of broken rules in popup panel,</li>
-                    <li>Bug fixes (in this page.)</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+                        <!-- Card body -->
+                        <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordionEx">
+                            <div class="card-body">
+                                <ul>
+                                    <li>Displays counts of broken rules in popup panel,</li>
+                                    <li>Bug fixes (in this page.)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <!-- Card header -->
+                        <div class="card-header" role="tab" id="headingFive">
+                            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                                <h5 class="mb-0">2.1.2.2</h5>
+                            </a>
+                        </div>
+
+                        <!-- Card body -->
+                        <div id="collapseFive" class="collapse in" role="tabpanel" aria-labelledby="headingFive" data-parent="#accordionEx">
+                            <div class="card-body">
+                                <ul>
+                                    <li>Click Broken Rule line to show broken elements.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- <ul>
                     <li>Removed ugly Instructions button, replaced with Access Audit Shield,
@@ -129,7 +150,7 @@
                     <li>Tunnels <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd> through Shield (opens Developer's Tools.)</li>
                 </ul> -->
             </div>
-        
+
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <legend>Access Audit Inspect Mode</legend>
                 <fieldset>
@@ -154,12 +175,13 @@
                             <p>Sometimes hidden elements have no size.</p>
                         </div>
                         <div id="collapseDiv" style="margin-left:40px;">
-                            <p>Alternatively, go in the debugger’s log to see the code of the element and  <Strong>Right-Click</Strong> to locate it in the HTML code.</p>
+                            <p>Alternatively, go in the debugger’s log to see the code of the element and
+                                <Strong>Right-Click</Strong> to locate it in the HTML code.</p>
                         </div>
-                        
+
                         <div>
-                            <p><strong><i>Mouse events</strong></i> passing-through shield: use <kbd>Ctrl</kbd> + <strong>Click</strong> for <i>Click</i> event, <kbd>Alt</kbd> + <strong>Double-Click</strong> for <i>MouseDown</i> event.<br/>
-                            (Some controls respond to <i>Click</i>, others (combobox) - to <i>MouseDown</i>. Check on the <a href="https://horiatu.github.io/ColorContrast/" target="blank">default test page</a>.)
+                            <p><strong><i>Mouse events</strong></i> passing-through shield: use <kbd>Ctrl</kbd> + <strong>Click</strong> for <i>Click</i> event, <kbd>Alt</kbd> + <strong>Double-Click</strong> for <i>MouseDown</i> event.<br/> (Some controls
+                                respond to <i>Click</i>, others (combobox) - to <i>MouseDown</i>. Check on the <a href="https://horiatu.github.io/ColorContrast/" target="blank">default test page</a>.)
                             </p>
                         </div>
 
@@ -173,9 +195,9 @@
                     <div class="controls">
                         <label>Get API code and documentation </label><a href="https://github.com/GoogleChrome/accessibility-developer-tools" target="_blank">here (Accessibility Developer Tools)</a>
                         <br/>
-                        <input type="radio" name="api" id="APIcbInternal" value="Internal"/><label for="APIInternal">Internal</label><br/>
-                        <input type="radio" name="api" id="APIcbLatest" value="Latest"/><label for="APILatest">Latest stable</label><br/>
-                        <input type="radio" name="api" id="APIcbCustom" value="Custom"/><label for="APICustom">Your file</label>
+                        <input type="radio" name="api" id="APIcbInternal" value="Internal" /><label for="APIInternal">Internal</label><br/>
+                        <input type="radio" name="api" id="APIcbLatest" value="Latest" /><label for="APILatest">Latest stable</label><br/>
+                        <input type="radio" name="api" id="APIcbCustom" value="Custom" /><label for="APICustom">Your file</label>
 
                         <br/>
                         <div style="padding:5px 3px 0px 3px; background-color: #eeeeee;">
@@ -184,7 +206,7 @@
                         </div>
                         <div id="CustomAPIdiv" style="margin-top:5px; display: none;">
                             <label for="CustomAPI">Since Google API evolves, create your own library of APIs saved at various dates. <br/>Enter here the path to your preffered API:</label>
-                            <input type="text" id="CustomAPI" style="width:100%;" placeholder="(Defaults to Internal)"/>
+                            <input type="text" id="CustomAPI" style="width:100%;" placeholder="(Defaults to Internal)" />
                         </div>
                     </div>
                 </fieldset>
@@ -194,7 +216,7 @@
                 <legend>Banned Rules</legend>
                 <fieldset>
                     <div class="controls">
-                        <p>These rules have been banned from Audits with the option <kbd>Remove&nbsp;From&nbsp;Tests</kbd> of the popup menu of each rule. You may restore them by selecting one or more from the following list and activating with the <kbd>Restore</kbd> button.</p>
+                        <p>These rules have been banned from Audits with the option <kbd>Remove&nbsp;From&nbsp;Tests</kbd> of the popup menu of each rule. You may restore them by selecting one or more from the following list and activating with the <kbd>Restore</kbd>                            button.</p>
                         <p>Select multiple options using the <kbd>Ctrl</kbd> key and click, or click and select all with <kbd>Ctrl</kbd>+<kbd>a</kbd>.</p>
                         <select id="bannedRules" multiple style="width:100%">
                         </select>
@@ -217,7 +239,7 @@
                                     <label for="testPageUrl">Custom Url:</label>
                                 </th>
                                 <td width="100%">
-                                    <input id="testPageUrl" type="text" style="width:100%" placeholder="https://horiatu.github.io/ColorContrast/"/>
+                                    <input id="testPageUrl" type="text" style="width:100%" placeholder="https://horiatu.github.io/ColorContrast/" />
                                 </td>
                                 <td>
                                     <button id="testPageTry" style="display:none;">Try it</button>
@@ -240,6 +262,7 @@
 
         <!-- <script type="text/javascript" src="/inc/js/jquery-2.1.4.min.js"></script> -->
         <script type="text/javascript" src="/inc/js/options.js"></script>
-    </body>
     </div>
+</body>
+
 </html>
